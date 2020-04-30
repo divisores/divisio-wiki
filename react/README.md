@@ -20,6 +20,8 @@ This style guide is mostly based on the standards that are currently prevalent i
   1. [Tags](#tags)
   1. [Methods](#methods)
   1. [`isMounted`](#ismounted)
+  1. [Styled Components](#styled-components)
+  1. [Ordering](#Ordering)
 
 ## Basic Rules
 
@@ -27,6 +29,9 @@ This style guide is mostly based on the standards that are currently prevalent i
   - Only include one React component per file.
     - However, multiple [Stateless, or Pure, Components](https://facebook.github.io/react/docs/reusable-components.html#stateless-functions) are allowed per file. eslint: [`react/no-multi-comp`](https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/no-multi-comp.md#ignorestateless).
   - [`react/forbid-prop-types`](https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/forbid-prop-types.md) will allow `arrays` and `objects` only if it is explicitly noted what `array` and `object` contains, using `arrayOf`, `objectOf`, or `shape`.
+  - Always use [`styled-components`](https://styled-components.com/) in our components
+    - However, there are cases that is ok to use [inline styling](https://www.w3schools.com/react/react_css.asp), 
+but it is usually avoided
 
 ## Function vs Class vs `React.createClass` vs stateless
 
@@ -349,14 +354,10 @@ This style guide is mostly based on the standards that are currently prevalent i
 
   ```js
   // bad
-  const CoffeCard = ({ ...irrelevantProps }) => {
-    return <WrappedComponent {...irrelevantProps} />
-  }
+  const CoffeCard = ({ ...irrelevantProps }) => <WrappedComponent {...irrelevantProps} />
 
   // good
-  const CoffeCard = ({ irrelevantProp, ...relevantProps }) => {
-    return <WrappedComponent {...relevantProps} />
-  }
+  const CoffeCard = ({ irrelevantProp, ...relevantProps }) => <WrappedComponent {...relevantProps} />
   ```
 
 ## Refs
@@ -524,3 +525,131 @@ This style guide is mostly based on the standards that are currently prevalent i
   > Why? [`isMounted` is an anti-pattern][anti-pattern], is not available when using ES6 classes, and is on its way to being officially deprecated.
 
   [anti-pattern]: https://facebook.github.io/react/blog/2015/12/16/ismounted-antipattern.html
+
+## Styled Components
+
+- Use PascalCase for component's names
+
+    ```js
+    // bad
+    const container = styled.div`` ` ``
+      // css goes here
+    `` ` ``
+
+    // good
+    const Container = styled.div`` ` ``
+      // css goes here
+    `` ` ``
+    ```
+
+- Do not use Styled prefix in component's names
+  - However, there are cases that you will be importing another components, and if you can't alias the import, it's ok to use Styled prefix
+
+  ```js
+  // bad
+  import { Button } from '@/style-guide'
+
+  const StyledButton = styled(Button)`` ` ``
+    // css goes here
+  `` ` ``
+
+  // good
+  import { Button as ButtonComponent } from '@/style-guide'
+
+  const Button = styled(ButtonComponent)`` ` ``
+    // css goes here
+  `` ` ``
+
+  // good, when you can't alias the import
+  import CalculatorStructure from '@/components/CalculatorStructure'
+
+  const StyledCalculatorStructure = styled(CalculatorStructure)`` ` ``
+    // css goes here
+  `` ` ``
+  ```
+- Use [`styled-media-query`](https://www.npmjs.com/package/styled-media-query) for responsiveness purpose
+  > You need `styled-components` as well
+
+  ```js
+  import media from "styled-media-query"
+ 
+  // bad
+  const Box = styled.div`` ` ``
+    background: black;
+  
+    @media (min-width: 768px) {
+    /* screen width is greater than 768px ( medium) */
+      background: blue;
+    }
+  `` ` ``
+
+
+  // good
+  import styled from "styled-components"
+  import media from "styled-media-query"
+ 
+  const Box = styled.div`` ` ``
+    background: black;
+  
+    ${media.greaterThan("medium")`
+      /* screen width is greater than 768px (medium) */
+      background: blue;
+    `}
+  `` ` ``
+  ```
+
+- Use [`styled-components`](https://styled-components.com/) in the same file until you still confortable with this. This is a case of *feeling*. When you think that the file has a lot of style in it, is recomended to separete to a `styles.js` file in the same folder as the following example:
+
+  ```
+    - components/
+    --- Card/
+    ----- index.js
+    ----- styles.js
+    --- Button/
+    ----- index.js
+    ----- styles.js
+  ```
+  - Inside `styles.js`, use export to each styled component to make import easier on `index.js`
+
+  ```js
+  // styles.js
+  import styled from 'styled-components'
+
+  export const Button = styled.button`` ` ``
+    // css goes here
+  `` ` ``
+
+  export const Container = styled.div`` ` ``
+    // css goes here
+  `` ` ``
+
+  // index.js
+  import { Button, Container } from './styles'
+
+  ```
+
+## Ordering
+
+- Ordering a basic semantic structure using [`styled-components`](https://styled-components.com/)
+
+    > This can be used as a guide for general cases, but that's not a rule.
+
+  ```html
+  <Layout>
+    <Container>
+      <Header />
+      <Content>
+        <Section />
+        <Aside />
+      </Content>
+      <Footer />
+    </Container>
+  </Layout>
+  ```
+
+- Ordering a basic component using [`styled-components`](https://styled-components.com/)
+
+1. `imports`
+1. `styled-components`
+1. `functional component`
+1. `export default`
