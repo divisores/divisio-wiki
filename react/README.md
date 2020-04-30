@@ -37,15 +37,15 @@ This style guide is mostly based on the standards that are currently prevalent i
     const Listing = React.createClass({
       // ...
       render() {
-        return <div>{this.state.hello}</div>;
+        return <div>{this.state.hello}</div>
       }
-    });
+    })
 
     // bad
     class Listing extends React.Component {
       // ...
       render() {
-        return <div>{this.state.hello}</div>;
+        return <div>{this.state.hello}</div>
       }
     }
 
@@ -56,7 +56,7 @@ This style guide is mostly based on the standards that are currently prevalent i
 
       return (
       <div>{hello}</div>
-    )};
+    )}
     ```
 
     And if you don’t have state or refs, prefer arrow functions (not normal functions) over classes:
@@ -65,19 +65,19 @@ This style guide is mostly based on the standards that are currently prevalent i
     // bad
     class Listing extends React.Component {
       render() {
-        return <div>{this.props.hello}</div>;
+        return <div>{this.props.hello}</div>
       }
     }
 
     // bad
     function Listing({ hello }) {
-      return <div>{hello}</div>;
+      return <div>{hello}</div>
     }
 
     // good
     const Listing = ({ hello }) => (
       <div>{hello}</div>
-    );
+    )
     ```
 
 ## Mixins
@@ -94,29 +94,29 @@ This style guide is mostly based on the standards that are currently prevalent i
 
     ```js
     // bad
-    import reservationCard from './ReservationCard';
+    import reservationCard from './ReservationCard'
 
     // good
-    import ReservationCard from './ReservationCard';
+    import ReservationCard from './ReservationCard'
 
     // bad
-    const ReservationItem = <ReservationCard />;
+    const ReservationItem = <ReservationCard />
 
     // good
-    const reservationItem = <ReservationCard />;
+    const reservationItem = <ReservationCard />
     ```
 
   - **Component Naming**: Use the filename as the component name. For example, `ReservationCard.js` should have a reference name of `ReservationCard`. However, for root components of a directory, use `index.js` as the filename and use the directory name as the component name:
 
     ```js
     // bad
-    import Footer from './Footer/Footer';
+    import Footer from './Footer/Footer'
 
     // bad
-    import Footer from './Footer/index';
+    import Footer from './Footer/index'
 
     // good
-    import Footer from './Footer';
+    import Footer from './Footer'
     ```
 
 ## Declaration
@@ -128,7 +128,7 @@ This style guide is mostly based on the standards that are currently prevalent i
     export default React.createClass({
       displayName: 'ReservationCard',
       // stuff goes here
-    });
+    })
 
     // bad
     export default ReservationCard = () => {
@@ -340,7 +340,7 @@ This style guide is mostly based on the standards that are currently prevalent i
       isPublished: false
     }
 
-    return (<div {...props} />);
+    return (<div {...props} />)
   }
   ```
 
@@ -389,7 +389,7 @@ This style guide is mostly based on the standards that are currently prevalent i
 
     // good
     const CardCoffe = () => {
-      const body = <div>hello</div>;
+      const body = <div>hello</div>
       return (
         <MyComponent variant="long body" foo="bar">
           <MyChild />
@@ -413,7 +413,7 @@ This style guide is mostly based on the standards that are currently prevalent i
         <MyComponent variant="long body" foo="bar">
           <MyChild />
         </MyComponent>
-      );
+      )
     }
 
     // good
@@ -505,7 +505,7 @@ This style guide is mostly based on the standards that are currently prevalent i
       },
 
       // other stuff
-    });
+    })
 
     // good
     const CardCoffee = () => {
