@@ -532,14 +532,14 @@ but it is usually avoided
 
     ```js
     // bad
-    const container = styled.div`` ` ``
+    const container = styled.div`
       // css goes here
-    `` ` ``
+    `
 
     // good
-    const Container = styled.div`` ` ``
+    const Container = styled.div`
       // css goes here
-    `` ` ``
+    `
     ```
 
 - Do not use Styled prefix in component's names
@@ -549,23 +549,23 @@ but it is usually avoided
   // bad
   import { Button } from '@/style-guide'
 
-  const StyledButton = styled(Button)`` ` ``
+  const StyledButton = styled(Button)`
     // css goes here
-  `` ` ``
+  `
 
   // good
   import { Button as ButtonComponent } from '@/style-guide'
 
-  const Button = styled(ButtonComponent)`` ` ``
+  const Button = styled(ButtonComponent)`
     // css goes here
-  `` ` ``
+  `
 
   // good, when you can't alias the import
   import CalculatorStructure from '@/components/CalculatorStructure'
 
-  const StyledCalculatorStructure = styled(CalculatorStructure)`` ` ``
+  const StyledCalculatorStructure = styled(CalculatorStructure)`
     // css goes here
-  `` ` ``
+  `
   ```
 - Use [`styled-media-query`](https://www.npmjs.com/package/styled-media-query) for responsiveness purpose
   > You need `styled-components` as well
@@ -574,28 +574,28 @@ but it is usually avoided
   import media from "styled-media-query"
  
   // bad
-  const Box = styled.div`` ` ``
+  const Box = styled.div`
     background: black;
   
     @media (min-width: 768px) {
     /* screen width is greater than 768px ( medium) */
       background: blue;
     }
-  `` ` ``
+  `
 
 
   // good
   import styled from "styled-components"
   import media from "styled-media-query"
  
-  const Box = styled.div`` ` ``
+  const Box = styled.div`
     background: black;
   
     ${media.greaterThan("medium")`
       /* screen width is greater than 768px (medium) */
       background: blue;
     `}
-  `` ` ``
+  `
   ```
 
 - Use [`styled-components`](https://styled-components.com/) in the same file until you still confortable with this. This is a case of *feeling*. When you think that the file has a lot of style in it, is recomended to separete to a `styles.js` file in the same folder as the following example:
@@ -615,13 +615,13 @@ but it is usually avoided
   // styles.js
   import styled from 'styled-components'
 
-  export const Button = styled.button`` ` ``
+  export const Button = styled.button` 
     // css goes here
-  `` ` ``
+   ` 
 
-  export const Container = styled.div`` ` ``
+  export const Container = styled.div`
     // css goes here
-  `` ` ``
+  `
 
   // index.js
   import { Button, Container } from './styles'
