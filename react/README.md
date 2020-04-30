@@ -23,6 +23,7 @@ This style guide is mostly based on the standards that are currently prevalent i
   1. [`isMounted`](#ismounted)
   1. [Styled Components](#styled-components)
   1. [Hooks](#hooks)
+  1. [Context](#context)
   1. [Ordering](#Ordering)
 
 ## Basic Rules
@@ -1303,7 +1304,7 @@ but it is usually avoided
       const [count, setCount] = useState(0)
     ```
 
-  - Use Multiple Effects to Separate Concerns
+  - Use Multiple Effects to separate concerns
 
     ```js
     const [count, setCount] = useState(0);
@@ -1358,82 +1359,105 @@ but it is usually avoided
      }
     ```
 
-## Ordering
+## Context
 
-- Ordering a basic semantic structure using [`styled-components`](https://styled-components.com/)
+- Useful tips:
+  - Do not reaching for context to solve every state sharing problem 
+  - Context does not have to be global to the woole app, but it can be if necessary
+  - Use multiple logically separated contexts in your app 
 
-    > This can be used as a guide for general cases, but that's not a rule.
+- Use `/context` folder to keep them logically separated
 
-  ```html
-  <Layout>
-    <Container>
-      <Header />
-      <Content>
-        <Section />
-        <Aside />
-      </Content>
-      <Footer />
-    </Container>
-  </Layout>
+  ```
+    - src/context/
+    --- SomeContext.js
+    --- AnotherContext.js
   ```
 
-- Ordering a basic component using [`styled-components`](https://styled-components.com/)
-
-1. `imports`
-1. `styled-components`
-1. `functional component`
-1. `export default`
-
-
-**[Back to top](#table-of-contents)**
-
-
-    const [isOnline, setIsOnline] = useState(null);
-    useEffect(() => {
-      // Another stuffs related to isOnline
-    });
-    ```
-
-  - Use **Skipping Effects** to optimize performance if you can.
+- For de next examples, lets use this `some-context-package.js` file
 
     ```js
-      useEffect(() => {
-        document.title = `You clicked ${count} times`;
-      }, [count]); // Only re-run the effect if count changes
+      // file SomeContext.js
+      // ...
+
+      const CountStateContext = createContext()
+      const CountDispatchContext = createContext()
+      
+      const CountProvider = ({ ... }) => {
+        // ...
+
+        return (
+          <CountStateContext.Provider value={state}>
+            <CountDispatchContext.Provider value={dispatch}>
+              {children}
+            </CountDispatchContext.Provider>
+          </CountStateContext.Provider>
+        )
+      }
+
+      const useCountState = () => {
+        const context = useContext(CountStateContext)
+
+        if (context === undefined) {
+          throw new Error('useCountState must be used within a CountProvider')
+        }
+
+        return context
+      }
+
+      const useCountDispatch = () => {
+        const context = useContext(CountStateContext)
+
+        if (context === undefined) {
+          throw new Error('useCountDispatch must be used within a CountProvider')
+        }
+
+        return context
+      }
+
+      const useCount = () => {
+        return [useCountState(), useCountDispatch()]
+      }
+
+      export {CountProvider, useCountState, useCountDispatch, useCount}
     ```
+  - Do not export `CountContext`. This approach expose only one way to provide the context value and only one way to consume it
 
-  - When using `useEffect()`, always try to maintain the lifecycle by ordering as before
-    1. `componentWillMount`
-    1. `componentDidMount`
-    1. `componentWillReceiveProps`
-    1. `shouldComponentUpdate`
-    1. `componentWillUpdate`
-    1. `componentDidUpdate`
-    1. `componentWillUnmount`
+- Use `useContext()` inside `some-context-package` to be capable of throw a helpful error message
 
-  - Keep your hooks simple. This is another *feeling* case. If you feel that the code   abstraction will make it more complicated, leave it as it is. But if you notice that an   abstraction/optimization would help to simplify the code, go on then. Here is an example for  how to do that.
-
-    >**Note**: Use `/hooks` folder to keep your abstracted codes, and `useWhatever` naming convention
+  >Why? This approach has the benefit of you being able to fail faster!
 
     ```js
-      // Before abstraction 
-     // Remeber, DRY code can be code to keep it simple
-     const MyComponent = () => {
-       useHooks(...)
-       useHooks(...)
-       useHooks(...)
+      // bad
+      import {useCountState} from 'some-context-package'
 
-       return <div>test</div>
-     }
+      const MyComponent = () => {
+        const something = useContext(useCountState)
 
-     // After abstraction
-     import { useCustomHooks } from '@/hooks'
-     const MyComponent = () => {
-       useCustomHooks()
+        // ...
+      }
 
-       return <div>test</div>
-     }
+      // good
+      import {useCountState} from 'some-context-package'
+
+      const MyComponent = () => {
+        const something = useCountState()
+
+        // ...
+      }
     ```
+
+- When using `dispatch` and `state` in context, try to keep it together
+
+    ```js
+      // bad
+      const state = useCountState()
+      const dispatch = useCountDispatch()
+
+      // good
+      const [state, dispatch] = useCount()
+    ```
+
 
 ## Ordering
 
