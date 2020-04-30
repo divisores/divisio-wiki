@@ -1374,7 +1374,7 @@ but it is usually avoided
     --- AnotherContext.js
   ```
 
-- For de next examples, lets use this `some-context-package.js` file
+- For de next examples, lets use this `SomeContext.js` file
 
     ```js
       // file SomeContext.js
