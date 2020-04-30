@@ -7,9 +7,10 @@ This style guide is mostly based on the standards that are currently prevalent i
 ## Table of Contents
 
   1. [Basic Rules](#basic-rules)
-  1. [Function vs Class vs `React.createClass` vs stateless](#function-vs-class-vs-reactcreateclass-vs-stateless)
+  1. [Function vs Class vs stateless](#function-vs-class-vs-stateless)
   1. [Mixins](#mixins)
   1. [Naming](#naming)
+  1. [Imports](#imports)
   1. [Declaration](#declaration)
   1. [Alignment](#alignment)
   1. [Quotes](#quotes)
@@ -33,19 +34,11 @@ This style guide is mostly based on the standards that are currently prevalent i
     - However, there are cases that is ok to use [inline styling](https://www.w3schools.com/react/react_css.asp), 
 but it is usually avoided
 
-## Function vs Class vs `React.createClass` vs stateless
+## Function vs Class vs stateless
 
-  - If you have internal state, prefer `useState` over `class extends React.Component` and `React.createClass`.
+  - If you have internal state, prefer `useState` over `class extends React.Component`.
 
     ```js
-    // bad
-    const Listing = React.createClass({
-      // ...
-      render() {
-        return <div>{this.state.hello}</div>
-      }
-    })
-
     // bad
     class Listing extends React.Component {
       // ...
@@ -123,18 +116,24 @@ but it is usually avoided
     // good
     import Footer from './Footer'
     ```
+## Imports
 
+- Use an `index.js` file to use **Named exports** when you have a lot of components folders (usually cases are `/components` and `/style-guide` folders)
+
+  ```js
+  // ...
+  export { default as Button } from './Button'
+  export { default as Badge } from './Badge'
+  export { default as Card } from './Card'
+  export { default as Dropdown } from './Dropdown'
+  export { default as Formula } from './Formula'
+  // ...
+  ```
 ## Declaration
 
   - Do not use `displayName` for naming components. Instead, name the component by reference. Use the export after the component is named.
 
     ```js
-    // bad
-    export default React.createClass({
-      displayName: 'ReservationCard',
-      // stuff goes here
-    })
-
     // bad
     export default ReservationCard = () => {
       // stuff goes here
@@ -321,48 +320,47 @@ but it is usually avoided
 
   - Do not use `accessKey` on elements. eslint: [`jsx-a11y/no-access-key`](https://github.com/evcohen/eslint-plugin-jsx-a11y/blob/master/docs/rules/no-access-key.md)
 
-  > Why? Inconsistencies between keyboard shortcuts and keyboard commands used by people using screenreaders and keyboards complicate accessibility.
+    > Why? Inconsistencies between keyboard shortcuts and keyboard commands used by people  using screenreaders and keyboards complicate accessibility.
 
-  ```js
-  // bad
-  <div accessKey="h" />
+    ```js
+    // bad
+    <div accessKey="h" />
 
-  // good
-  <div />
-  ```
+    // good
+    <div />
+    ```
 
-  - Use spread props sparingly.
-  > Why? Otherwise you’re more likely to pass unnecessary props down to components. And for React v15.6.1 and older, you could [pass invalid HTML attributes to the DOM](https://reactjs.org/blog/2017/09/08/dom-attributes-in-react-16.html).
+    - Use spread props sparingly.
+    > Why? Otherwise you’re more likely to pass unnecessary props down to components. And for   React v15.6.1 and older, you could [pass invalid HTML attributes to the DOM](https:// reactjs.org/blog/2017/09/08/dom-attributes-in-react-16.html).
 
   Exceptions:
 
   - Spreading objects with known, explicit props. This can be particularly useful when testing React components with Mocha’s beforeEach construct.
 
-  ```js
-  const Foo = () => {
-    const props = {
-      text: '',
-      isPublished: false
+    ```js
+    const Foo = () => {
+      const props = {
+        text: '',
+        isPublished: false
+      }
+
+      return (<div {...props} />)
     }
+    ```
 
-    return (<div {...props} />)
-  }
-  ```
+    > **Notes**: Filter out unnecessary props when possible. Also, use [prop-types-exact](https://www. npmjs.com/package/prop-types-exact) to help prevent bugs.
 
-  Notes for use:
-  Filter out unnecessary props when possible. Also, use [prop-types-exact](https://www.npmjs.com/package/prop-types-exact) to help prevent bugs.
-
-  ```js
-  // bad
-  const CoffeCard = ({ ...irrelevantProps }) => <WrappedComponent {...irrelevantProps} />
-
-  // good
-  const CoffeCard = ({ irrelevantProp, ...relevantProps }) => <WrappedComponent {...relevantProps} />
-  ```
+    ```js
+    // bad
+    const CoffeCard = ({ ...irrelevantProps }) => <WrappedComponent {...irrelevantProps} />
+  
+    // good
+    const CoffeCard = ({ irrelevantProp, ...relevantProps }) => <WrappedComponent {...  relevantProps} />
+    ```
 
 ## Refs
 
-  - Always use ref callbacks. eslint: [`react/no-string-refs`](https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/no-string-refs.md)
+  - Always use `useRef()` hook.
 
     ```js
     // bad
@@ -371,8 +369,10 @@ but it is usually avoided
     />
 
     // good
+    const myRef = useRef()
+  
     <Foo
-      ref={(ref) => { this.myRef = ref }}
+      ref={myRef}
     />
     ```
 
@@ -500,13 +500,22 @@ but it is usually avoided
 
     ```jsx
     // bad
-    React.createClass({
-      _onClickSubmit() {
+    const CardCoffee = () => {
+      function _onClickSubmit() {
         // do stuff
-      },
+      }
 
       // other stuff
-    })
+    }
+
+    // bad
+    const CardCoffee = () => {
+      const _onClickSubmit = () => {
+        // do stuff
+      }
+
+      // other stuff
+    }
 
     // good
     const CardCoffee = () => {
@@ -578,7 +587,7 @@ but it is usually avoided
     background: black;
   
     @media (min-width: 768px) {
-    /* screen width is greater than 768px ( medium) */
+    /* screen width is greater than 768px (medium) */
       background: blue;
     }
   `
