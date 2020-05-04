@@ -2,7 +2,7 @@
 
 *Essa é a abordagem da Divisio ao trabalhar com React e a sintaxe JSX*
 
-Este guia é predominantemente baseado em outros padrões comuns que mais prevaleceram em Javascript até então, embora algumas convenções ainda podem ser adicionada e removidas para cada caso do dia a dia.
+Este guia é predominantemente baseado em outros padrões comuns que mais prevaleceram em Javascript até então, embora algumas convenções ainda podem ser adicionada e removidas para cada caso do dia a dia. Mantenha-se em mente que algumas regras serão automaticamente arrumadas com o [Prettier](https://prettier.io/), e outras não. Você ainda deverá cuidar bem do código. Este guia também está disponível em outras linguagens. Veja em [Tradução](#tradução)
 
 ## Lista de conteúdos
 
