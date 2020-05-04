@@ -25,6 +25,7 @@ This style guide is mostly based on the standards that are currently prevalent i
   1. [Hooks](#hooks)
   1. [Context](#context)
   1. [Ordering](#Ordering)
+  1. [Translation](#translation)
 
 ## Basic Rules
 
@@ -831,6 +832,12 @@ but it is usually avoided
 1. `styled-components`
 1. `functional component`
 1. `export default`
+
+## Translation
+
+  This JSX/React style guide is also available in other languages:
+
+  - **Portuguese**: [/pt-br](https://github.com/divisioinc/divisio-styleguide/blob/master/react/pt-br.md)
 
 
 **[Back to top](#table-of-contents)**

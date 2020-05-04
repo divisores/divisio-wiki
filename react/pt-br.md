@@ -25,6 +25,7 @@ Este guia é predominantemente baseado em outros padrões comuns que mais preval
   1. [Hooks](#hooks)
   1. [Context](#context)
   1. [Ordenação](#ordenação)
+  1. [Tradução](#tradução)
 
 ## Regras básicas
 
@@ -833,6 +834,12 @@ Este guia é predominantemente baseado em outros padrões comuns que mais preval
 1. `styled-components`
 1. `functional component`
 1. `export default`
+
+## Tradução
+
+  Este style guide de JSX/React também está disponível em outras linguagens:
+
+  - **English**: [/README.md](https://github.com/divisioinc/divisio-styleguide/blob/master/react/README.md)
 
 
 **[Voltar ao topo](#lista-de-conteúdos)**
