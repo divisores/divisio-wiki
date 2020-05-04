@@ -38,6 +38,8 @@ Este guia é predominantemente baseado em outros padrões comuns que mais preval
       - Embora haverão casos que está tudo bem usar [inline styling](https://www.w3schools.com/react/react_css.asp), mas geralmente é evitado.
   - Sempre nomeie **tudo** em inglês como forma de padronização
 
+**[⬆ voltar ao topo](#lista-de-conteúdos)**
+
 ## Function vs Class vs stateless
 
   - Se existir um state interno, prefira usar `useState` ao invés de `class extends React.Component` com `state`.
@@ -85,10 +87,14 @@ Este guia é predominantemente baseado em outros padrões comuns que mais preval
     )
     ```
 
+**[⬆ voltar ao topo](#lista-de-conteúdos)**
+
 ## Mixins
 
   - [Não use mixins](https://facebook.github.io/react/blog/2016/07/13/mixins-considered-harmful.html).
   > Por que? Mixins introduz dependências implícitas, cause name clashes, and cause snowballing complexity. Most use cases for mixins can be accomplished in better ways via components, higher-order components, or utility modules.
+
+**[⬆ voltar ao topo](#lista-de-conteúdos)**
 
 ## Nomeação
 
@@ -122,6 +128,8 @@ Este guia é predominantemente baseado em outros padrões comuns que mais preval
     // bom
     import Footer from './Footer'
     ```
+**[⬆ voltar ao topo](#lista-de-conteúdos)**
+
 ## Imports
 
 - Use um arquivo `index.js` para usar **Named exports** quando tiver vários componentes dentro de uma pasta de diretório (os casos mais comuns serão a `/components` e `/style-guide` folders)
@@ -135,6 +143,8 @@ Este guia é predominantemente baseado em outros padrões comuns que mais preval
   export { default as Formula } from './Formula'
   // ...
   ```
+**[⬆ voltar ao topo](#lista-de-conteúdos)**
+
 ## Declaração
 
   - Não use `displayName` ao nomear componentes, e sim nomeie os componentes por referência. Exporte o componente depois que ela tenha sido nomeado
@@ -152,6 +162,8 @@ Este guia é predominantemente baseado em outros padrões comuns que mais preval
 
     export default ReservationCard
     ```
+
+**[⬆ voltar ao topo](#lista-de-conteúdos)**
 
 ## Alinhamento
 
@@ -199,6 +211,8 @@ Este guia é predominantemente baseado em outros padrões comuns que mais preval
     {showButton && <Button />}
     ```
 
+**[⬆ voltar ao topo](#lista-de-conteúdos)**
+
 ## Quotes
 
   - Sempre use aspas duplas (`"`) para atributos JSX, e aspas simples (`'`) para todo o resto em JS. eslint: [`jsx-quotes`](https://eslint.org/docs/rules/jsx-quotes)
@@ -218,6 +232,8 @@ Este guia é predominantemente baseado em outros padrões comuns que mais preval
     // bom
     <Foo style={{ left: '20px' }} />
     ```
+
+**[⬆ voltar ao topo](#lista-de-conteúdos)**
 
 ## Espaçamento
 
@@ -247,6 +263,8 @@ Este guia é predominantemente baseado em outros padrões comuns que mais preval
     // bom
     <Foo bar={baz} />
     ```
+
+**[⬆ voltar ao topo](#lista-de-conteúdos)**
 
 ## Props
 
@@ -364,6 +382,8 @@ Este guia é predominantemente baseado em outros padrões comuns que mais preval
     const CoffeCard = ({ irrelevantProp, ...relevantProps }) => <WrappedComponent {...  relevantProps} />
     ```
 
+**[⬆ voltar ao topo](#lista-de-conteúdos)**
+
 ## Refs
 
   - Sempre use o hook `useRef()`.
@@ -381,6 +401,8 @@ Este guia é predominantemente baseado em outros padrões comuns que mais preval
       ref={myRef}
     />
     ```
+
+**[⬆ voltar ao topo](#lista-de-conteúdos)**
 
 ## Parênteses
 
@@ -435,6 +457,8 @@ Este guia é predominantemente baseado em outros padrões comuns que mais preval
     ```
 
 
+**[⬆ voltar ao topo](#lista-de-conteúdos)**
+
 ## Tags
 
   - Sempre use o self-close em tags que não tem children. eslint: [`react/self-closing-comp`](https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/self-closing-comp.md)
@@ -461,6 +485,8 @@ Este guia é predominantemente baseado em outros padrões comuns que mais preval
       baz="baz"
     />
     ```
+
+**[⬆ voltar ao topo](#lista-de-conteúdos)**
 
 ## Métodos
 
@@ -533,6 +559,8 @@ Este guia é predominantemente baseado em outros padrões comuns que mais preval
     }
     ```
 
+**[⬆ voltar ao topo](#lista-de-conteúdos)**
+
 ## `isMounted`
 
   - Não use `isMounted`. eslint: [`react/no-is-mounted`](https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/no-is-mounted.md)
@@ -540,6 +568,8 @@ Este guia é predominantemente baseado em outros padrões comuns que mais preval
   > Por que? [`isMounted` é um anti-padrão][anti-pattern], que não está disponível quando estiver usando classes ES6, e está no caminho de ser oficialmente depreciado
 
   [anti-pattern]: https://facebook.github.io/react/blog/2015/12/16/ismounted-antipattern.html
+
+**[⬆ voltar ao topo](#lista-de-conteúdos)**
 
 ## Styled Components
 
@@ -644,6 +674,8 @@ Este guia é predominantemente baseado em outros padrões comuns que mais preval
   import { Button, Container } from './styles'
 
   ```
+**[⬆ voltar ao topo](#lista-de-conteúdos)**
+
 ## Hooks
 
   - Use camelCase ao nomear hooks.
@@ -708,6 +740,8 @@ Este guia é predominantemente baseado em outros padrões comuns que mais preval
        return <div>test</div>
      }
     ```
+
+**[⬆ voltar ao topo](#lista-de-conteúdos)**
 
 ## Context
 
@@ -809,6 +843,8 @@ Este guia é predominantemente baseado em outros padrões comuns que mais preval
     ```
 
 
+**[⬆ voltar ao topo](#lista-de-conteúdos)**
+
 ## Ordenação
 
 - Ordenação de uma semântica básica que esteja usando [`styled-components`](https://styled-components.com/)
@@ -834,6 +870,8 @@ Este guia é predominantemente baseado em outros padrões comuns que mais preval
 1. `styled-components`
 1. `functional component`
 1. `export default`
+
+**[⬆ voltar ao topo](#lista-de-conteúdos)**
 
 ## Tradução
 

@@ -37,6 +37,8 @@ This style guide is mostly based on the standards that are currently prevalent i
     - However, there are cases that is ok to use [inline styling](https://www.w3schools.com/react/react_css.asp), 
 but it is usually avoided
 
+**[⬆ back to top](#table-of-contents)**
+
 ## Function vs Class vs stateless
 
   - If you have internal state, prefer `useState` over `class extends React.Component` with `state`.
@@ -84,11 +86,15 @@ but it is usually avoided
     )
     ```
 
+**[⬆ back to top](#table-of-contents)**
+
 ## Mixins
 
   - [Do not use mixins](https://facebook.github.io/react/blog/2016/07/13/mixins-considered-harmful.html).
 
   > Why? Mixins introduce implicit dependencies, cause name clashes, and cause snowballing complexity. Most use cases for mixins can be accomplished in better ways via components, higher-order components, or utility modules.
+
+**[⬆ back to top](#table-of-contents)**
 
 ## Naming
 
@@ -122,6 +128,8 @@ but it is usually avoided
     // good
     import Footer from './Footer'
     ```
+**[⬆ back to top](#table-of-contents)**
+
 ## Imports
 
 - Use an `index.js` file to use **Named exports** when you have a lot of components folders (usually cases are `/components` and `/style-guide` folders)
@@ -135,6 +143,8 @@ but it is usually avoided
   export { default as Formula } from './Formula'
   // ...
   ```
+**[⬆ back to top](#table-of-contents)**
+
 ## Declaration
 
   - Do not use `displayName` for naming components. Instead, name the component by reference. Use the export after the component is named.
@@ -152,6 +162,8 @@ but it is usually avoided
 
     export default ReservationCard
     ```
+
+**[⬆ back to top](#table-of-contents)**
 
 ## Alignment
 
@@ -199,6 +211,8 @@ but it is usually avoided
     {showButton && <Button />}
     ```
 
+**[⬆ back to top](#table-of-contents)**
+
 ## Quotes
 
   - Always use double quotes (`"`) for JSX attributes, but single quotes (`'`) for all other JS. eslint: [`jsx-quotes`](https://eslint.org/docs/rules/jsx-quotes)
@@ -218,6 +232,8 @@ but it is usually avoided
     // good
     <Foo style={{ left: '20px' }} />
     ```
+
+**[⬆ back to top](#table-of-contents)**
 
 ## Spacing
 
@@ -247,6 +263,8 @@ but it is usually avoided
     // good
     <Foo bar={baz} />
     ```
+
+**[⬆ back to top](#table-of-contents)**
 
 ## Props
 
@@ -364,6 +382,8 @@ but it is usually avoided
     const CoffeCard = ({ irrelevantProp, ...relevantProps }) => <WrappedComponent {...  relevantProps} />
     ```
 
+**[⬆ back to top](#table-of-contents)**
+
 ## Refs
 
   - Always use `useRef()` hook.
@@ -381,6 +401,8 @@ but it is usually avoided
       ref={myRef}
     />
     ```
+
+**[⬆ back to top](#table-of-contents)**
 
 ## Parentheses
 
@@ -435,6 +457,8 @@ but it is usually avoided
     ```
 
 
+**[⬆ back to top](#table-of-contents)**
+
 ## Tags
 
   - Always self-close tags that have no children. eslint: [`react/self-closing-comp`](https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/self-closing-comp.md)
@@ -461,6 +485,8 @@ but it is usually avoided
       baz="baz"
     />
     ```
+
+**[⬆ back to top](#table-of-contents)**
 
 ## Methods
 
@@ -533,6 +559,8 @@ but it is usually avoided
     }
     ```
 
+**[⬆ back to top](#table-of-contents)**
+
 ## `isMounted`
 
   - Do not use `isMounted`. eslint: [`react/no-is-mounted`](https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/no-is-mounted.md)
@@ -540,6 +568,8 @@ but it is usually avoided
   > Why? [`isMounted` is an anti-pattern][anti-pattern], is not available when using ES6 classes, and is on its way to being officially deprecated.
 
   [anti-pattern]: https://facebook.github.io/react/blog/2015/12/16/ismounted-antipattern.html
+
+**[⬆ back to top](#table-of-contents)**
 
 ## Styled Components
 
@@ -642,6 +672,8 @@ but it is usually avoided
   import { Button, Container } from './styles'
 
   ```
+**[⬆ back to top](#table-of-contents)**
+
 ## Hooks
 
   - Use camelCase for naming hooks.
@@ -706,6 +738,8 @@ but it is usually avoided
        return <div>test</div>
      }
     ```
+
+**[⬆ back to top](#table-of-contents)**
 
 ## Context
 
@@ -807,6 +841,8 @@ but it is usually avoided
     ```
 
 
+**[⬆ back to top](#table-of-contents)**
+
 ## Ordering
 
 - Ordering a basic semantic structure using [`styled-components`](https://styled-components.com/)
@@ -833,6 +869,8 @@ but it is usually avoided
 1. `functional component`
 1. `export default`
 
+**[⬆ back to top](#table-of-contents)**
+
 ## Translation
 
   This JSX/React style guide is also available in other language:
@@ -840,4 +878,4 @@ but it is usually avoided
   - **Portuguese**: [/pt-br](https://github.com/divisioinc/divisio-styleguide/blob/master/react/pt-br.md)
 
 
-**[Back to top](#table-of-contents)**
+**[⬆ back to top](#table-of-contents)**
