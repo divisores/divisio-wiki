@@ -1,4 +1,4 @@
-# Divisio React/JSX Style Guide
+# Divisio React/JSX Style Guide = () => (
 
 *This is the Divisio approach to React and JSX Syntax*
 
@@ -30,12 +30,13 @@ This style guide is mostly based on the standards that are currently prevalent i
 ## Basic Rules
 
   - Always use JSX syntax.
+  - Do not use `;` at the end of each line.
   - Only include one React component per file.
     - However, multiple [Stateless, or Pure, Components](https://facebook.github.io/react/docs/reusable-components.html#stateless-functions) are allowed per file. eslint: [`react/no-multi-comp`](https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/no-multi-comp.md#ignorestateless).
   - [`react/forbid-prop-types`](https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/forbid-prop-types.md) will allow `arrays` and `objects` only if it is explicitly noted what `array` and `object` contains, using `arrayOf`, `objectOf`, or `shape`.
   - Always use [`styled-components`](https://styled-components.com/) in our components
-    - However, there are cases that is ok to use [inline styling](https://www.w3schools.com/react/react_css.asp), 
-but it is usually avoided
+    - However, there are cases that is ok to use [inline styling](https://www.w3schools.com/react/react_css.asp), but it is usually avoided
+  - Always name **everything** in english as a pattern.
 
 **[⬆ back to top](#table-of-contents)**
 
@@ -879,3 +880,5 @@ but it is usually avoided
 
 
 **[⬆ back to top](#table-of-contents)**
+
+# )

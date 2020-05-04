@@ -1,4 +1,4 @@
-# Divisio React/JSX Style Guide
+# Divisio React/JSX Style Guide = () => (
 
 *Essa é a abordagem da Divisio ao trabalhar com React e a sintaxe JSX*
 
@@ -30,7 +30,7 @@ Este guia é predominantemente baseado em outros padrões comuns que mais preval
 ## Regras básicas
 
   - Sempre use a sintaxe JSX
-  - Only include one React component per file.
+  - Não use `;` no fim de cada linha.
   - Sempre inclua apenas um componente React por arquivo
     - Embora múltiplos [Stateless, or Pure Components](https://facebook.github.io/react/docs/reusable-components.html#stateless-functions) por arquivo são permitidos. eslint: [`react/no-multi-comp`](https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/no-multi-comp.md#ignorestateless).
   - [`react/forbid-prop-types`](https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/forbid-prop-types.md) irá permitir `arrays` e `objects` apenas se estiver mostrado explícitamente o que cada `array` e `object` contém usando `arrayOf`, `objectOf`, ou `shape`.
@@ -881,3 +881,5 @@ Este guia é predominantemente baseado em outros padrões comuns que mais preval
 
 
 **[Voltar ao topo](#lista-de-conteúdos)**
+
+# )
