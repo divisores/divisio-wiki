@@ -1,6 +1,6 @@
 # Divisio React/JSX Style Guide
 
-*This is the Divisio approach to React and JSX*
+*This is the Divisio approach to React and JSX Syntax*
 
 This style guide is mostly based on the standards that are currently prevalent in JavaScript, although some conventions may still be included or prohibited on a case-by-case basis.
 
@@ -38,12 +38,15 @@ but it is usually avoided
 
 ## Function vs Class vs stateless
 
-  - If you have internal state, prefer `useState` over `class extends React.Component`.
+  - If you have internal state, prefer `useState` over `class extends React.Component` with `state`.
 
     ```js
     // bad
     class Listing extends React.Component {
-      // ...
+      state = {
+        hello: 'Hi'
+      }
+
       render() {
         return <div>{this.state.hello}</div>
       }
@@ -54,12 +57,12 @@ but it is usually avoided
     const Listing = () => {
       const [hello, setHello] = useState('Hello world!')
 
-      return (
-      <div>{hello}</div>
-    )}
+      return <div>{hello}</div>
+    }
     ```
 
-    And if you don’t have state or refs, prefer arrow functions (not normal functions) over classes:
+    And if you don’t have `state` or `refs`, prefer arrow functions (not normal functions) over classes anyway:
+    >**Note**: Same if you have `props` or not.
 
     ```js
     // bad
@@ -685,7 +688,7 @@ but it is usually avoided
 
     ```js
       // Before abstraction 
-     // Remeber, DRY code can be code to keep it simple
+     // Remember, DRY code can be sustained to keep it simple
      const MyComponent = () => {
        useHooks(...)
        useHooks(...)
