@@ -837,7 +837,7 @@ Este guia é predominantemente baseado em outros padrões comuns que mais preval
 
 ## Tradução
 
-  Este style guide de JSX/React também está disponível em outras linguagens:
+  Este style guide de JSX/React também está disponível em outra linguagem:
 
   - **English**: [/README.md](https://github.com/divisioinc/divisio-styleguide/blob/master/react/README.md)
 

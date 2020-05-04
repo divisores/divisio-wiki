@@ -835,7 +835,7 @@ but it is usually avoided
 
 ## Translation
 
-  This JSX/React style guide is also available in other languages:
+  This JSX/React style guide is also available in other language:
 
   - **Portuguese**: [/pt-br](https://github.com/divisioinc/divisio-styleguide/blob/master/react/pt-br.md)
 
