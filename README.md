@@ -34,8 +34,8 @@ Other Style Guides
   1. [Type Casting & Coercion](#type-casting--coercion)
   1. [Naming Conventions](#naming-conventions)
   1. [Accessors](#accessors)
-  1. [Testing](#testing) Needs code format and team review
-  1. [Translation](#translation) Needs code format and team review
+  1. [Testing](#testing)
+  1. [Translation](#translation)
 
 ## Basic Rules
 
