@@ -13,11 +13,11 @@ Other Style Guides
   1. [Basic Rules](#basic-rules)
   1. [References](#references)
   1. [Objects](#objects)  
-  1. [Arrays](#arrays) Needs code format and team review
-  1. [Destructuring](#destructuring) Needs code format and team review
-  1. [Strings](#strings) Needs code format and team review
-  1. [Functions](#functions) Needs code format and team review
-  1. [Arrow Functions](#arrow-functions) Needs code format and team review
+  1. [Arrays](#arrays) 
+  1. [Destructuring](#destructuring) 
+  1. [Strings](#strings) 
+  1. [Functions](#functions) 
+  1. [Arrow Functions](#arrow-functions)
   1. [Classes & Constructors](#classes--constructors) Needs code format and team review
   1. [Modules](#modules) Needs code format and team review
   1. [Iterators and Generators](#iterators-and-generators) Needs code format and team review
@@ -222,14 +222,14 @@ Other Style Guides
       'foo': 3,
       'bar': 4,
       'data-blah': 5,
-    };
+    }
 
     // good
     const good = {
       foo: 3,
       bar: 4,
       'data-blah': 5,
-    };
+    }
     ```
 
   - Do not call `Object.prototype` methods directly, such as `hasOwnProperty`, `propertyIsEnumerable`, and `isPrototypeOf`. eslint: [`no-prototype-builtins`](https://eslint.org/docs/rules/no-prototype-builtins)
@@ -238,30 +238,30 @@ Other Style Guides
 
     ```javascript
     // bad
-    console.log(object.hasOwnProperty(key));
+    console.log(object.hasOwnProperty(key))
 
     // good
-    console.log(Object.prototype.hasOwnProperty.call(object, key));
+    console.log(Object.prototype.hasOwnProperty.call(object, key))
 
     // best
-    const has = Object.prototype.hasOwnProperty; // cache the lookup once, in module scope.
-    console.log(has.call(object, key));
+    const has = Object.prototype.hasOwnProperty // cache the lookup once, in module scope.
+    console.log(has.call(object, key))
     /* or */
-    import has from 'has'; // https://www.npmjs.com/package/has
-    console.log(has(object, key));
+    import has from 'has' // https://www.npmjs.com/package/has
+    console.log(has(object, key))
     ```
 
   - Prefer the object spread operator over [`Object.assign`](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Object/assign) to shallow-copy objects. Use the object rest operator to get a new object with certain properties omitted.
 
     ```javascript
     // very bad
-    const original = { a: 1, b: 2 };
-    const copy = Object.assign(original, { c: 3 }); // this mutates `original`
+    const original = { a: 1, b: 2 }
+    const copy = Object.assign(original, { c: 3 }) // this mutates `original`
     delete copy.a; // so does this
 
     // bad
-    const original = { a: 1, b: 2 };
-    const copy = Object.assign({}, original, { c: 3 }); // copy => { a: 1, b: 2, c: 3 }
+    const original = { a: 1, b: 2 }
+    const copy = Object.assign({}, original, { c: 3 }) // copy => { a: 1, b: 2, c: 3 }
 
     // good
     const original = { a: 1, b: 2 }
@@ -278,72 +278,72 @@ Other Style Guides
 
     ```javascript
     // bad
-    const items = new Array();
+    const items = new Array()
 
     // good
-    const items = [];
+    const items = []
     ```
 
   - Use [Array#push](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Array/push) instead of direct assignment to add items to an array.
 
     ```javascript
-    const someStack = [];
+    const someStack = []
 
     // bad
-    someStack[someStack.length] = 'abracadabra';
+    someStack[someStack.length] = 'abracadabra'
 
     // good
-    someStack.push('abracadabra');
+    someStack.push('abracadabra')
     ```
 
   - Use array spreads `...` to copy arrays.
 
     ```javascript
     // bad
-    const len = items.length;
-    const itemsCopy = [];
-    let i;
+    const len = items.length
+    const itemsCopy = []
+    let i
 
     for (i = 0; i < len; i += 1) {
-      itemsCopy[i] = items[i];
+      itemsCopy[i] = items[i]
     }
 
     // good
-    const itemsCopy = [...items];
+    const itemsCopy = [...items]
     ```
 
   - To convert an iterable object to an array, use spreads `...` instead of [`Array.from`](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Array/from).
 
     ```javascript
-    const foo = document.querySelectorAll('.foo');
+    const foo = document.querySelectorAll('.foo')
 
     // good
-    const nodes = Array.from(foo);
+    const nodes = Array.from(foo)
 
     // best
-    const nodes = [...foo];
+    const nodes = [...foo]
     ```
 
   - Use [`Array.from`](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Array/from) for converting an array-like object to an array.
 
     ```javascript
-    const arrLike = { 0: 'foo', 1: 'bar', 2: 'baz', length: 3 };
+    const arrLike = { 0: 'foo', 1: 'bar', 2: 'baz', length: 3 }
 
     // bad
-    const arr = Array.prototype.slice.call(arrLike);
+    const arr = Array.prototype.slice.call(arrLike)
 
     // good
-    const arr = Array.from(arrLike);
+    const arr = Array.from(arrLike)
     ```
 
   - Use [`Array.from`](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Array/from) instead of spread `...` for mapping over iterables, because it avoids creating an intermediate array.
 
     ```javascript
     // bad
-    const baz = [...foo].map(bar);
+    const baz = [...foo].map(bar)
 
     // good
-    const baz = Array.from(foo, bar);
+    const baz = Array.from(foo, bar)
     ```
 
   - Use return statements in array method callbacks. It’s ok to omit the return if the function body consists of a single statement returning an expression without side effects. eslint: [`array-callback-return`](https://eslint.org/docs/rules/array-callback-return)
@@ -351,63 +351,62 @@ Other Style Guides
     ```javascript
     // good
     [1, 2, 3].map((x) => {
-      const y = x + 1;
-      return x * y;
-    });
+      const y = x + 1
+      return x * y
+    })
 
     // good
-    [1, 2, 3].map((x) => x + 1);
+    [1, 2, 3].map((x) => x + 1)
 
     // bad - no returned value means `acc` becomes undefined after the first iteration
     [[0, 1], [2, 3], [4, 5]].reduce((acc, item, index) => {
-      const flatten = acc.concat(item);
-    });
+      const flatten = acc.concat(item)
+    })
 
     // good
     [[0, 1], [2, 3], [4, 5]].reduce((acc, item, index) => {
-      const flatten = acc.concat(item);
-      return flatten;
-    });
+      const flatten = acc.concat(item)
+      return flatten
+    })
 
     // bad
     inbox.filter((msg) => {
       const { subject, author } = msg;
       if (subject === 'Mockingbird') {
-        return author === 'Harper Lee';
+        return author === 'Harper Lee'
       } else {
-        return false;
+        return false
       }
-    });
+    })
 
     // good
     inbox.filter((msg) => {
       const { subject, author } = msg;
       if (subject === 'Mockingbird') {
-        return author === 'Harper Lee';
+        return author === 'Harper Lee'
       }
 
-      return false;
-    });
+      return false
+    })
     ```
 
-  <a name="arrays--bracket-newline"></a>
-  - [4.8](#arrays--bracket-newline) Use line breaks after open and before close array brackets if an array has multiple lines
+  - Use line breaks after open and before close array brackets if an array has multiple lines
 
     ```javascript
     // bad
     const arr = [
       [0, 1], [2, 3], [4, 5],
-    ];
+    ]
 
     const objectInArray = [{
       id: 1,
     }, {
       id: 2,
-    }];
+    }]
 
     const numberInArray = [
       1, 2,
-    ];
+    ]
 
     // good
     const arr = [[0, 1], [2, 3], [4, 5]];
@@ -419,103 +418,96 @@ Other Style Guides
       {
         id: 2,
       },
-    ];
+    ]
 
     const numberInArray = [
       1,
       2,
-    ];
+    ]
     ```
 
 **[⬆ back to top](#table-of-contents)**
 
 ## Destructuring
 
-  <a name="destructuring--object"></a><a name="5.1"></a>
-  - [5.1](#destructuring--object) Use object destructuring when accessing and using multiple properties of an object. eslint: [`prefer-destructuring`](https://eslint.org/docs/rules/prefer-destructuring)
+  - Use object destructuring when accessing and using multiple properties of an object. eslint: [`prefer-destructuring`](https://eslint.org/docs/rules/prefer-destructuring)
 
     > Why? Destructuring saves you from creating temporary references for those properties.
 
     ```javascript
     // bad
-    function getFullName(user) {
-      const firstName = user.firstName;
-      const lastName = user.lastName;
+    const getFullName = user => {
+      const firstName = user.firstName
+      const lastName = user.lastName
 
-      return `${firstName} ${lastName}`;
+      return `${firstName} ${lastName}`
     }
 
     // good
-    function getFullName(user) {
-      const { firstName, lastName } = user;
-      return `${firstName} ${lastName}`;
+    const getFullName = user => {
+      const { firstName, lastName } = user
+      return `${firstName} ${lastName}`
     }
 
     // best
-    function getFullName({ firstName, lastName }) {
-      return `${firstName} ${lastName}`;
-    }
+    const getFullName = ({ firstName, lastName }) => `${firstName} ${lastName}`
     ```
 
-  <a name="destructuring--array"></a><a name="5.2"></a>
-  - [5.2](#destructuring--array) Use array destructuring. eslint: [`prefer-destructuring`](https://eslint.org/docs/rules/prefer-destructuring)
+  - Use array destructuring. eslint: [`prefer-destructuring`](https://eslint.org/docs/rules/prefer-destructuring)
 
     ```javascript
-    const arr = [1, 2, 3, 4];
+    const arr = [1, 2, 3, 4]
 
     // bad
-    const first = arr[0];
-    const second = arr[1];
+    const first = arr[0]
+    const second = arr[1]
 
     // good
-    const [first, second] = arr;
+    const [first, second] = arr
     ```
 
-  <a name="destructuring--object-over-array"></a><a name="5.3"></a>
-  - [5.3](#destructuring--object-over-array) Use object destructuring for multiple return values, not array destructuring.
+  - Use object destructuring for multiple return values, not array destructuring.
 
     > Why? You can add new properties over time or change the order of things without breaking call sites.
 
     ```javascript
     // bad
-    function processInput(input) {
-      // then a miracle occurs
-      return [left, right, top, bottom];
+    const processInput = input => {
+      // ...
+      return [left, right, top, bottom]
     }
 
     // the caller needs to think about the order of return data
-    const [left, __, top] = processInput(input);
+    const [left, __, top] = processInput(input)
 
     // good
-    function processInput(input) {
-      // then a miracle occurs
-      return { left, right, top, bottom };
+    const processInput = input => {
+      // ...
+      return { left, right, top, bottom }
     }
 
-    // the caller selects only the data they need
-    const { left, top } = processInput(input);
+    // the caller selects only the data he needs
+    const { left, top } = processInput(input)
     ```
 
 **[⬆ back to top](#table-of-contents)**
 
 ## Strings
 
-  <a name="strings--quotes"></a><a name="6.1"></a>
-  - [6.1](#strings--quotes) Use single quotes `''` for strings. eslint: [`quotes`](https://eslint.org/docs/rules/quotes.html)
+  - Use single quotes `''` for strings. eslint: [`quotes`](https://eslint.org/docs/rules/quotes.html)
 
     ```javascript
     // bad
-    const name = "Capt. Janeway";
+    const name = "Capt. Janeway"
 
     // bad - template literals should contain interpolation or newlines
-    const name = `Capt. Janeway`;
+    const name = `Capt. Janeway`
 
     // good
-    const name = 'Capt. Janeway';
+    const name = 'Capt. Janeway'
     ```
 
-  <a name="strings--line-length"></a><a name="6.2"></a>
-  - [6.2](#strings--line-length) Strings that cause the line to go over 100 characters should not be written across multiple lines using string concatenation.
+  - Strings that cause the line to go over 100 characters should **not** be written across multiple lines using string concatenation.
 
     > Why? Broken strings are painful to work with and make code less searchable.
 
@@ -524,67 +516,57 @@ Other Style Guides
     const errorMessage = 'This is a super long error that was thrown because \
     of Batman. When you stop to think about how Batman had anything to do \
     with this, you would get nowhere \
-    fast.';
+    fast.'
 
     // bad
     const errorMessage = 'This is a super long error that was thrown because ' +
       'of Batman. When you stop to think about how Batman had anything to do ' +
-      'with this, you would get nowhere fast.';
+      'with this, you would get nowhere fast.'
 
     // good
-    const errorMessage = 'This is a super long error that was thrown because of Batman. When you stop to think about how Batman had anything to do with this, you would get nowhere fast.';
+    const errorMessage = 'This is a super long error that was thrown because of Batman. When you stop to think about how Batman had anything to do with this, you would get nowhere fast.'
     ```
 
-  <a name="es6-template-literals"></a><a name="6.4"></a>
-  - [6.3](#es6-template-literals) When programmatically building up strings, use template strings instead of concatenation. eslint: [`prefer-template`](https://eslint.org/docs/rules/prefer-template.html) [`template-curly-spacing`](https://eslint.org/docs/rules/template-curly-spacing)
+  - When programmatically building up strings, use template strings instead of concatenation. eslint: [`prefer-template`](https://eslint.org/docs/rules/prefer-template.html) [`template-curly-spacing`](https://eslint.org/docs/rules/template-curly-spacing)
 
     > Why? Template strings give you a readable, concise syntax with proper newlines and string interpolation features.
 
     ```javascript
     // bad
-    function sayHi(name) {
-      return 'How are you, ' + name + '?';
-    }
+    const sayHi = name => 'How are you, ' + name + '?'
 
     // bad
-    function sayHi(name) {
-      return ['How are you, ', name, '?'].join();
-    }
+    const sayHi = name => ['How are you, ', name, '?'].join()
 
     // bad
-    function sayHi(name) {
-      return `How are you, ${ name }?`;
-    }
+    const sayHi = name => `How are you, ${ name }?`
 
     // good
-    function sayHi(name) {
-      return `How are you, ${name}?`;
-    }
+    const sayHi = name => `How are you, ${name}?`
     ```
 
-  <a name="strings--eval"></a><a name="6.5"></a>
-  - [6.4](#strings--eval) Never use `eval()` on a string, it opens too many vulnerabilities. eslint: [`no-eval`](https://eslint.org/docs/rules/no-eval)
+  - Never use `eval()` on a string, it opens too many vulnerabilities. eslint: [`no-eval`](https://eslint.org/docs/rules/no-eval)
 
-  <a name="strings--escaping"></a>
-  - [6.5](#strings--escaping) Do not unnecessarily escape characters in strings. eslint: [`no-useless-escape`](https://eslint.org/docs/rules/no-useless-escape)
+  - Do not unnecessarily escape characters in strings. eslint: [`no-useless-escape`](https://eslint.org/docs/rules/no-useless-escape)
 
     > Why? Backslashes harm readability, thus they should only be present when necessary.
 
     ```javascript
     // bad
-    const foo = '\'this\' \i\s \"quoted\"';
+    const foo = '\'this\' \i\s \"quoted\"'
 
     // good
-    const foo = '\'this\' is "quoted"';
-    const foo = `my name is '${name}'`;
+    const foo = '\'this\' is "quoted"'
+    const foo = `my name is '${name}'`
     ```
 
 **[⬆ back to top](#table-of-contents)**
 
 ## Functions
 
-  <a name="functions--declarations"></a><a name="7.1"></a>
-  - [7.1](#functions--declarations) Use named function expressions instead of function declarations. eslint: [`func-style`](https://eslint.org/docs/rules/func-style)
+  - Prefer to use arrow functions when it's possible. See [Arrow Functions](#arrow-functions)
+
+  - Use named function expressions instead of function declarations. eslint: [`func-style`](https://eslint.org/docs/rules/func-style)
 
     > Why? Function declarations are hoisted, which means that it’s easy - too easy - to reference the function before it is defined in the file. This harms readability and maintainability. If you find that a function’s definition is large or complex enough that it is interfering with understanding the rest of the file, then perhaps it’s time to extract it to its own module! Don’t forget to explicitly name the expression, regardless of whether or not the name is inferred from the containing variable (which is often the case in modern browsers or when using compilers such as Babel). This eliminates any assumptions made about the Error’s call stack. ([Discussion](https://github.com/airbnb/javascript/issues/794))
 
@@ -597,38 +579,35 @@ Other Style Guides
     // bad
     const foo = function () {
       // ...
-    };
+    }
 
     // good
     // lexical name distinguished from the variable-referenced invocation(s)
     const short = function longUniqueMoreDescriptiveLexicalFoo() {
       // ...
-    };
+    }
     ```
 
-  <a name="functions--iife"></a><a name="7.2"></a>
-  - [7.2](#functions--iife) Wrap immediately invoked function expressions in parentheses. eslint: [`wrap-iife`](https://eslint.org/docs/rules/wrap-iife.html)
+  - Wrap immediately invoked function expressions in parentheses. eslint: [`wrap-iife`](https://eslint.org/docs/rules/wrap-iife.html)
 
     > Why? An immediately invoked function expression is a single unit - wrapping both it, and its invocation parens, in parens, cleanly expresses this. Note that in a world with modules everywhere, you almost never need an IIFE.
 
     ```javascript
     // immediately-invoked function expression (IIFE)
     (function () {
-      console.log('Welcome to the Internet. Please follow me.');
+      console.log('Welcome to the Internet. Please follow me.')
     }());
     ```
 
-  <a name="functions--in-blocks"></a><a name="7.3"></a>
-  - [7.3](#functions--in-blocks) Never declare a function in a non-function block (`if`, `while`, etc). Assign the function to a variable instead. Browsers will allow you to do it, but they all interpret it differently, which is bad news bears. eslint: [`no-loop-func`](https://eslint.org/docs/rules/no-loop-func.html)
+  - Never declare a function in a non-function block (`if`, `while`, etc). Assign the function to a variable instead. Browsers will allow you to do it, but they all interpret it differently, which is bad news bears. eslint: [`no-loop-func`](https://eslint.org/docs/rules/no-loop-func.html)
 
-  <a name="functions--note-on-blocks"></a><a name="7.4"></a>
-  - [7.4](#functions--note-on-blocks) **Note:** ECMA-262 defines a `block` as a list of statements. A function declaration is not a statement.
+  > **Note:** ECMA-262 defines a `block` as a list of statements. A function declaration is not a statement.
 
     ```javascript
     // bad
     if (currentUser) {
       function test() {
-        console.log('Nope.');
+        console.log('Nope.')
       }
     }
 
@@ -636,13 +615,12 @@ Other Style Guides
     let test;
     if (currentUser) {
       test = () => {
-        console.log('Yup.');
-      };
+        console.log('Yup.')
+      }
     }
     ```
 
-  <a name="functions--arguments-shadow"></a><a name="7.5"></a>
-  - [7.5](#functions--arguments-shadow) Never name a parameter `arguments`. This will take precedence over the `arguments` object that is given to every function scope.
+  - Never name a parameter `arguments`. This will take precedence over the `arguments` object that is given to every function scope.
 
     ```javascript
     // bad
@@ -656,8 +634,7 @@ Other Style Guides
     }
     ```
 
-  <a name="es6-rest"></a><a name="7.6"></a>
-  - [7.6](#es6-rest) Never use `arguments`, opt to use rest syntax `...` instead. eslint: [`prefer-rest-params`](https://eslint.org/docs/rules/prefer-rest-params)
+  - Never use `arguments`, opt to use rest syntax `...` instead. eslint: [`prefer-rest-params`](https://eslint.org/docs/rules/prefer-rest-params)
 
     > Why? `...` is explicit about which arguments you want pulled. Plus, rest arguments are a real Array, and not merely Array-like like `arguments`.
 
@@ -665,32 +642,29 @@ Other Style Guides
     // bad
     function concatenateAll() {
       const args = Array.prototype.slice.call(arguments);
-      return args.join('');
+      return args.join('')
     }
 
     // good
     function concatenateAll(...args) {
-      return args.join('');
+      return args.join('')
     }
     ```
 
-  <a name="es6-default-parameters"></a><a name="7.7"></a>
-  - [7.7](#es6-default-parameters) Use default parameter syntax rather than mutating function arguments.
+  - Use default parameter syntax rather than mutating function arguments.
 
     ```javascript
     // really bad
     function handleThings(opts) {
-      // No! We shouldn’t mutate function arguments.
-      // Double bad: if opts is falsy it'll be set to an object which may
-      // be what you want but it can introduce subtle bugs.
-      opts = opts || {};
+      // We shouldn’t mutate function arguments.
+      opts = opts || {}
       // ...
     }
 
     // still bad
     function handleThings(opts) {
       if (opts === void 0) {
-        opts = {};
+        opts = {}
       }
       // ...
     }
@@ -701,25 +675,25 @@ Other Style Guides
     }
     ```
 
-  <a name="functions--default-side-effects"></a><a name="7.8"></a>
-  - [7.8](#functions--default-side-effects) Avoid side effects with default parameters.
+  - Avoid side effects with default parameters.
 
     > Why? They are confusing to reason about.
 
     ```javascript
-    var b = 1;
+    var b = 1
+  
     // bad
     function count(a = b++) {
-      console.log(a);
+      console.log(a)
     }
-    count();  // 1
-    count();  // 2
-    count(3); // 3
-    count();  // 3
+  
+    count()  // 1
+    count()  // 2
+    count(3) // 3
+    count()  // 3
     ```
 
-  <a name="functions--defaults-last"></a><a name="7.9"></a>
-  - [7.9](#functions--defaults-last) Always put default parameters last.
+  - Always put default parameters last.
 
     ```javascript
     // bad
@@ -733,72 +707,68 @@ Other Style Guides
     }
     ```
 
-  <a name="functions--constructor"></a><a name="7.10"></a>
-  - [7.10](#functions--constructor) Never use the Function constructor to create a new function. eslint: [`no-new-func`](https://eslint.org/docs/rules/no-new-func)
+  - Never use the Function constructor to create a new function. eslint: [`no-new-func`](https://eslint.org/docs/rules/no-new-func)
 
     > Why? Creating a function in this way evaluates a string similarly to `eval()`, which opens vulnerabilities.
 
     ```javascript
     // bad
-    var add = new Function('a', 'b', 'return a + b');
+    var add = new Function('a', 'b', 'return a + b')
 
     // still bad
-    var subtract = Function('a', 'b', 'return a - b');
+    var subtract = Function('a', 'b', 'return a - b')
     ```
 
-  <a name="functions--signature-spacing"></a><a name="7.11"></a>
-  - [7.11](#functions--signature-spacing) Spacing in a function signature. eslint: [`space-before-function-paren`](https://eslint.org/docs/rules/space-before-function-paren) [`space-before-blocks`](https://eslint.org/docs/rules/space-before-blocks)
+  - Spacing in a function signature. eslint: [`space-before-function-paren`](https://eslint.org/docs/rules/space-before-function-paren) [`space-before-blocks`](https://eslint.org/docs/rules/space-before-blocks)
 
     > Why? Consistency is good, and you shouldn’t have to add or remove a space when adding or removing a name.
 
     ```javascript
     // bad
-    const f = function(){};
-    const g = function (){};
-    const h = function() {};
+    const f = function(){}
+    const g = function (){}
+    const h = function() {}
 
     // good
-    const x = function () {};
-    const y = function a() {};
+    const x = function () {}
+    const y = function a() {}
     ```
 
-  <a name="functions--mutate-params"></a><a name="7.12"></a>
-  - [7.12](#functions--mutate-params) Never mutate parameters. eslint: [`no-param-reassign`](https://eslint.org/docs/rules/no-param-reassign.html)
+  - Never mutate parameters. eslint: [`no-param-reassign`](https://eslint.org/docs/rules/no-param-reassign.html)
 
     > Why? Manipulating objects passed in as parameters can cause unwanted variable side effects in the original caller.
 
     ```javascript
     // bad
     function f1(obj) {
-      obj.key = 1;
+      obj.key = 1
     }
 
     // good
     function f2(obj) {
-      const key = Object.prototype.hasOwnProperty.call(obj, 'key') ? obj.key : 1;
+      const key = Object.prototype.hasOwnProperty.call(obj, 'key') ? obj.key : 1
     }
     ```
 
-  <a name="functions--reassign-params"></a><a name="7.13"></a>
-  - [7.13](#functions--reassign-params) Never reassign parameters. eslint: [`no-param-reassign`](https://eslint.org/docs/rules/no-param-reassign.html)
+  - Never reassign parameters. eslint: [`no-param-reassign`](https://eslint.org/docs/rules/no-param-reassign.html)
 
     > Why? Reassigning parameters can lead to unexpected behavior, especially when accessing the `arguments` object. It can also cause optimization issues, especially in V8.
 
     ```javascript
     // bad
     function f1(a) {
-      a = 1;
+      a = 1
       // ...
     }
 
     function f2(a) {
-      if (!a) { a = 1; }
+      if (!a) { a = 1 }
       // ...
     }
 
     // good
     function f3(a) {
-      const b = a || 1;
+      const b = a || 1
       // ...
     }
 
@@ -807,29 +777,27 @@ Other Style Guides
     }
     ```
 
-  <a name="functions--spread-vs-apply"></a><a name="7.14"></a>
-  - [7.14](#functions--spread-vs-apply) Prefer the use of the spread operator `...` to call variadic functions. eslint: [`prefer-spread`](https://eslint.org/docs/rules/prefer-spread)
+  - Prefer the use of the spread operator `...` to call variadic functions. eslint: [`prefer-spread`](https://eslint.org/docs/rules/prefer-spread)
 
     > Why? It’s cleaner, you don’t need to supply a context, and you can not easily compose `new` with `apply`.
 
     ```javascript
     // bad
-    const x = [1, 2, 3, 4, 5];
-    console.log.apply(console, x);
+    const x = [1, 2, 3, 4, 5]
+    console.log.apply(console, x)
 
     // good
-    const x = [1, 2, 3, 4, 5];
-    console.log(...x);
+    const x = [1, 2, 3, 4, 5]
+    console.log(...x)
 
     // bad
-    new (Function.prototype.bind.apply(Date, [null, 2016, 8, 5]));
+    new (Function.prototype.bind.apply(Date, [null, 2016, 8, 5]))
 
     // good
-    new Date(...[2016, 8, 5]);
+    new Date(...[2016, 8, 5])
     ```
 
-  <a name="functions--signature-invocation-indentation"></a>
-  - [7.15](#functions--signature-invocation-indentation) Functions with multiline signatures, or invocations, should be indented just like every other multiline list in this guide: with each item on a line by itself, with a trailing comma on the last item. eslint: [`function-paren-newline`](https://eslint.org/docs/rules/function-paren-newline)
+  - Functions with multiline signatures, or invocations, should be indented just like every other multiline list in this guide: with each item on a line by itself, with a trailing comma on the last item. eslint: [`function-paren-newline`](https://eslint.org/docs/rules/function-paren-newline)
 
     ```javascript
     // bad
@@ -851,178 +819,123 @@ Other Style Guides
     // bad
     console.log(foo,
       bar,
-      baz);
+      baz)
 
     // good
     console.log(
       foo,
       bar,
       baz,
-    );
+    )
     ```
 
 **[⬆ back to top](#table-of-contents)**
 
 ## Arrow Functions
 
-  <a name="arrows--use-them"></a><a name="8.1"></a>
-  - [8.1](#arrows--use-them) When you must use an anonymous function (as when passing an inline callback), use arrow function notation. eslint: [`prefer-arrow-callback`](https://eslint.org/docs/rules/prefer-arrow-callback.html), [`arrow-spacing`](https://eslint.org/docs/rules/arrow-spacing.html)
+  - Always prefer to use arrow functions instead of normal functions if you can.
+    > Why? Consistency is always a good thing, and the syntax becomes more concise.
 
-    > Why? It creates a version of the function that executes in the context of `this`, which is usually what you want, and is a more concise syntax.
+  - When you must use an anonymous function (as when passing an inline callback), use arrow function notation. eslint: [`prefer-arrow-callback`](https://eslint.org/docs/rules/prefer-arrow-callback.html), [`arrow-spacing`](https://eslint.org/docs/rules/arrow-spacing.html)
+
+    > Why? It creates a version of the function that executes in the context of `this`, which is usually what you want.
 
     > Why not? If you have a fairly complicated function, you might move that logic out into its own named function expression.
 
     ```javascript
     // bad
     [1, 2, 3].map(function (x) {
-      const y = x + 1;
-      return x * y;
-    });
+      const y = x + 1
+      return x * y
+    })
 
     // good
     [1, 2, 3].map((x) => {
-      const y = x + 1;
-      return x * y;
-    });
+      const y = x + 1
+      return x * y
+    })
     ```
 
-  <a name="arrows--implicit-return"></a><a name="8.2"></a>
-  - [8.2](#arrows--implicit-return) If the function body consists of a single statement returning an [expression](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Expressions_and_Operators#Expressions) without side effects, omit the braces and use the implicit return. Otherwise, keep the braces and use a `return` statement. eslint: [`arrow-parens`](https://eslint.org/docs/rules/arrow-parens.html), [`arrow-body-style`](https://eslint.org/docs/rules/arrow-body-style.html)
+  - If the function body consists of a single statement returning an [expression](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Expressions_and_Operators#Expressions) without side effects, omit the braces and use the implicit return. Otherwise, keep the braces and use a `return` statement. eslint: [`arrow-parens`](https://eslint.org/docs/rules/arrow-parens.html), [`arrow-body-style`](https://eslint.org/docs/rules/arrow-body-style.html)
 
     > Why? Syntactic sugar. It reads well when multiple functions are chained together.
 
     ```javascript
     // bad
     [1, 2, 3].map((number) => {
-      const nextNumber = number + 1;
-      `A string containing the ${nextNumber}.`;
+      const nextNumber = number + 1
+      `A string containing the ${nextNumber}.`
     });
 
     // good
-    [1, 2, 3].map((number) => `A string containing the ${number + 1}.`);
+    [1, 2, 3].map((number) => `A string containing the ${number + 1}.`)
 
     // good
     [1, 2, 3].map((number) => {
-      const nextNumber = number + 1;
+      const nextNumber = number + 1
       return `A string containing the ${nextNumber}.`;
-    });
+    })
 
     // good
     [1, 2, 3].map((number, index) => ({
       [index]: number,
-    }));
-
-    // No implicit return with side effects
-    function foo(callback) {
-      const val = callback();
-      if (val === true) {
-        // Do something if callback returns true
-      }
-    }
-
-    let bool = false;
-
-    // bad
-    foo(() => bool = true);
-
-    // good
-    foo(() => {
-      bool = true;
-    });
+    }))
     ```
 
-  <a name="arrows--paren-wrap"></a><a name="8.3"></a>
-  - [8.3](#arrows--paren-wrap) In case the expression spans over multiple lines, wrap it in parentheses for better readability.
-
-    > Why? It shows clearly where the function starts and ends.
+  - If there is only one argument, do not include parentheses around arguments for clarity and consistency.
 
     ```javascript
     // bad
-    ['get', 'post', 'put'].map((httpMethod) => Object.prototype.hasOwnProperty.call(
-        httpMagicObjectWithAVeryLongName,
-        httpMethod,
-      )
-    );
+    [1, 2, 3].map((x) => x * x)
 
     // good
-    ['get', 'post', 'put'].map((httpMethod) => (
-      Object.prototype.hasOwnProperty.call(
-        httpMagicObjectWithAVeryLongName,
-        httpMethod,
-      )
-    ));
-    ```
+    [1, 2, 3].map(x => x * x)
 
-  <a name="arrows--one-arg-parens"></a><a name="8.4"></a>
-  - [8.4](#arrows--one-arg-parens) Always include parentheses around arguments for clarity and consistency. eslint: [`arrow-parens`](https://eslint.org/docs/rules/arrow-parens.html)
-
-    > Why? Minimizes diff churn when adding or removing arguments.
-
-    ```javascript
-    // bad
-    [1, 2, 3].map(x => x * x);
-
-    // good
-    [1, 2, 3].map((x) => x * x);
 
     // bad
-    [1, 2, 3].map(number => (
-      `A long string with the ${number}. It’s so long that we don’t want it to take up space on the .map line!`
-    ));
-
-    // good
     [1, 2, 3].map((number) => (
       `A long string with the ${number}. It’s so long that we don’t want it to take up space on the .map line!`
-    ));
-
-    // bad
-    [1, 2, 3].map(x => {
-      const y = x + 1;
-      return x * y;
-    });
+    ))
 
     // good
-    [1, 2, 3].map((x) => {
-      const y = x + 1;
-      return x * y;
-    });
+    [1, 2, 3].map(number => (
+      `A long string with the ${number}. It’s so long that we don’t want it to take up space on the .map line!`
+    ))
     ```
 
-  <a name="arrows--confusing"></a><a name="8.5"></a>
-  - [8.5](#arrows--confusing) Avoid confusing arrow function syntax (`=>`) with comparison operators (`<=`, `>=`). eslint: [`no-confusing-arrow`](https://eslint.org/docs/rules/no-confusing-arrow)
+  - Avoid confusing arrow function syntax (`=>`) with comparison operators (`<=`, `>=`). eslint: [`no-confusing-arrow`](https://eslint.org/docs/rules/no-confusing-arrow)
 
     ```javascript
     // bad
-    const itemHeight = (item) => item.height <= 256 ? item.largeSize : item.smallSize;
+    const itemHeight = item => item.height <= 256 ? item.largeSize : item.smallSize
 
     // bad
-    const itemHeight = (item) => item.height >= 256 ? item.largeSize : item.smallSize;
+    const itemHeight = item => item.height >= 256 ? item.largeSize : item.smallSize
 
     // good
-    const itemHeight = (item) => (item.height <= 256 ? item.largeSize : item.smallSize);
+    const itemHeight = item => (item.height <= 256 ? item.largeSize : item.smallSize)
 
     // good
-    const itemHeight = (item) => {
-      const { height, largeSize, smallSize } = item;
-      return height <= 256 ? largeSize : smallSize;
-    };
+    const itemHeight = item => {
+      const { height, largeSize, smallSize } = item
+      return height <= 256 ? largeSize : smallSize
+    }
     ```
 
-  <a name="whitespace--implicit-arrow-linebreak"></a>
-  - [8.6](#whitespace--implicit-arrow-linebreak) Enforce the location of arrow function bodies with implicit returns. eslint: [`implicit-arrow-linebreak`](https://eslint.org/docs/rules/implicit-arrow-linebreak)
+  - Enforce the location of arrow function bodies with implicit returns. eslint: [`implicit-arrow-linebreak`](https://eslint.org/docs/rules/implicit-arrow-linebreak)
 
     ```javascript
     // bad
-    (foo) =>
-      bar;
+    foo =>
+      bar
 
-    (foo) =>
-      (bar);
+    foo =>
+      (bar)
 
     // good
-    (foo) => bar;
-    (foo) => (bar);
-    (foo) => (
+    foo => bar
+    foo => (bar)
+    foo => (
        bar
     )
     ```
