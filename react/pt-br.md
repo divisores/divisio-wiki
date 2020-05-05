@@ -880,6 +880,6 @@ Este guia é predominantemente baseado em outros padrões comuns que mais preval
   - **English**: [/README.md](https://github.com/divisioinc/divisio-styleguide/blob/master/react/README.md)
 
 
-**[Voltar ao topo](#lista-de-conteúdos)**
+**[⬆ voltar ao topo](#lista-de-conteúdos)**
 
 # )

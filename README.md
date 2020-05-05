@@ -31,13 +31,9 @@ Other Style Guides
   1. [Whitespace](#whitespace)
   1. [Commas](#commas)
   1. [Semicolons](#semicolons)
-  1. [Type Casting & Coercion](#type-casting--coercion) Needs code format and team review
-  1. [Naming Conventions](#naming-conventions) Needs code format and team review
-  1. [Accessors](#accessors) Needs code format and team review
-  1. [Events](#events) Needs code format and team review
-  1. [jQuery](#jquery) Needs code format and team review
-  1. [ECMAScript 5 Compatibility](#ecmascript-5-compatibility) Needs code format and team review
-  1. [ECMAScript 6+ (ES 2015+) Styles](#ecmascript-6-es-2015-styles) Needs code format and team review
+  1. [Type Casting & Coercion](#type-casting--coercion)
+  1. [Naming Conventions](#naming-conventions)
+  1. [Accessors](#accessors)
   1. [Testing](#testing) Needs code format and team review
   1. [Translation](#translation) Needs code format and team review
 
@@ -2697,11 +2693,9 @@ Other Style Guides
 
 ## Type Casting & Coercion
 
-  <a name="coercion--explicit"></a><a name="21.1"></a>
-  - [22.1](#coercion--explicit) Perform type coercion at the beginning of the statement.
+  - Perform type coercion at the beginning of the statement.
 
-  <a name="coercion--strings"></a><a name="21.2"></a>
-  - [22.2](#coercion--strings) Strings: eslint: [`no-new-wrappers`](https://eslint.org/docs/rules/no-new-wrappers)
+  - Strings: eslint: [`no-new-wrappers`](https://eslint.org/docs/rules/no-new-wrappers)
 
     ```javascript
     // => this.reviewScore = 9
@@ -2719,8 +2713,7 @@ Other Style Guides
     const totalScore = String(this.reviewScore)
     ```
 
-  <a name="coercion--numbers"></a><a name="21.3"></a>
-  - [22.3](#coercion--numbers) Numbers: Use `Number` for type casting and `parseInt` always with a radix for parsing strings. eslint: [`radix`](https://eslint.org/docs/rules/radix) [`no-new-wrappers`](https://eslint.org/docs/rules/no-new-wrappers)
+  - Numbers: Use `Number` for type casting and `parseInt` always with a radix for parsing strings. eslint: [`radix`](https://eslint.org/docs/rules/radix) [`no-new-wrappers`](https://eslint.org/docs/rules/no-new-wrappers)
 
     ```javascript
     const inputValue = '4'
@@ -2744,30 +2737,7 @@ Other Style Guides
     const val = parseInt(inputValue, 10)
     ```
 
-  <a name="coercion--comment-deviations"></a><a name="21.4"></a>
-  - [22.4](#coercion--comment-deviations) If for whatever reason you are doing something wild and `parseInt` is your bottleneck and need to use Bitshift for [performance reasons](https://jsperf.com/coercion-vs-casting/3), leave a comment explaining why and what you’re doing.
-
-    ```javascript
-    // good
-    /**
-     * parseInt was the reason my code was slow.
-     * Bitshifting the String to coerce it to a
-     * Number made it a lot faster.
-     */
-    const val = inputValue >> 0
-    ```
-
-  <a name="coercion--bitwise"></a><a name="21.5"></a>
-  - [22.5](#coercion--bitwise) **Note:** Be careful when using bitshift operations. Numbers are represented as [64-bit values](https://es5.github.io/#x4.3.19), but bitshift operations always return a 32-bit integer ([source](https://es5.github.io/#x11.7)). Bitshift can lead to unexpected behavior for integer values larger than 32 bits. [Discussion](https://github.com/airbnb/javascript/issues/109). Largest signed 32-bit Int is 2,147,483,647:
-
-    ```javascript
-    2147483647 >> 0 // => 2147483647
-    2147483648 >> 0 // => -2147483648
-    2147483649 >> 0 // => -2147483647
-    ```
-
-  <a name="coercion--booleans"></a><a name="21.6"></a>
-  - [22.6](#coercion--booleans) Booleans: eslint: [`no-new-wrappers`](https://eslint.org/docs/rules/no-new-wrappers)
+  - Booleans: eslint: [`no-new-wrappers`](https://eslint.org/docs/rules/no-new-wrappers)
 
     ```javascript
     const age = 0
@@ -2778,7 +2748,7 @@ Other Style Guides
     // good
     const hasAge = Boolean(age)
 
-    // best
+    // best!
     const hasAge = !!age
     ```
 
@@ -2786,41 +2756,37 @@ Other Style Guides
 
 ## Naming Conventions
 
-  <a name="naming--descriptive"></a><a name="22.1"></a>
-  - [23.1](#naming--descriptive) Avoid single letter names. Be descriptive with your naming. eslint: [`id-length`](https://eslint.org/docs/rules/id-length)
+  - Avoid single letter names. Be descriptive with your naming. eslint: [`id-length`](https://eslint.org/docs/rules/id-length)
 
     ```javascript
     // bad
-    function q() {
+    const q = () => {
       // ...
     }
 
     // good
-    function query() {
+    const query = () => {
       // ...
     }
     ```
 
-  <a name="naming--camelCase"></a><a name="22.2"></a>
-  - [23.2](#naming--camelCase) Use camelCase when naming objects, functions, and instances. eslint: [`camelcase`](https://eslint.org/docs/rules/camelcase.html)
+  - Use camelCase when naming objects, functions, and instances. eslint: [`camelcase`](https://eslint.org/docs/rules/camelcase.html)
 
     ```javascript
     // bad
     const OBJEcttsssss = {}
     const this_is_my_object = {}
-    function c() {}
 
     // good
     const thisIsMyObject = {}
-    function thisIsMyFunction() {}
+    const thisIsMyFunction = () => {}
     ```
 
-  <a name="naming--PascalCase"></a><a name="22.3"></a>
-  - [23.3](#naming--PascalCase) Use PascalCase only when naming constructors or classes. eslint: [`new-cap`](https://eslint.org/docs/rules/new-cap.html)
+  - Use PascalCase only when naming constructors or classes. eslint: [`new-cap`](https://eslint.org/docs/rules/new-cap.html)
 
     ```javascript
     // bad
-    function user(options) {
+    const user = (options) => {
       this.name = options.name
     }
 
@@ -2840,8 +2806,7 @@ Other Style Guides
     })
     ```
 
-  <a name="naming--leading-underscore"></a><a name="22.4"></a>
-  - [23.4](#naming--leading-underscore) Do not use trailing or leading underscores. eslint: [`no-underscore-dangle`](https://eslint.org/docs/rules/no-underscore-dangle.html)
+  - Do not use trailing or leading underscores. eslint: [`no-underscore-dangle`](https://eslint.org/docs/rules/no-underscore-dangle.html)
 
     > Why? JavaScript does not have the concept of privacy in terms of properties or methods. Although a leading underscore is a common convention to mean “private”, in fact, these properties are fully public, and as such, are part of your public API contract. This convention might lead developers to wrongly think that a change won’t count as breaking, or that tests aren’t needed. tldr: if you want something to be “private”, it must not be observably present.
 
@@ -2853,19 +2818,13 @@ Other Style Guides
 
     // good
     this.firstName = 'Panda'
-
-    // good, in environments where WeakMaps are available
-    // see https://kangax.github.io/compat-table/es6/#test-WeakMap
-    const firstNames = new WeakMap()
-    firstNames.set(this, 'Panda')
     ```
 
-  <a name="naming--self-this"></a><a name="22.5"></a>
-  - [23.5](#naming--self-this) Don’t save references to `this`. Use arrow functions or [Function#bind](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/bind).
+  - Don’t save references to `this`. Use arrow functions or [Function#bind](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/bind).
 
     ```javascript
     // bad
-    function foo() {
+    const foo = () => {
       const self = this
       return function () {
         console.log(self)
@@ -2873,7 +2832,7 @@ Other Style Guides
     }
 
     // bad
-    function foo() {
+    const foo = () => {
       const that = this
       return function () {
         console.log(that)
@@ -2881,15 +2840,14 @@ Other Style Guides
     }
 
     // good
-    function foo() {
+    const foo = () => {
       return () => {
         console.log(this)
       }
     }
     ```
 
-  <a name="naming--filename-matches-export"></a><a name="22.6"></a>
-  - [23.6](#naming--filename-matches-export) A base filename should exactly match the name of its default export.
+  - A base filename should exactly match the name of its default export.
 
     ```javascript
     // file 1 contents
@@ -2898,34 +2856,17 @@ Other Style Guides
     }
     export default CheckBox
 
-    // file 2 contents
-    export default function fortyTwo() { return 42 }
-
-    // file 3 contents
-    export default function insideDirectory() {}
-
-    // in some other file
     // bad
-    import CheckBox from './checkBox' // PascalCase import/export, camelCase filename
-    import FortyTwo from './FortyTwo' // PascalCase import/filename, camelCase export
-    import InsideDirectory from './InsideDirectory' // PascalCase import/filename, camelCase export
+    import CheckBox from './checkBox'
 
     // bad
-    import CheckBox from './check_box' // PascalCase import/export, snake_case filename
-    import forty_two from './forty_two' // snake_case import/filename, camelCase export
-    import inside_directory from './inside_directory' // snake_case import, camelCase export
-    import index from './inside_directory/index' // requiring the index file explicitly
-    import insideDirectory from './insideDirectory/index' // requiring the index file explicitly
+    import CheckBox from './check_box'
 
     // good
-    import CheckBox from './CheckBox' // PascalCase export/import/filename
-    import fortyTwo from './fortyTwo' // camelCase export/import/filename
-    import insideDirectory from './insideDirectory' // camelCase export/import/directory name/implicit "index"
-    // ^ supports both insideDirectory.js and insideDirectory/index.js
+    import CheckBox from './CheckBox'
     ```
 
-  <a name="naming--camelCase-default-export"></a><a name="22.7"></a>
-  - [23.7](#naming--camelCase-default-export) Use camelCase when you export-default a function. Your filename should be identical to your function’s name.
+  - Use camelCase when you export-default a function. Your filename should be identical to your function’s name.
 
     ```javascript
     function makeStyleGuide() {
@@ -2935,8 +2876,7 @@ Other Style Guides
     export default makeStyleGuide
     ```
 
-  <a name="naming--PascalCase-singleton"></a><a name="22.8"></a>
-  - [23.8](#naming--PascalCase-singleton) Use PascalCase when you export a constructor / class / singleton / function library / bare object.
+  - Use PascalCase when you export a constructor / class / singleton / function library / bare object.
 
     ```javascript
     const AirbnbStyleGuide = {
@@ -2947,8 +2887,7 @@ Other Style Guides
     export default AirbnbStyleGuide
     ```
 
-  <a name="naming--Acronyms-and-Initialisms"></a>
-  - [23.9](#naming--Acronyms-and-Initialisms) Acronyms and initialisms should always be all uppercased, or all lowercased.
+  - Acronyms and initialisms should always be all uppercased, or all lowercased.
 
     > Why? Names are for readability, not to appease a computer algorithm.
 
@@ -2956,13 +2895,13 @@ Other Style Guides
     // bad
     import SmsContainer from './containers/SmsContainer'
 
+    // good
+    import SMSContainer from './containers/SMSContainer'
+
     // bad
     const HttpRequests = [
       // ...
     ]
-
-    // good
-    import SMSContainer from './containers/SMSContainer'
 
     // good
     const HTTPRequests = [
@@ -2983,8 +2922,7 @@ Other Style Guides
     ]
     ```
 
-  <a name="naming--uppercase"></a>
-  - [23.10](#naming--uppercase) You may optionally uppercase a constant only if it (1) is exported, (2) is a `const` (it can not be reassigned), and (3) the programmer can trust it (and its nested properties) to never change.
+  - You may optionally uppercase a constant only if it (1) is exported, (2) is a `const` (it can not be reassigned), and (3) the programmer can trust it (and its nested properties) to never change.
 
     > Why? This is an additional tool to assist in situations where the programmer would be unsure if a variable might ever change. UPPERCASE_VARIABLES are letting the programmer know that they can trust the variable (and its properties) not to change.
     - What about all `const` variables? - This is unnecessary, so uppercasing should not be used for constants within a file. It should be used for exported constants however.
@@ -3000,7 +2938,6 @@ Other Style Guides
     // bad
     export let REASSIGNABLE_VARIABLE = 'do not use let with uppercase variables'
 
-    // ---
 
     // allowed but does not supply semantic value
     export const apiKey = 'SOMEKEY'
@@ -3008,7 +2945,6 @@ Other Style Guides
     // better in most cases
     export const API_KEY = 'SOMEKEY'
 
-    // ---
 
     // bad - unnecessarily uppercases key while adding no semantic value
     export const MAPPING = {
@@ -3025,11 +2961,9 @@ Other Style Guides
 
 ## Accessors
 
-  <a name="accessors--not-required"></a><a name="23.1"></a>
-  - [24.1](#accessors--not-required) Accessor functions for properties are not required.
+  - Accessor functions for properties are not required.
 
-  <a name="accessors--no-getters-setters"></a><a name="23.2"></a>
-  - [24.2](#accessors--no-getters-setters) Do not use JavaScript getters/setters as they cause unexpected side effects and are harder to test, maintain, and reason about. Instead, if you do make accessor functions, use `getVal()` and `setVal('hello')`.
+  - Do not use JavaScript getters/setters as they cause unexpected side effects and are harder to test, maintain, and reason about. Instead, if you do make accessor functions, use `getVal()` and `setVal('hello')`.
 
     ```javascript
     // bad
@@ -3055,8 +2989,7 @@ Other Style Guides
     }
     ```
 
-  <a name="accessors--boolean-prefix"></a><a name="23.3"></a>
-  - [24.3](#accessors--boolean-prefix) If the property/method is a `boolean`, use `isVal()` or `hasVal()`.
+  - If the property/method is a `boolean`, use `isVal()` or `hasVal()`.
 
     ```javascript
     // bad
@@ -3070,8 +3003,7 @@ Other Style Guides
     }
     ```
 
-  <a name="accessors--consistent"></a><a name="23.4"></a>
-  - [24.4](#accessors--consistent) It’s okay to create `get()` and `set()` functions, but be consistent.
+  - It’s okay to create `get()` and `set()` functions, but **always be consistent**.
 
     ```javascript
     class Jedi {
@@ -3092,181 +3024,6 @@ Other Style Guides
 
 **[⬆ back to top](#table-of-contents)**
 
-## Events
-
-  <a name="events--hash"></a><a name="24.1"></a>
-  - [25.1](#events--hash) When attaching data payloads to events (whether DOM events or something more proprietary like Backbone events), pass an object literal (also known as a "hash") instead of a raw value. This allows a subsequent contributor to add more data to the event payload without finding and updating every handler for the event. For example, instead of:
-
-    ```javascript
-    // bad
-    $(this).trigger('listingUpdated', listing.id)
-
-    // ...
-
-    $(this).on('listingUpdated', (e, listingID) => {
-      // do something with listingID
-    })
-    ```
-
-    prefer:
-
-    ```javascript
-    // good
-    $(this).trigger('listingUpdated', { listingID: listing.id })
-
-    // ...
-
-    $(this).on('listingUpdated', (e, data) => {
-      // do something with data.listingID
-    })
-    ```
-
-  **[⬆ back to top](#table-of-contents)**
-
-## jQuery
-
-  <a name="jquery--dollar-prefix"></a><a name="25.1"></a>
-  - [26.1](#jquery--dollar-prefix) Prefix jQuery object variables with a `$`.
-
-    ```javascript
-    // bad
-    const sidebar = $('.sidebar')
-
-    // good
-    const $sidebar = $('.sidebar')
-
-    // good
-    const $sidebarBtn = $('.sidebar-btn')
-    ```
-
-  <a name="jquery--cache"></a><a name="25.2"></a>
-  - [26.2](#jquery--cache) Cache jQuery lookups.
-
-    ```javascript
-    // bad
-    function setSidebar() {
-      $('.sidebar').hide()
-
-      // ...
-
-      $('.sidebar').css({
-        'background-color': 'pink',
-      })
-    }
-
-    // good
-    function setSidebar() {
-      const $sidebar = $('.sidebar')
-      $sidebar.hide()
-
-      // ...
-
-      $sidebar.css({
-        'background-color': 'pink',
-      })
-    }
-    ```
-
-  <a name="jquery--queries"></a><a name="25.3"></a>
-  - [26.3](#jquery--queries) For DOM queries use Cascading `$('.sidebar ul')` or parent > child `$('.sidebar > ul')`. [jsPerf](http://jsperf.com/jquery-find-vs-context-sel/16)
-
-  <a name="jquery--find"></a><a name="25.4"></a>
-  - [26.4](#jquery--find) Use `find` with scoped jQuery object queries.
-
-    ```javascript
-    // bad
-    $('ul', '.sidebar').hide()
-
-    // bad
-    $('.sidebar').find('ul').hide()
-
-    // good
-    $('.sidebar ul').hide()
-
-    // good
-    $('.sidebar > ul').hide()
-
-    // good
-    $sidebar.find('ul').hide()
-    ```
-
-**[⬆ back to top](#table-of-contents)**
-
-## ECMAScript 5 Compatibility
-
-  <a name="es5-compat--kangax"></a><a name="26.1"></a>
-  - [27.1](#es5-compat--kangax) Refer to [Kangax](https://twitter.com/kangax/)’s ES5 [compatibility table](https://kangax.github.io/es5-compat-table/).
-
-**[⬆ back to top](#table-of-contents)**
-
-<a name="ecmascript-6-styles"></a>
-## ECMAScript 6+ (ES 2015+) Styles
-
-  <a name="es6-styles"></a><a name="27.1"></a>
-  - [28.1](#es6-styles) This is a collection of links to the various ES6+ features.
-
-1. [Arrow Functions](#arrow-functions)
-1. [Classes](#classes--constructors)
-1. [Object Shorthand](#es6-object-shorthand)
-1. [Object Concise](#es6-object-concise)
-1. [Object Computed Properties](#es6-computed-properties)
-1. [Template Strings](#es6-template-literals)
-1. [Destructuring](#destructuring)
-1. [Default Parameters](#es6-default-parameters)
-1. [Rest](#es6-rest)
-1. [Array Spreads](#es6-array-spreads)
-1. [Let and Const](#references)
-1. [Exponentiation Operator](#es2016-properties--exponentiation-operator)
-1. [Iterators and Generators](#iterators-and-generators)
-1. [Modules](#modules)
-
-  <a name="tc39-proposals"></a>
-  - [28.2](#tc39-proposals) Do not use [TC39 proposals](https://github.com/tc39/proposals) that have not reached stage 3.
-
-    > Why? [They are not finalized](https://tc39.github.io/process-document/), and they are subject to change or to be withdrawn entirely. We want to use JavaScript, and proposals are not JavaScript yet.
-
-**[⬆ back to top](#table-of-contents)**
-
-## Standard Library
-
-  The [Standard Library](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects)
-  contains utilities that are functionally broken but remain for legacy reasons.
-
-  <a name="standard-library--isnan"></a>
-  - [29.1](#standard-library--isnan) Use `Number.isNaN` instead of global `isNaN`.
-    eslint: [`no-restricted-globals`](https://eslint.org/docs/rules/no-restricted-globals)
-
-    > Why? The global `isNaN` coerces non-numbers to numbers, returning true for anything that coerces to NaN.
-    > If this behavior is desired, make it explicit.
-
-    ```javascript
-    // bad
-    isNaN('1.2') // false
-    isNaN('1.2.3') // true
-
-    // good
-    Number.isNaN('1.2.3') // false
-    Number.isNaN(Number('1.2.3')) // true
-    ```
-
-  <a name="standard-library--isfinite"></a>
-  - [29.2](#standard-library--isfinite) Use `Number.isFinite` instead of global `isFinite`.
-    eslint: [`no-restricted-globals`](https://eslint.org/docs/rules/no-restricted-globals)
-
-    > Why? The global `isFinite` coerces non-numbers to numbers, returning true for anything that coerces to a finite number.
-    > If this behavior is desired, make it explicit.
-
-    ```javascript
-    // bad
-    isFinite('2e3') // true
-
-    // good
-    Number.isFinite('2e3') // false
-    Number.isFinite(parseInt('2e3', 10)) // true
-    ```
-
-**[⬆ back to top](#table-of-contents)**
-
 ## Testing
 
   - **Seriously, we need to do tests!**
@@ -3277,7 +3034,7 @@ Other Style Guides
 
   This style guide is also available in other languages:
 
-  - ![br](https://raw.githubusercontent.com/gosquared/flags/master/flags/flags/shiny/24/Brazil.png) **Brazilian Portuguese**: [armoucar/javascript-style-guide](https://github.com/armoucar/javascript-style-guide)
+  - **Portuguese**: [armoucar/javascript-style-guide](https://github.com/armoucar/javascript-style-guide)
 
 **[⬆ back to top](#table-of-contents)**
 
