@@ -6,7 +6,7 @@ This style guide is mostly based on the standards that are currently prevalent i
 
 Others style guides:
 
-  - [JS](/)
+  - [JS](/README.md)
 
 ## Table of Contents
 
