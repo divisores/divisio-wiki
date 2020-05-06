@@ -1,87 +1,87 @@
 # Divisio JavaScript Style Guide = () => (
 
-*Our mostly reasonable approach to JavaScript*
+*Essa é a abordagem da Divisio com JavaScript*
 
-Keep in mind that some rules will automatically be fixed with [Prettier](https://prettier.io/), and others will not. This guide is available in other languages too. See [Translation](#translation)
+Mantenha em mente que algumas regras serão automaticamente arrumadas com o [Prettier](https://prettier.io/), e outras não. Este guia também está disponível em outras linguagens. Veja em [Tradução](#tradução)
 
-Other Style Guides
+Outros Style Guides
 
   - [React](react/)
 
-## Table of Contents
+## Lista de conteúdos
 
-  1. [Basic Rules](#basic-rules)
-  1. [References](#references)
-  1. [Objects](#objects)  
+  1. [Regras básicas](#regras-básicas)
+  1. [Referências](#referências)
+  1. [Objetos](#objetos)  
   1. [Arrays](#arrays) 
-  1. [Destructuring](#destructuring) 
+  1. [Desestruturação](#desestruturação) 
   1. [Strings](#strings) 
-  1. [Functions](#functions) 
+  1. [Funções](#funções) 
   1. [Arrow Functions](#arrow-functions)
-  1. [Classes & Constructors](#classes--constructors)
-  1. [Modules](#modules)
-  1. [Iterators and Generators](#iterators)
-  1. [Properties](#properties)
-  1. [Variables](#variables)
+  1. [Classes & Construtores](#classes--construtores)
+  1. [Módulos](#módulos)
+  1. [Iteradores e Geradores](#iteradores)
+  1. [Propriedades](#propriedades)
+  1. [Variáveis](#variáveis)
   1. [Hoisting](#hoisting)
-  1. [Comparison Operators & Equality](#comparison-operators--equality)
-  1. [Blocks](#blocks)
-  1. [Control Statements](#control-statements)
-  1. [Comments](#comments)
+  1. [Operadores de comparação e igualdade](#comparação-operadores--igualdade)
+  1. [Blocos](#blocos)
+  1. [Declarações de controle](#declaração-controle)
+  1. [Comentários](#comentários)
   1. [Whitespace](#whitespace)
-  1. [Commas](#commas)
-  1. [Semicolons](#semicolons)
-  1. [Type Casting & Coercion](#type-casting--coercion)
-  1. [Naming Conventions](#naming-conventions)
+  1. [Vírgulas](#vírgulas)
+  1. [Ponto e vírgula](#ponto--vírgula)
+  1. [Tipos Casting & Coercion](#tipos-casting--coercion)
+  1. [Nomeação](#nomeação)
   1. [Accessors](#accessors)
-  1. [Testing](#testing)
-  1. [Translation](#translation)
+  1. [Testes](#testes)
+  1. [Tradução](#tradução)
 
-## Basic Rules
+## Regras básicas
 
-  - Do not use `;` at the end of each line.
-  - Always name **everything** in english as a pattern.
+  - Não use `;` no fim de cada linha.
+  - Sempre nomeie **tudo** em inglês por convenção.
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ voltar ao topo](#lista-de-conteúdos)**
 
-## References
+## Referências
 
-  - Use `const` for all of your references, and avoid using `var`. eslint: [`prefer-const`](https://eslint.org/docs/rules/prefer-const.html), [`no-const-assign`](https://eslint.org/docs/rules/no-const-assign.html)
+  - Use `const` para todas as suas referências, e evite usar `var`. eslint: [`prefer-const`](https://eslint.org/docs/rules/prefer-const.html), [`no-const-assign`](https://eslint.org/docs/rules/no-const-assign.html)
 
-    > Why? This ensures that you can’t reassign your references, which can lead to bugs and difficult to comprehend code.
+    > Por que? This ensures that you can’t reassign your references, which can lead to bugs and difficult to comprehend code.
 
     ```javascript
-    // bad
+    // ruim
     var a = 1
     var b = 2
 
-    // good
+    // bom
     const a = 1
     const b = 2
     ```
 
-  - If you must reassign references, use `let` instead of `var`. eslint: [`no-var`](https://eslint.org/docs/rules/no-var.html)
+  - Se você precisa , use `let` ao invés de `var`. eslint: [`no-var`](https://eslint.org/docs/rules/no-var.html)
 
-    > Why? `let` is block-scoped rather than function-scoped like `var`.
+    > Por que? `let` é tem escopo por bloco, diferente de `var` que tem escopo por função.
 
     ```javascript
-    // bad
+    // ruim
     var count = 1
     if (true) {
       count += 1
     }
 
-    // good, use the let.
+    // bom, use let.
     let count = 1
     if (true) {
       count += 1
     }
     ```
 
-    > **Note**: Note that both `let` and `const` are block-scoped.
+    > **Note**: Note que ambas `let` e `const` são escopos por bloco.
 
     ```javascript
-    // const and let only exist in the blocks they are defined in.
+    // const e let existem apenas aonde foram definidas.
     {
       let a = 1
       const b = 1
@@ -90,29 +90,29 @@ Other Style Guides
     console.log(b) // ReferenceError
     ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ voltar ao topo](#lista-de-conteúdos)**
 
-## Objects
+## Objetos
 
-  - Use the literal syntax for object creation. eslint: [`no-new-object`](https://eslint.org/docs/rules/no-new-object.html)
+  - Use a sintaxe literal para criação de objetos. eslint: [`no-new-object`](https://eslint.org/docs/rules/no-new-object.html)
 
     ```javascript
-    // bad
+    // ruim
     const item = new Object()
 
-    // good
+    // bom
     const item = {}
     ```
 
-  - Use computed property names when creating objects with dynamic property names.
+  - Use nomes de propriedades usando notação de colchetes ao criar objetos com nomes de propriedades dinâmicos.
 
-    > Why? They allow you to define all the properties of an object in one place.
+    > Por que? Elas permitem que você defina todas as propriedades de um objeto em apenas um lugar.
 
     ```javascript
 
     const getKey = k => `a key named ${k}`
 
-    // bad
+    // ruim
     const obj = {
       id: 5,
       name: 'San Francisco',
@@ -120,7 +120,7 @@ Other Style Guides
   
     obj[getKey('enabled')] = true
 
-    // good
+    // bom
     const obj = {
       id: 5,
       name: 'San Francisco',
@@ -128,10 +128,10 @@ Other Style Guides
     }
     ```
 
-  - Use object method shorthand. eslint: [`object-shorthand`](https://eslint.org/docs/rules/object-shorthand.html)
+  - Declare métodos de objetos de forma abreviada. eslint: [`object-shorthand`](https://eslint.org/docs/rules/object-shorthand.html)
 
     ```javascript
-    // bad
+    // ruim
     const atom = {
       value: 1,
 
@@ -140,7 +140,7 @@ Other Style Guides
       },
     }
 
-    // good
+    // bom
     const atom = {
       value: 1,
 
@@ -150,7 +150,7 @@ Other Style Guides
     }
     ```
 
-    > **Note**: This rule does not flag arrow functions inside of object literals. The following  will not warn!
+    > **Nota**: Essa regra não aponta para arrow functions dentro de objetos literais. O exemplo a seguir não indica erro!
 
     ```javascript
     /*eslint object-shorthand: "error"*/
@@ -161,33 +161,33 @@ Other Style Guides
     }
     ```
 
-  - Use property value shorthand. eslint: [`object-shorthand`](https://eslint.org/docs/rules/object-shorthand.html)
+  - Declare propriedades de forma abreviada. eslint: [`object-shorthand`](https://eslint.org/docs/rules/object-shorthand.html)
 
-    > Why? It is shorter and descriptive.
+    > Por que? Assim fica menor e mais discreto.
 
     ```javascript
     const lukeSkywalker = 'Luke Skywalker'
 
-    // bad
+    // ruim
     const obj = {
       lukeSkywalker: lukeSkywalker,
     }
 
-    // good
+    // bom
     const obj = {
       lukeSkywalker,
     }
     ```
 
-  - Group your shorthand properties at the beginning of your object declaration.
+  - Agrupe suas propriedades abreviadas no início da declaração do objeto.
 
-    > Why? It’s easier to tell which properties are using the shorthand.
+    > Por que? Assim é mais fácil de ver qual propriedade está sendo abreviada.
 
     ```javascript
     const anakinSkywalker = 'Anakin Skywalker'
     const lukeSkywalker = 'Luke Skywalker'
 
-    // bad
+    // ruim
     const obj = {
       episodeOne: 1,
       twoJediWalkIntoACantina: 2,
@@ -197,7 +197,7 @@ Other Style Guides
       anakinSkywalker,
     }
 
-    // good
+    // bom
     const obj = {
       lukeSkywalker,
       anakinSkywalker,
@@ -208,19 +208,19 @@ Other Style Guides
     }
     ```
 
-  - Only quote properties that are invalid identifiers. eslint: [`quote-props`](https://eslint.org/docs/rules/quote-props.html)
+  - Apenas abarace em aspas simples as propriedades que são identificadores inválidos. eslint: [`quote-props`](https://eslint.org/docs/rules/quote-props.html)
 
-    > Why? In general we consider it subjectively easier to read. It improves syntax highlighting, and is also more easily optimized by many JS engines.
+    > Por que? Em geral nós consideramos mais fácil de ler. Ainda promove destaque, e também é mais otimizado para vários engines de JS. 
 
     ```javascript
-    // bad
+    // ruim
     const bad = {
       'foo': 3,
       'bar': 4,
       'data-blah': 5,
     }
 
-    // good
+    // bom
     const good = {
       foo: 3,
       bar: 4,
@@ -228,74 +228,74 @@ Other Style Guides
     }
     ```
 
-  - Do not call `Object.prototype` methods directly, such as `hasOwnProperty`, `propertyIsEnumerable`, and `isPrototypeOf`. eslint: [`no-prototype-builtins`](https://eslint.org/docs/rules/no-prototype-builtins)
+   - Não use os métodos de `Object.prototype` de forma direta, como `hasOwnProperty`, `propertyIsEnumerable`, e `isPrototypeOf`. eslint: [`no-prototype-builtins`](https://eslint.org/docs/rules/no-prototype-builtins)
 
-    > Why? These methods may be shadowed by properties on the object in question - consider `{ hasOwnProperty: false }` - or, the object may be a null object (`Object.create(null)`).
+      > Por que? Esses métodos podem ser sombreados por propriedades no objeto em   questão - considere `{ hasOwnProperty: false }` - ou, o objeto podendo ser nulo   (`Object.create(null)`).
+  
+      ```javascript
+      // ruim
+      console.log(object.hasOwnProperty(key))
+  
+      // bom
+      console.log(Object.prototype.hasOwnProperty.call(object, key))
+  
+      // best
+      const has = Object.prototype.hasOwnProperty // armazena a pesquisa em cache uma   vez, no escopo do módulo.
+      console.log(has.call(object, key))
+      /* ou */
+      import has from 'has' // https://www.npmjs.com/package/has
+      console.log(has(object, key))
+      ```
+
+  - Prefira usar spread operator no objeto ao invés de [`Object.assign`](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Object/assign) ao copiar objetos. Use o rest operator do objeto para pegar um novo objeto com propriedades omitidas
 
     ```javascript
-    // bad
-    console.log(object.hasOwnProperty(key))
-
-    // good
-    console.log(Object.prototype.hasOwnProperty.call(object, key))
-
-    // best
-    const has = Object.prototype.hasOwnProperty // cache the lookup once, in module scope.
-    console.log(has.call(object, key))
-    /* or */
-    import has from 'has' // https://www.npmjs.com/package/has
-    console.log(has(object, key))
-    ```
-
-  - Prefer the object spread operator over [`Object.assign`](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Object/assign) to shallow-copy objects. Use the object rest operator to get a new object with certain properties omitted.
-
-    ```javascript
-    // very bad
+    // muito ruim
     const original = { a: 1, b: 2 }
-    const copy = Object.assign(original, { c: 3 }) // this mutates `original`
-    delete copy.a // so does this
+    const copy = Object.assign(original, { c: 3 }) // Isso muda o `original`
+    delete copy.a // este também
 
-    // bad
+    // ruim
     const original = { a: 1, b: 2 }
     const copy = Object.assign({}, original, { c: 3 }) // copy => { a: 1, b: 2, c: 3 }
 
-    // good
+    // bom
     const original = { a: 1, b: 2 }
     const copy = { ...original, c: 3 } // copy => { a: 1, b: 2, c: 3 }
 
     const { a, ...rest } = copy // rest => { b: 2, c: 3 }
     ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ voltar ao topo](#lista-de-conteúdos)**
 
 ## Arrays
 
-  - Use the literal syntax for array creation. eslint: [`no-array-constructor`](https://eslint.org/docs/rules/no-array-constructor.html)
+  - Use a sintaxe literal para a criação de Arrays. eslint: [`no-array-constructor`](https://eslint.org/docs/rules/no-array-constructor.html)
 
     ```javascript
-    // bad
+    // ruim
     const items = new Array()
 
-    // good
+    // bom
     const items = []
     ```
 
-  - Use [Array#push](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Array/push) instead of direct assignment to add items to an array.
+  - Use [Array#push](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Array/push) ao inves de atribuir um item diretamente ao array.
 
     ```javascript
     const someStack = []
 
-    // bad
+    // ruim
     someStack[someStack.length] = 'abracadabra'
 
-    // good
+    // bom
     someStack.push('abracadabra')
     ```
 
-  - Use array spreads `...` to copy arrays.
+  - Use array spreads `...` para copiar arrays.
 
     ```javascript
-    // bad
+    // ruim
     const len = items.length
     const itemsCopy = []
     let i
@@ -304,68 +304,68 @@ Other Style Guides
       itemsCopy[i] = items[i]
     }
 
-    // good
+    // bom
     const itemsCopy = [...items]
     ```
 
-  - To convert an iterable object to an array, use spreads `...` instead of [`Array.from`](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Array/from).
+  - Para converter um objeto para array, use spreads `...` ao inves de [`Array.from`](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Array/from).
 
     ```javascript
     const foo = document.querySelectorAll('.foo')
 
-    // good
+    // bom
     const nodes = Array.from(foo)
 
     // best
     const nodes = [...foo]
     ```
 
-  - Use [`Array.from`](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Array/from) for converting an array-like object to an array.
+  - Use [`Array.from`](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Array/from) para converter um objeto similar a um array para array.
 
     ```javascript
     const arrLike = { 0: 'foo', 1: 'bar', 2: 'baz', length: 3 }
 
-    // bad
+    // ruim
     const arr = Array.prototype.slice.call(arrLike)
 
-    // good
+    // bom
     const arr = Array.from(arrLike)
     ```
 
-  - Use [`Array.from`](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Array/from) instead of spread `...` for mapping over iterables, because it avoids creating an intermediate array.
+  - Use [`Array.from`](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Array/from) ao invés de spread `...` para mapear em cima de iteráveis, porque isso evita criar um array intermediário.
 
     ```javascript
-    // bad
+    // ruim
     const baz = [...foo].map(bar)
 
-    // good
+    // bom
     const baz = Array.from(foo, bar)
     ```
 
-  - Use return statements in array method callbacks. It’s ok to omit the return if the function body consists of a single statement returning an expression without side effects. eslint: [`array-callback-return`](https://eslint.org/docs/rules/array-callback-return)
+  - Use return em métodos callbacks de array. Está ok omitir o return se a função consistir em um único retorno de expressão sem efeitos colaterais. eslint: [`array-callback-return`](https://eslint.org/docs/rules/array-callback-return)
 
     ```javascript
-    // good
+    // bom
     [1, 2, 3].map(x => {
       const y = x + 1
       return x * y
     })
 
-    // good
+    // bom
     [1, 2, 3].map(x => x + 1)
 
-    // bad - no returned value means `acc` becomes undefined after the first iteration
+    // ruim - não retornar um valor significa que 'acc' será undefined depois da primeira iteração
     [[0, 1], [2, 3], [4, 5]].reduce((acc, item, index) => {
       const flatten = acc.concat(item)
     })
 
-    // good
+    // bom
     [[0, 1], [2, 3], [4, 5]].reduce((acc, item, index) => {
       const flatten = acc.concat(item)
       return flatten
     })
 
-    // bad
+    // ruim
     inbox.filter(msg => {
       const { subject, author } = msg
       if (subject === 'Mockingbird') {
@@ -375,7 +375,7 @@ Other Style Guides
       }
     })
 
-    // good
+    // bom
     inbox.filter(msg => {
       const { subject, author } = msg
       if (subject === 'Mockingbird') {
@@ -386,10 +386,10 @@ Other Style Guides
     })
     ```
 
-  - Use line breaks after open and before close array brackets if an array has multiple lines
+  - Use quebras de linhas depois de abrir e fechar colchetes de arrays se o array tiver múltiplas linhas
 
     ```javascript
-    // bad
+    // ruim
     const arr = [
       [0, 1], [2, 3], [4, 5],
     ]
@@ -404,7 +404,7 @@ Other Style Guides
       1, 2,
     ]
 
-    // good
+    // bom
     const arr = [[0, 1], [2, 3], [4, 5]]
 
     const objectInArray = [
@@ -422,16 +422,16 @@ Other Style Guides
     ]
     ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ voltar ao topo](#lista-de-conteúdos)**
 
 ## Destructuring
 
   - Use object destructuring when accessing and using multiple properties of an object. eslint: [`prefer-destructuring`](https://eslint.org/docs/rules/prefer-destructuring)
 
-    > Why? Destructuring saves you from creating temporary references for those properties.
+    > Por que? Destructuring saves you from creating temporary references for those properties.
 
     ```javascript
-    // bad
+    // ruim
     const getFullName = user => {
       const firstName = user.firstName
       const lastName = user.lastName
@@ -439,7 +439,7 @@ Other Style Guides
       return `${firstName} ${lastName}`
     }
 
-    // good
+    // bom
     const getFullName = user => {
       const { firstName, lastName } = user
       return `${firstName} ${lastName}`
@@ -454,20 +454,20 @@ Other Style Guides
     ```javascript
     const arr = [1, 2, 3, 4]
 
-    // bad
+    // ruim
     const first = arr[0]
     const second = arr[1]
 
-    // good
+    // bom
     const [first, second] = arr
     ```
 
   - Use object destructuring for multiple return values, not array destructuring.
 
-    > Why? You can add new properties over time or change the order of things without breaking call sites.
+    > Por que? You can add new properties over time or change the order of things without breaking call sites.
 
     ```javascript
-    // bad
+    // ruim
     const processInput = input => {
       // ...
       return [left, right, top, bottom]
@@ -476,7 +476,7 @@ Other Style Guides
     // the caller needs to think about the order of return data
     const [left, __, top] = processInput(input)
 
-    // good
+    // bom
     const processInput = input => {
       // ...
       return { left, right, top, bottom }
@@ -486,58 +486,58 @@ Other Style Guides
     const { left, top } = processInput(input)
     ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ voltar ao topo](#lista-de-conteúdos)**
 
 ## Strings
 
   - Use single quotes `''` for strings. eslint: [`quotes`](https://eslint.org/docs/rules/quotes.html)
 
     ```javascript
-    // bad
+    // ruim
     const name = "Capt. Janeway"
 
-    // bad - template literals should contain interpolation or newlines
+    // ruim - template literals should contain interpolation or newlines
     const name = `Capt. Janeway`
 
-    // good
+    // bom
     const name = 'Capt. Janeway'
     ```
 
   - Strings that cause the line to go over 100 characters should **not** be written across multiple lines using string concatenation.
 
-    > Why? Broken strings are painful to work with and make code less searchable.
+    > Por que? Broken strings are painful to work with and make code less searchable.
 
     ```javascript
-    // bad
+    // ruim
     const errorMessage = 'This is a super long error that was thrown because \
     of Batman. When you stop to think about how Batman had anything to do \
     with this, you would get nowhere \
     fast.'
 
-    // bad
+    // ruim
     const errorMessage = 'This is a super long error that was thrown because ' +
       'of Batman. When you stop to think about how Batman had anything to do ' +
       'with this, you would get nowhere fast.'
 
-    // good
+    // bom
     const errorMessage = 'This is a super long error that was thrown because of Batman. When you stop to think about how Batman had anything to do with this, you would get nowhere fast.'
     ```
 
   - When programmatically building up strings, use template strings instead of concatenation. eslint: [`prefer-template`](https://eslint.org/docs/rules/prefer-template.html) [`template-curly-spacing`](https://eslint.org/docs/rules/template-curly-spacing)
 
-    > Why? Template strings give you a readable, concise syntax with proper newlines and string interpolation features.
+    > Por que? Template strings give you a readable, concise syntax with proper newlines and string interpolation features.
 
     ```javascript
-    // bad
+    // ruim
     const sayHi = name => 'How are you, ' + name + '?'
 
-    // bad
+    // ruim
     const sayHi = name => ['How are you, ', name, '?'].join()
 
-    // bad
+    // ruim
     const sayHi = name => `How are you, ${ name }?`
 
-    // good
+    // bom
     const sayHi = name => `How are you, ${name}?`
     ```
 
@@ -545,18 +545,18 @@ Other Style Guides
 
   - Do not unnecessarily escape characters in strings. eslint: [`no-useless-escape`](https://eslint.org/docs/rules/no-useless-escape)
 
-    > Why? Backslashes harm readability, thus they should only be present when necessary.
+    > Por que? Backslashes harm readability, thus they should only be present when necessary.
 
     ```javascript
-    // bad
+    // ruim
     const foo = '\'this\' \i\s \"quoted\"'
 
-    // good
+    // bom
     const foo = '\'this\' is "quoted"'
     const foo = `my name is '${name}'`
     ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ voltar ao topo](#lista-de-conteúdos)**
 
 ## Functions
 
@@ -564,20 +564,20 @@ Other Style Guides
 
   - Use named function expressions instead of function declarations. eslint: [`func-style`](https://eslint.org/docs/rules/func-style)
 
-    > Why? Function declarations are hoisted, which means that it’s easy - too easy - to reference the function before it is defined in the file. This harms readability and maintainability. If you find that a function’s definition is large or complex enough that it is interfering with understanding the rest of the file, then perhaps it’s time to extract it to its own module! Don’t forget to explicitly name the expression, regardless of whether or not the name is inferred from the containing variable (which is often the case in modern browsers or when using compilers such as Babel). This eliminates any assumptions made about the Error’s call stack. ([Discussion](https://github.com/airbnb/javascript/issues/794))
+    > Por que? Function declarations are hoisted, which means that it’s easy - too easy - to reference the function before it is defined in the file. This harms readability and maintainability. If you find that a function’s definition is large or complex enough that it is interfering with understanding the rest of the file, then perhaps it’s time to extract it to its own module! Don’t forget to explicitly name the expression, regardless of whether or not the name is inferred from the containing variable (which is often the case in modern browsers or when using compilers such as Babel). This eliminates any assumptions made about the Error’s call stack. ([Discussion](https://github.com/airbnb/javascript/issues/794))
 
     ```javascript
-    // bad
+    // ruim
     function foo() {
       // ...
     }
 
-    // bad
+    // ruim
     const foo = function () {
       // ...
     }
 
-    // good
+    // bom
     // lexical name distinguished from the variable-referenced invocation(s)
     const short = function longUniqueMoreDescriptiveLexicalFoo() {
       // ...
@@ -586,7 +586,7 @@ Other Style Guides
 
   - Wrap immediately invoked function expressions in parentheses. eslint: [`wrap-iife`](https://eslint.org/docs/rules/wrap-iife.html)
 
-    > Why? An immediately invoked function expression is a single unit - wrapping both it, and its invocation parens, in parens, cleanly expresses this. Note that in a world with modules everywhere, you almost never need an IIFE.
+    > Por que? An immediately invoked function expression is a single unit - wrapping both it, and its invocation parens, in parens, cleanly expresses this. Note that in a world with modules everywhere, you almost never need an IIFE.
 
     ```javascript
     // immediately-invoked function expression (IIFE)
@@ -600,14 +600,14 @@ Other Style Guides
   > **Note:** ECMA-262 defines a `block` as a list of statements. A function declaration is not a statement.
 
     ```javascript
-    // bad
+    // ruim
     if (currentUser) {
       function test() {
         console.log('Nope.')
       }
     }
 
-    // good
+    // bom
     let test
     if (currentUser) {
       test = () => {
@@ -619,12 +619,12 @@ Other Style Guides
   - Never name a parameter `arguments`. This will take precedence over the `arguments` object that is given to every function scope.
 
     ```javascript
-    // bad
+    // ruim
     function foo(name, options, arguments) {
       // ...
     }
 
-    // good
+    // bom
     function foo(name, options, args) {
       // ...
     }
@@ -632,16 +632,16 @@ Other Style Guides
 
   - Never use `arguments`, opt to use rest syntax `...` instead. eslint: [`prefer-rest-params`](https://eslint.org/docs/rules/prefer-rest-params)
 
-    > Why? `...` is explicit about which arguments you want pulled. Plus, rest arguments are a real Array, and not merely Array-like like `arguments`.
+    > Por que? `...` is explicit about which arguments you want pulled. Plus, rest arguments are a real Array, and not merely Array-like like `arguments`.
 
     ```javascript
-    // bad
+    // ruim
     function concatenateAll() {
       const args = Array.prototype.slice.call(arguments)
       return args.join('')
     }
 
-    // good
+    // bom
     function concatenateAll(...args) {
       return args.join('')
     }
@@ -665,7 +665,7 @@ Other Style Guides
       // ...
     }
 
-    // good
+    // bom
     function handleThings(opts = {}) {
       // ...
     }
@@ -673,12 +673,12 @@ Other Style Guides
 
   - Avoid side effects with default parameters.
 
-    > Why? They are confusing to reason about.
+    > Por que? They are confusing to reason about.
 
     ```javascript
     var b = 1
   
-    // bad
+    // ruim
     function count(a = b++) {
       console.log(a)
     }
@@ -692,12 +692,12 @@ Other Style Guides
   - Always put default parameters last.
 
     ```javascript
-    // bad
+    // ruim
     function handleThings(opts = {}, name) {
       // ...
     }
 
-    // good
+    // bom
     function handleThings(name, opts = {}) {
       // ...
     }
@@ -705,10 +705,10 @@ Other Style Guides
 
   - Never use the Function constructor to create a new function. eslint: [`no-new-func`](https://eslint.org/docs/rules/no-new-func)
 
-    > Why? Creating a function in this way evaluates a string similarly to `eval()`, which opens vulnerabilities.
+    > Por que? Creating a function in this way evaluates a string similarly to `eval()`, which opens vulnerabilities.
 
     ```javascript
-    // bad
+    // ruim
     var add = new Function('a', 'b', 'return a + b')
 
     // still bad
@@ -717,30 +717,30 @@ Other Style Guides
 
   - Spacing in a function signature. eslint: [`space-before-function-paren`](https://eslint.org/docs/rules/space-before-function-paren) [`space-before-blocks`](https://eslint.org/docs/rules/space-before-blocks)
 
-    > Why? Consistency is good, and you shouldn’t have to add or remove a space when adding or removing a name.
+    > Por que? Consistency is good, and you shouldn’t have to add or remove a space when adding or removing a name.
 
     ```javascript
-    // bad
+    // ruim
     const f = function(){}
     const g = function (){}
     const h = function() {}
 
-    // good
+    // bom
     const x = function () {}
     const y = function a() {}
     ```
 
   - Never mutate parameters. eslint: [`no-param-reassign`](https://eslint.org/docs/rules/no-param-reassign.html)
 
-    > Why? Manipulating objects passed in as parameters can cause unwanted variable side effects in the original caller.
+    > Por que? Manipulating objects passed in as parameters can cause unwanted variable side effects in the original caller.
 
     ```javascript
-    // bad
+    // ruim
     function f1(obj) {
       obj.key = 1
     }
 
-    // good
+    // bom
     function f2(obj) {
       const key = Object.prototype.hasOwnProperty.call(obj, 'key') ? obj.key : 1
     }
@@ -748,10 +748,10 @@ Other Style Guides
 
   - Never reassign parameters. eslint: [`no-param-reassign`](https://eslint.org/docs/rules/no-param-reassign.html)
 
-    > Why? Reassigning parameters can lead to unexpected behavior, especially when accessing the `arguments` object. It can also cause optimization issues, especially in V8.
+    > Por que? Reassigning parameters can lead to unexpected behavior, especially when accessing the `arguments` object. It can also cause optimization issues, especially in V8.
 
     ```javascript
-    // bad
+    // ruim
     function f1(a) {
       a = 1
       // ...
@@ -762,7 +762,7 @@ Other Style Guides
       // ...
     }
 
-    // good
+    // bom
     function f3(a) {
       const b = a || 1
       // ...
@@ -775,35 +775,35 @@ Other Style Guides
 
   - Prefer the use of the spread operator `...` to call variadic functions. eslint: [`prefer-spread`](https://eslint.org/docs/rules/prefer-spread)
 
-    > Why? It’s cleaner, you don’t need to supply a context, and you can not easily compose `new` with `apply`.
+    > Por que? It’s cleaner, you don’t need to supply a context, and you can not easily compose `new` with `apply`.
 
     ```javascript
-    // bad
+    // ruim
     const x = [1, 2, 3, 4, 5]
     console.log.apply(console, x)
 
-    // good
+    // bom
     const x = [1, 2, 3, 4, 5]
     console.log(...x)
 
-    // bad
+    // ruim
     new (Function.prototype.bind.apply(Date, [null, 2016, 8, 5]))
 
-    // good
+    // bom
     new Date(...[2016, 8, 5])
     ```
 
   - Functions with multiline signatures, or invocations, should be indented just like every other multiline list in this guide: with each item on a line by itself, with a trailing comma on the last item. eslint: [`function-paren-newline`](https://eslint.org/docs/rules/function-paren-newline)
 
     ```javascript
-    // bad
+    // ruim
     function foo(bar,
                  baz,
                  quux) {
       // ...
     }
 
-    // good
+    // bom
     function foo(
       bar,
       baz,
@@ -812,12 +812,12 @@ Other Style Guides
       // ...
     }
 
-    // bad
+    // ruim
     console.log(foo,
       bar,
       baz)
 
-    // good
+    // bom
     console.log(
       foo,
       bar,
@@ -825,27 +825,27 @@ Other Style Guides
     )
     ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ voltar ao topo](#lista-de-conteúdos)**
 
 ## Arrow Functions
 
   - Always prefer to use arrow functions instead of normal functions if you can.
-    > Why? Consistency is always a good thing, and the syntax becomes more concise.
+    > Por que? Consistency is always a good thing, and the syntax becomes more concise.
 
   - When you must use an anonymous function (as when passing an inline callback), use arrow function notation. eslint: [`prefer-arrow-callback`](https://eslint.org/docs/rules/prefer-arrow-callback.html), [`arrow-spacing`](https://eslint.org/docs/rules/arrow-spacing.html)
 
-    > Why? It creates a version of the function that executes in the context of `this`, which is usually what you want.
+    > Por que? It creates a version of the function that executes in the context of `this`, which is usually what you want.
 
     > Why not? If you have a fairly complicated function, you might move that logic out into its own named function expression.
 
     ```javascript
-    // bad
+    // ruim
     [1, 2, 3].map(function (x) {
       const y = x + 1
       return x * y
     })
 
-    // good
+    // bom
     [1, 2, 3].map(x => {
       const y = x + 1
       return x * y
@@ -854,25 +854,25 @@ Other Style Guides
 
   - If the function body consists of a single statement returning an [expression](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Expressions_and_Operators#Expressions) without side effects, omit the braces and use the implicit return. Otherwise, keep the braces and use a `return` statement. eslint: [`arrow-parens`](https://eslint.org/docs/rules/arrow-parens.html), [`arrow-body-style`](https://eslint.org/docs/rules/arrow-body-style.html)
 
-    > Why? Syntactic sugar. It reads well when multiple functions are chained together.
+    > Por que? Syntactic sugar. It reads well when multiple functions are chained together.
 
     ```javascript
-    // bad
+    // ruim
     [1, 2, 3].map(number => {
       const nextNumber = number + 1
       `A string containing the ${nextNumber}.`
     })
 
-    // good
+    // bom
     [1, 2, 3].map(number => `A string containing the ${number + 1}.`)
 
-    // good
+    // bom
     [1, 2, 3].map(number => {
       const nextNumber = number + 1
       return `A string containing the ${nextNumber}.`
     })
 
-    // good
+    // bom
     [1, 2, 3].map((number, index) => ({
       [index]: number,
     }))
@@ -881,19 +881,19 @@ Other Style Guides
   - If there is only one argument, do not include parentheses around arguments for clarity and consistency.
 
     ```javascript
-    // bad
+    // ruim
     [1, 2, 3].map(x => x * x)
 
-    // good
+    // bom
     [1, 2, 3].map(x => x * x)
 
 
-    // bad
+    // ruim
     [1, 2, 3].map(number => (
       `A long string with the ${number}. It’s so long that we don’t want it to take up space on the .map line!`
     ))
 
-    // good
+    // bom
     [1, 2, 3].map(number => (
       `A long string with the ${number}. It’s so long that we don’t want it to take up space on the .map line!`
     ))
@@ -902,16 +902,16 @@ Other Style Guides
   - Avoid confusing arrow function syntax (`=>`) with comparison operators (`<=`, `>=`). eslint: [`no-confusing-arrow`](https://eslint.org/docs/rules/no-confusing-arrow)
 
     ```javascript
-    // bad
+    // ruim
     const itemHeight = item => item.height <= 256 ? item.largeSize : item.smallSize
 
-    // bad
+    // ruim
     const itemHeight = item => item.height >= 256 ? item.largeSize : item.smallSize
 
-    // good
+    // bom
     const itemHeight = item => (item.height <= 256 ? item.largeSize : item.smallSize)
 
-    // good
+    // bom
     const itemHeight = item => {
       const { height, largeSize, smallSize } = item
       return height <= 256 ? largeSize : smallSize
@@ -921,14 +921,14 @@ Other Style Guides
   - Enforce the location of arrow function bodies with implicit returns. eslint: [`implicit-arrow-linebreak`](https://eslint.org/docs/rules/implicit-arrow-linebreak)
 
     ```javascript
-    // bad
+    // ruim
     foo =>
       bar
 
     foo =>
       (bar)
 
-    // good
+    // bom
     foo => bar
     foo => (bar)
     foo => (
@@ -936,14 +936,14 @@ Other Style Guides
     )
     ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ voltar ao topo](#lista-de-conteúdos)**
 
 ## Classes & Constructors
 
   - Class make your code more concise and self-documenting, and it's a great feature of ES6. But just because you have a hammer that doesn't mean everything is now a nail. Try to figure out what works best and be aware of the caveats before deciding whether you need a class or not. You can see the next topics as suggestions, not rules.
 
     ```javascript
-    // bad
+    // ruim
     function Queue(contents = []) {
       this.queue = [...contents]
     }
@@ -954,7 +954,7 @@ Other Style Guides
       return value
     }
 
-    // good
+    // bom
     class Queue {
       constructor(contents = []) {
         this.queue = [...contents]
@@ -970,10 +970,10 @@ Other Style Guides
 
   - Use `extends` for inheritance.
 
-    > Why? It is a built-in way to inherit prototype functionality without breaking `instanceof`.
+    > Por que? It is a built-in way to inherit prototype functionality without breaking `instanceof`.
 
     ```javascript
-    // bad
+    // ruim
     const inherits = require('inherits')
 
     function PeekableQueue(contents) {
@@ -986,7 +986,7 @@ Other Style Guides
       return this.queue[0]
     }
 
-    // good
+    // bom
     class PeekableQueue extends Queue {
       peek() {
         return this.queue[0]
@@ -997,7 +997,7 @@ Other Style Guides
   - Methods can return `this` to help with method chaining.
 
     ```javascript
-    // bad
+    // ruim
     Jedi.prototype.jump = function () {
       this.jumping = true
       return true
@@ -1011,7 +1011,7 @@ Other Style Guides
     luke.jump() // => true
     luke.setHeight(20) // => undefined
 
-    // good
+    // bom
     class Jedi {
       jump() {
         this.jumping = true
@@ -1051,7 +1051,7 @@ Other Style Guides
   - Classes have a default constructor if one is not specified. An empty constructor function or one that just delegates to a parent class is unnecessary. eslint: [`no-useless-constructor`](https://eslint.org/docs/rules/no-useless-constructor)
 
     ```javascript
-    // bad
+    // ruim
     class Jedi {
       constructor() {}
 
@@ -1060,14 +1060,14 @@ Other Style Guides
       }
     }
 
-    // bad
+    // ruim
     class Rey extends Jedi {
       constructor(...args) {
         super(...args)
       }
     }
 
-    // good
+    // bom
     class Rey extends Jedi {
       constructor(...args) {
         super(...args)
@@ -1078,21 +1078,21 @@ Other Style Guides
 
   - Avoid duplicate class members. eslint: [`no-dupe-class-members`](https://eslint.org/docs/rules/no-dupe-class-members)
 
-    > Why? Duplicate class member declarations will silently prefer the last one - having duplicates is almost certainly a bug.
+    > Por que? Duplicate class member declarations will silently prefer the last one - having duplicates is almost certainly a bug.
 
     ```javascript
-    // bad
+    // ruim
     class Foo {
       bar() { return 1 }
       bar() { return 2 }
     }
 
-    // good
+    // bom
     class Foo {
       bar() { return 1 }
     }
 
-    // good
+    // bom
     class Foo {
       bar() { return 2 }
     }
@@ -1101,28 +1101,28 @@ Other Style Guides
   - Class methods should use `this` or be made into a static method unless an external library or framework requires to use specific non-static methods. Being an instance method should indicate that it behaves differently based on properties of the receiver. eslint: [`class-methods-use-this`](https://eslint.org/docs/rules/class-methods-use-this)
 
     ```javascript
-    // bad
+    // ruim
     class Foo {
       bar() {
         console.log('bar')
       }
     }
 
-    // good - this is used
+    // bom - this is used
     class Foo {
       bar() {
         console.log(this.bar)
       }
     }
 
-    // good - constructor is exempt
+    // bom - constructor is exempt
     class Foo {
       constructor() {
         // ...
       }
     }
 
-    // good - static methods aren't expected to use this
+    // bom - static methods aren't expected to use this
     class Foo {
       static bar() {
         console.log('bar')
@@ -1130,16 +1130,16 @@ Other Style Guides
     }
     ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ voltar ao topo](#lista-de-conteúdos)**
 
 ## Modules
 
   - Always use modules (`import`/`export`) over a non-standard module system. You can always transpile to your preferred module system.
 
-    > Why? Modules are the future, let’s start using the future now.
+    > Por que? Modules are the future, let’s start using the future now.
 
     ```javascript
-    // bad
+    // ruim
     const AirbnbStyleGuide = require('./AirbnbStyleGuide')
     module.exports = AirbnbStyleGuide.es6
 
@@ -1154,26 +1154,26 @@ Other Style Guides
 
   - Do not use wildcard imports.
 
-    > Why? This makes sure you have a single default export.
+    > Por que? This makes sure you have a single default export.
 
     ```javascript
-    // bad
+    // ruim
     import * as AirbnbStyleGuide from './AirbnbStyleGuide'
 
-    // good
+    // bom
     import AirbnbStyleGuide from './AirbnbStyleGuide'
     ```
 
   - And do not export directly from an import.
 
-    > Why? Although the one-liner is concise, having one clear way to import and one clear way to export makes things consistent.
+    > Por que? Although the one-liner is concise, having one clear way to import and one clear way to export makes things consistent.
 
     ```javascript
-    // bad
+    // ruim
     // es6.js
     export { es6 as default } from './AirbnbStyleGuide'
 
-    // good
+    // bom
     // es6.js
     import { es6 } from './AirbnbStyleGuide'
     export default es6
@@ -1181,18 +1181,18 @@ Other Style Guides
 
   - Only import from a path in one place.
  eslint: [`no-duplicate-imports`](https://eslint.org/docs/rules/no-duplicate-imports)
-    > Why? Having multiple lines that import from the same path can make code harder to maintain.
+    > Por que? Having multiple lines that import from the same path can make code harder to maintain.
 
     ```javascript
-    // bad
+    // ruim
     import foo from 'foo'
     // … some other imports … //
     import { named1, named2 } from 'foo'
 
-    // good
+    // bom
     import foo, { named1, named2 } from 'foo'
 
-    // good
+    // bom
     import foo, {
       named1,
       named2,
@@ -1201,30 +1201,30 @@ Other Style Guides
 
   - Do not export mutable bindings.
  eslint: [`import/no-mutable-exports`](https://github.com/benmosher/eslint-plugin-import/blob/master/docs/rules/no-mutable-exports.md)
-    > Why? Mutation should be avoided in general, but in particular when exporting mutable bindings. While this technique may be needed for some special cases, in general, only constant references should be exported.
+    > Por que? Mutation should be avoided in general, but in particular when exporting mutable bindings. While this technique may be needed for some special cases, in general, only constant references should be exported.
 
     ```javascript
-    // bad
+    // ruim
     let foo = 3
     export { foo }
 
-    // good
+    // bom
     const foo = 3
     export { foo }
     ```
 
   - In modules with a single export, prefer default export over named export. Always export after name it. 
  eslint: [`import/prefer-default-export`](https://github.com/benmosher/eslint-plugin-import/blob/master/docs/rules/prefer-default-export.md)
-    > Why? To encourage more files that only ever export one thing, which is better for readability and maintainability.
+    > Por que? To encourage more files that only ever export one thing, which is better for readability and maintainability.
 
     ```javascript
-    // bad
+    // ruim
     export function foo() {}
 
     // still bad
     export default function foo() {}
 
-    // good
+    // bom
     const foo = function foo() {}
 
     export default foo
@@ -1232,16 +1232,16 @@ Other Style Guides
 
   - Put all `import`s above non-import statements.
  eslint: [`import/first`](https://github.com/benmosher/eslint-plugin-import/blob/master/docs/rules/first.md)
-    > Why? Since `import`s are hoisted, keeping them all at the top prevents surprising behavior.
+    > Por que? Since `import`s are hoisted, keeping them all at the top prevents surprising behavior.
 
     ```javascript
-    // bad
+    // ruim
     import foo from 'foo'
     foo.init()
 
     import bar from 'bar'
 
-    // good
+    // bom
     import foo from 'foo'
     import bar from 'bar'
 
@@ -1251,13 +1251,13 @@ Other Style Guides
   - Multiline imports should be indented just like multiline array and object literals.
  eslint: [`object-curly-newline`](https://eslint.org/docs/rules/object-curly-newline)
 
-    > Why? The curly braces follow the same indentation rules as every other curly brace block in the style guide, as do the trailing commas.
+    > Por que? The curly braces follow the same indentation rules as every other curly brace block in the style guide, as do the trailing commas.
 
     ```javascript
-    // bad
+    // ruim
     import {longNameA, longNameB, longNameC, longNameD, longNameE} from 'path'
 
-    // good
+    // bom
     import {
       longNameA,
       longNameB,
@@ -1269,55 +1269,55 @@ Other Style Guides
 
   - Disallow Webpack loader syntax in module import statements.
  eslint: [`import/no-webpack-loader-syntax`](https://github.com/benmosher/eslint-plugin-import/blob/master/docs/rules/no-webpack-loader-syntax.md)
-    > Why? Since using Webpack syntax in the imports couples the code to a module bundler. Prefer using the loader syntax in `webpack.config.js`.
+    > Por que? Since using Webpack syntax in the imports couples the code to a module bundler. Prefer using the loader syntax in `webpack.config.js`.
 
     ```javascript
-    // bad
+    // ruim
     import fooSass from 'css!sass!foo.scss'
     import barCss from 'style!css!bar.css'
 
-    // good
+    // bom
     import fooSass from 'foo.scss'
     import barCss from 'bar.css'
     ```
 
   - Do not include JavaScript filename extensions
  eslint: [`import/extensions`](https://github.com/benmosher/eslint-plugin-import/blob/master/docs/rules/extensions.md)
-    > Why? Including extensions inhibits refactoring, and inappropriately hardcodes implementation details of the module you're importing in every consumer.
+    > Por que? Including extensions inhibits refactoring, and inappropriately hardcodes implementation details of the module you're importing in every consumer.
 
     ```javascript
-    // bad
+    // ruim
     import foo from './foo.js'
     import bar from './bar.jsx'
     import baz from './baz/index.jsx'
 
-    // good
+    // bom
     import foo from './foo'
     import bar from './bar'
     import baz from './baz'
     ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ voltar ao topo](#lista-de-conteúdos)**
 
 ## Iterators
 
   - Prefer JavaScript’s higher-order functions instead of loops like `for-in` or `for-of`. eslint: [`no-iterator`](https://eslint.org/docs/rules/no-iterator.html) [`no-restricted-syntax`](https://eslint.org/docs/rules/no-restricted-syntax)
 
-    > Why? This enforces our immutable rule. Dealing with pure functions that return values is easier to reason about than side effects.
+    > Por que? This enforces our immutable rule. Dealing with pure functions that return values is easier to reason about than side effects.
 
     > Use `map()` / `every()` / `filter()` / `find()` / `findIndex()` / `reduce()` / `some()` / ... to iterate over arrays, and `Object.keys()` / `Object.values()` / `Object.entries()` to produce arrays so you can iterate over objects.
 
     ```javascript
     const numbers = [1, 2, 3, 4, 5]
 
-    // bad
+    // ruim
     let sum = 0
     for (let num of numbers) {
       sum += num
     }
     sum === 15
 
-    // good
+    // bom
     let sum = 0
     numbers.forEach(num => {
       sum += num
@@ -1328,13 +1328,13 @@ Other Style Guides
     const sum = numbers.reduce((total, num) => total + num, 0)
     sum === 15
 
-    // bad
+    // ruim
     const increasedByOne = []
     for (let i = 0 i < numbers.length i++) {
       increasedByOne.push(numbers[i] + 1)
     }
 
-    // good
+    // bom
     const increasedByOne = []
     numbers.forEach(num => {
       increasedByOne.push(num + 1)
@@ -1344,7 +1344,7 @@ Other Style Guides
     const increasedByOne = numbers.map(num => num + 1)
     ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ voltar ao topo](#lista-de-conteúdos)**
 
 ## Properties
 
@@ -1356,10 +1356,10 @@ Other Style Guides
       age: 28,
     }
 
-    // bad
+    // ruim
     const isJedi = luke['jedi']
 
-    // good
+    // bom
     const isJedi = luke.jedi
     ```
 
@@ -1378,37 +1378,37 @@ Other Style Guides
     const isJedi = getProp('jedi')
     ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ voltar ao topo](#lista-de-conteúdos)**
 
 ## Variables
 
   - Always use `const` or `let` to declare variables. Not doing so will result in global variables. We want to avoid polluting the global namespace. eslint: [`no-undef`](https://eslint.org/docs/rules/no-undef) [`prefer-const`](https://eslint.org/docs/rules/prefer-const)
 
     ```javascript
-    // bad
+    // ruim
     superPower = new SuperPower()
 
-    // good
+    // bom
     const superPower = new SuperPower()
     ```
 
   - Use one `const` or `let` declaration per variable or assignment. eslint: [`one-var`](https://eslint.org/docs/rules/one-var.html)
 
-    > Why? It’s easier to add new variable declarations this way, and you never have to worry about swapping out a `` for a `,` or introducing punctuation-only diffs. You can also step through each declaration with the debugger, instead of jumping through all of them at once. Same thing when a error pops up related to this declaration chain
+    > Por que? It’s easier to add new variable declarations this way, and you never have to worry about swapping out a `` for a `,` or introducing punctuation-only diffs. You can also step through each declaration with the debugger, instead of jumping through all of them at once. Same thing when a error pops up related to this declaration chain
 
     ```javascript
-    // bad
+    // ruim
     const items = getItems(),
         goSportsTeam = true,
         dragonball = 'z'
 
-    // bad
+    // ruim
     // (compare to above, and try to spot the mistake)
     const items = getItems(),
         goSportsTeam = true
         dragonball = 'z'
 
-    // good
+    // bom
     const items = getItems()
     const goSportsTeam = true
     const dragonball = 'z'
@@ -1416,20 +1416,20 @@ Other Style Guides
 
   - Group all your `const`s and then group all your `let`s.
 
-    > Why? This is helpful when later on you might need to assign a variable depending on one of the previous assigned variables.
+    > Por que? This is helpful when later on you might need to assign a variable depending on one of the previous assigned variables.
 
     ```javascript
-    // bad
+    // ruim
     let i, len, dragonball,
         items = getItems(),
         goSportsTeam = true
 
-    // bad
+    // ruim
     let i
     const items = getItems()
     let dragonball
 
-    // good
+    // bom
     const goSportsTeam = true
     const items = getItems()
     let dragonball
@@ -1439,10 +1439,10 @@ Other Style Guides
 
   - Assign variables where you need them, but place them in a reasonable place.
 
-    > Why? `let` and `const` are block scoped and not function scoped.
+    > Por que? `let` and `const` are block scoped and not function scoped.
 
     ```javascript
-    // bad - unnecessary function call
+    // ruim - unnecessary function call
     function checkName(hasName) {
       const name = getName()
 
@@ -1458,7 +1458,7 @@ Other Style Guides
       return name
     }
 
-    // good
+    // bom
     function checkName(hasName) {
       if (hasName === 'test') {
         return false
@@ -1477,10 +1477,10 @@ Other Style Guides
 
   - Don’t chain variable assignments. eslint: [`no-multi-assign`](https://eslint.org/docs/rules/no-multi-assign)
 
-    > Why? Chaining variable assignments creates implicit global variables.
+    > Por que? Chaining variable assignments creates implicit global variables.
 
     ```javascript
-    // bad
+    // ruim
     (() => {
       // JavaScript interprets this as
       // let a = ( b = ( c = 1 ) )
@@ -1493,7 +1493,7 @@ Other Style Guides
     console.log(b) // 1
     console.log(c) // 1
 
-    // good
+    // bom
     (() => {
       let a = 1
       let b = a
@@ -1509,10 +1509,10 @@ Other Style Guides
 
   - Avoid using unary increments and decrements (`++`, `--`). eslint [`no-plusplus`](https://eslint.org/docs/rules/no-plusplus)
 
-    > Why? Per the [eslint documentation](https://eslint.org/docs/rules/no-plusplus), unary increment and decrement statements are subject to automatic semicolon insertion and can cause silent errors with incrementing or decrementing values within an application. It is also more expressive to mutate your values with statements like `num += 1` instead of `num++` or `num ++`. Disallowing unary increment and decrement statements also prevents you from pre-incrementing/pre-decrementing values unintentionally which can also cause unexpected behavior in your programs.
+    > Por que? Per the [eslint documentation](https://eslint.org/docs/rules/no-plusplus), unary increment and decrement statements are subject to automatic semicolon insertion and can cause silent errors with incrementing or decrementing values within an application. It is also more expressive to mutate your values with statements like `num += 1` instead of `num++` or `num ++`. Disallowing unary increment and decrement statements also prevents you from pre-incrementing/pre-decrementing values unintentionally which can also cause unexpected behavior in your programs.
 
     ```javascript
-    // bad
+    // ruim
 
     const array = [1, 2, 3]
     let num = 1
@@ -1529,7 +1529,7 @@ Other Style Guides
       }
     }
 
-    // good
+    // bom
 
     const array = [1, 2, 3]
     let num = 1
@@ -1542,32 +1542,32 @@ Other Style Guides
 
   - Avoid linebreaks before or after `=` in an assignment. If your assignment violates [`max-len`](https://eslint.org/docs/rules/max-len.html), surround the value in parens. eslint [`operator-linebreak`](https://eslint.org/docs/rules/operator-linebreak.html).
 
-    > Why? Linebreaks surrounding `=` can obfuscate the value of an assignment.
+    > Por que? Linebreaks surrounding `=` can obfuscate the value of an assignment.
 
     ```javascript
-    // bad
+    // ruim
     const foo =
       superLongLongLongLongLongLongLongLongFunctionName()
 
-    // bad
+    // ruim
     const foo
       = 'superLongLongLongLongLongLongLongLongString'
 
-    // good
+    // bom
     const foo = (
       superLongLongLongLongLongLongLongLongFunctionName()
     )
 
-    // good
+    // bom
     const foo = 'superLongLongLongLongLongLongLongLongString'
     ```
 
   - Disallow unused variables. eslint: [`no-unused-vars`](https://eslint.org/docs/rules/no-unused-vars)
 
-    > Why? Variables that are declared and not used anywhere in the code are most likely an error due to incomplete refactoring. Such variables take up space in the code and can lead to confusion by readers.
+    > Por que? Variables that are declared and not used anywhere in the code are most likely an error due to incomplete refactoring. Such variables take up space in the code and can lead to confusion by readers.
 
     ```javascript
-    // bad
+    // ruim
 
     const some_unused_var = 42
 
@@ -1582,7 +1582,7 @@ Other Style Guides
     // Unused function arguments.
     const getX = (x, y) => x
 
-    // good
+    // bom
 
     const getXPlusY = (x, y) => x + y
 
@@ -1597,7 +1597,7 @@ Other Style Guides
     // 'coords' is now the 'data' object without its 'type' property.
     ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ voltar ao topo](#lista-de-conteúdos)**
 
 ## Hoisting
 
@@ -1699,7 +1699,7 @@ Other Style Guides
     }
     ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ voltar ao topo](#lista-de-conteúdos)**
 
 ## Comparison Operators & Equality
 
@@ -1724,22 +1724,22 @@ Other Style Guides
   - Use shortcuts for booleans, but explicit comparisons for strings.
 
     ```javascript
-    // bad
+    // ruim
     if (isValid === true) {
       // ...
     }
 
-    // good
+    // bom
     if (isValid) {
       // ...
     }
 
-    // bad
+    // ruim
     if (name) {
       // ...
     }
 
-    // good
+    // bom
     if (name !== '') {
       // ...
     }
@@ -1747,10 +1747,10 @@ Other Style Guides
 
   - Use braces to create blocks in `case` and `default` clauses that contain lexical declarations (e.g. `let`, `const`, `function`, and `class`). eslint: [`no-case-declarations`](https://eslint.org/docs/rules/no-case-declarations.html)
 
-    > Why? Lexical declarations are visible in the entire `switch` block but only get initialized when assigned, which only happens when its `case` is reached. This causes problems when multiple `case` clauses attempt to define the same thing.
+    > Por que? Lexical declarations are visible in the entire `switch` block but only get initialized when assigned, which only happens when its `case` is reached. This causes problems when multiple `case` clauses attempt to define the same thing.
 
     ```javascript
-    // bad
+    // ruim
     switch (foo) {
       case 1:
         let x = 1
@@ -1767,7 +1767,7 @@ Other Style Guides
         class C {}
     }
 
-    // good
+    // bom
     switch (foo) {
       case 1: {
         let x = 1
@@ -1795,7 +1795,7 @@ Other Style Guides
   - Ternaries should not be nested and generally be single line expressions. eslint: [`no-nested-ternary`](https://eslint.org/docs/rules/no-nested-ternary.html)
 
     ```javascript
-    // bad
+    // ruim
     const foo = maybe1 > maybe2
       ? "bar"
       : value1 > value2 ? "baz" : null
@@ -1815,12 +1815,12 @@ Other Style Guides
   - Avoid unneeded ternary statements. eslint: [`no-unneeded-ternary`](https://eslint.org/docs/rules/no-unneeded-ternary.html)
 
     ```javascript
-    // bad
+    // ruim
     const foo = a ? a : b
     const bar = c ? true : false
     const baz = c ? false : true
 
-    // good
+    // bom
     const foo = a || b
     const bar = !!c
     const baz = !c
@@ -1829,54 +1829,54 @@ Other Style Guides
   - When mixing operators, enclose them in parentheses. The only exception is the standard arithmetic operators: `+`, `-`, and `**` since their precedence is broadly understood. We recommend enclosing `/` and `*` in parentheses because their precedence can be ambiguous when they are mixed.
   eslint: [`no-mixed-operators`](https://eslint.org/docs/rules/no-mixed-operators.html)
 
-    > Why? This improves readability and clarifies the developer’s intention.
+    > Por que? This improves readability and clarifies the developer’s intention.
 
     ```javascript
-    // bad
+    // ruim
     const foo = a && b < 0 || c > 0 || d + 1 === 0
 
-    // bad
+    // ruim
     const bar = a ** b - 5 % d
 
-    // bad
+    // ruim
     // one may be confused into thinking (a || b) && c
     if (a || b && c) {
       return d
     }
 
-    // bad
+    // ruim
     const bar = a + b / c * d
 
-    // good
+    // bom
     const foo = (a && b < 0) || c > 0 || (d + 1 === 0)
 
-    // good
+    // bom
     const bar = a ** b - (5 % d)
 
-    // good
+    // bom
     if (a || (b && c)) {
       return d
     }
 
-    // good
+    // bom
     const bar = a + (b / c) * d
     ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ voltar ao topo](#lista-de-conteúdos)**
 
 ## Blocks
 
   - Use braces with all multiline blocks. eslint: [`nonblock-statement-body-position`](https://eslint.org/docs/rules/nonblock-statement-body-position)
 
     ```javascript
-    // bad
+    // ruim
     if (test)
       return false
 
-    // good
+    // bom
     if (test) return false
 
-    // good
+    // bom
     if (test) {
       return false
     }
@@ -1885,7 +1885,7 @@ Other Style Guides
   - If you’re using multiline blocks with `if` and `else`, put `else` on the same line as your `if` block’s closing brace. eslint: [`brace-style`](https://eslint.org/docs/rules/brace-style.html)
 
     ```javascript
-    // bad
+    // ruim
     if (test) {
       thing1()
       thing2()
@@ -1894,7 +1894,7 @@ Other Style Guides
       thing3()
     }
 
-    // good
+    // bom
     if (test) {
       thing1()
       thing2()
@@ -1906,7 +1906,7 @@ Other Style Guides
   - If an `if` block always executes a `return` statement, the subsequent `else` block is unnecessary. A `return` in an `else if` block following an `if` block that contains a `return` can be separated into multiple `if` blocks. eslint: [`no-else-return`](https://eslint.org/docs/rules/no-else-return)
 
     ```javascript
-    // bad
+    // ruim
     const foo = () => {
       if (x) {
         return x
@@ -1915,7 +1915,7 @@ Other Style Guides
       }
     }
 
-    // bad
+    // ruim
     const cats = () => {
       if (x) {
         return x
@@ -1924,7 +1924,7 @@ Other Style Guides
       }
     }
 
-    // bad
+    // ruim
     const dogs = () => {
       if (x) {
         return x
@@ -1935,7 +1935,7 @@ Other Style Guides
       }
     }
 
-    // good
+    // bom
     const foo = () => {
       if (x) {
         return x
@@ -1944,7 +1944,7 @@ Other Style Guides
       return y
     }
 
-    // good
+    // bom
     const cats = () => {
       if (x) {
         return x
@@ -1955,7 +1955,7 @@ Other Style Guides
       }
     }
 
-    // good
+    // bom
     const dogs = x => {
       if (x) {
         if (z) {
@@ -1967,33 +1967,33 @@ Other Style Guides
     }
     ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ voltar ao topo](#lista-de-conteúdos)**
 
 ## Control Statements
 
   - In case your control statement (`if`, `while` etc.) gets too long or exceeds the maximum line length, each (grouped) condition could be put into a new line. The logical operator should begin the line.
 
-    > Why? Requiring operators at the beginning of the line keeps the operators aligned and follows a pattern similar to method chaining. This also improves readability by making it easier to visually follow complex logic.
+    > Por que? Requiring operators at the beginning of the line keeps the operators aligned and follows a pattern similar to method chaining. This also improves readability by making it easier to visually follow complex logic.
 
     ```javascript
-    // bad
+    // ruim
     if ((foo === 123 || bar === 'abc') && doesItLookGoodWhenItBecomesThatLong() && isThisReallyHappening()) {
       thing1()
     }
 
-    // bad
+    // ruim
     if (foo === 123 &&
       bar === 'abc') {
       thing1()
     }
 
-    // bad
+    // ruim
     if (foo === 123
       && bar === 'abc') {
       thing1()
     }
 
-    // bad
+    // ruim
     if (
       foo === 123 &&
       bar === 'abc'
@@ -2001,7 +2001,7 @@ Other Style Guides
       thing1()
     }
 
-    // good
+    // bom
     if (
       foo === 123
       && bar === 'abc'
@@ -2009,7 +2009,7 @@ Other Style Guides
       thing1()
     }
 
-    // good
+    // bom
     if (
       (foo === 123 || bar === 'abc')
       && doesItLookGoodWhenItBecomesThatLong()
@@ -2018,7 +2018,7 @@ Other Style Guides
       thing1()
     }
 
-    // good
+    // bom
     if (foo === 123 && bar === 'abc') {
       thing1()
     }
@@ -2027,23 +2027,23 @@ Other Style Guides
   - Don't use selection operators in place of control statements.
 
     ```javascript
-    // bad
+    // ruim
     !isRunning && startRunning()
 
-    // good
+    // bom
     if (!isRunning) {
       startRunning()
     }
     ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ voltar ao topo](#lista-de-conteúdos)**
 
 ## Comments
 
   - Use `/** ... */` for multiline comments.
 
     ```javascript
-    // bad
+    // ruim
     // make() returns a new element
     // based on the passed in tag name
     //
@@ -2056,7 +2056,7 @@ Other Style Guides
       return element
     }
 
-    // good
+    // bom
     /**
      * make() returns a new element
      * based on the passed-in tag name
@@ -2075,14 +2075,14 @@ Other Style Guides
   - Use `//` for single line comments. Place single line comments on a newline above the subject of the comment. Put an empty line before the comment unless it’s on the first line of a block.
 
     ```javascript
-    // bad
+    // ruim
     const active = true  // is current tab
 
-    // good
+    // bom
     // is current tab
     const active = true
 
-    // bad
+    // ruim
     function getType() {
       console.log('fetching type...')
       // set the default type to 'no type'
@@ -2091,7 +2091,7 @@ Other Style Guides
       return type
     }
 
-    // good
+    // bom
     function getType() {
       console.log('fetching type...')
 
@@ -2113,15 +2113,15 @@ Other Style Guides
   - Start all comments with a space to make it easier to read. eslint: [`spaced-comment`](https://eslint.org/docs/rules/spaced-comment)
 
     ```javascript
-    // bad
+    // ruim
     //is current tab
     const active = true
 
-    // good
+    // bom
     // is current tab
     const active = true
 
-    // bad
+    // ruim
     /**
      *make() returns a new element
      *based on the passed-in tag name
@@ -2133,7 +2133,7 @@ Other Style Guides
       return element
     }
 
-    // good
+    // bom
     /**
      * make() returns a new element
      * based on the passed-in tag name
@@ -2174,24 +2174,24 @@ Other Style Guides
     }
     ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ voltar ao topo](#lista-de-conteúdos)**
 
 ## Whitespace
 
   - Use soft tabs (space character) set to 2 spaces. eslint: [`indent`](https://eslint.org/docs/rules/indent.html)
 
     ```javascript
-    // bad
+    // ruim
     const foo = () => {
     ∙∙∙∙let name
     }
 
-    // bad
+    // ruim
     const bar = () => {
     ∙let name
     }
 
-    // good
+    // bom
     const baz = () => {
     ∙∙let name
     }
@@ -2200,23 +2200,23 @@ Other Style Guides
   - Place 1 space before the leading brace. eslint: [`space-before-blocks`](https://eslint.org/docs/rules/space-before-blocks.html)
 
     ```javascript
-    // bad
+    // ruim
     function test(){
       console.log('test')
     }
 
-    // good
+    // bom
     function test() {
       console.log('test')
     }
 
-    // bad
+    // ruim
     dog.set('attr',{
       age: '1 year',
       breed: 'Bernese Mountain Dog',
     })
 
-    // good
+    // bom
     dog.set('attr', {
       age: '1 year',
       breed: 'Bernese Mountain Dog',
@@ -2226,22 +2226,22 @@ Other Style Guides
   - Place 1 space before the opening parenthesis in control statements (`if`, `while` etc.). Place no space between the argument list and the function name in function calls and declarations. eslint: [`keyword-spacing`](https://eslint.org/docs/rules/keyword-spacing.html)
 
     ```javascript
-    // bad
+    // ruim
     if(isJedi) {
       fight ()
     }
 
-    // good
+    // bom
     if (isJedi) {
       fight()
     }
 
-    // bad
+    // ruim
     function fight () {
       console.log ('Swooosh!')
     }
 
-    // good
+    // bom
     function fight() {
       console.log('Swooosh!')
     }
@@ -2250,24 +2250,24 @@ Other Style Guides
   - Set off operators with spaces. eslint: [`space-infix-ops`](https://eslint.org/docs/rules/space-infix-ops.html)
 
     ```javascript
-    // bad
+    // ruim
     const x=y+5
 
-    // good
+    // bom
     const x = y + 5
     ```
 
   - End files with a single newline character. eslint: [`eol-last`](https://github.com/eslint/eslint/blob/master/docs/rules/eol-last.md)
 
     ```javascript
-    // bad
+    // ruim
     import { es6 } from './AirbnbStyleGuide'
       // ...
     export default es6
     ```
 
     ```javascript
-    // bad
+    // ruim
     import { es6 } from './AirbnbStyleGuide'
       // ...
     export default es6↵
@@ -2275,7 +2275,7 @@ Other Style Guides
     ```
 
     ```javascript
-    // good
+    // bom
     import { es6 } from './AirbnbStyleGuide'
       // ...
     export default es6↵
@@ -2285,13 +2285,13 @@ Other Style Guides
     emphasizes that the line is a method call, not a new statement. eslint: [`newline-per-chained-call`](https://eslint.org/docs/rules/newline-per-chained-call) [`no-whitespace-before-property`](https://eslint.org/docs/rules/no-whitespace-before-property)
 
     ```javascript
-    // bad
+    // ruim
     const leds = stage.selectAll('.led').data(data).enter().append('svg:svg').classed('led', true)
         .attr('width', (radius + margin) * 2).append('svg:g')
         .attr('transform', `translate(${radius + margin},${radius + margin})`)
         .call(tron.led)
 
-    // good
+    // bom
     const leds = stage.selectAll('.led')
         .data(data)
       .enter().append('svg:svg')
@@ -2301,27 +2301,27 @@ Other Style Guides
         .attr('transform', `translate(${radius + margin},${radius + margin})`)
         .call(tron.led)
 
-    // good
+    // bom
     const leds = stage.selectAll('.led').data(data)
     ```
 
   - Leave a blank line after blocks and before the next statement.
 
     ```javascript
-    // bad
+    // ruim
     if (foo) {
       return bar
     }
     return baz
 
-    // good
+    // bom
     if (foo) {
       return bar
     }
 
     return baz
 
-    // bad
+    // ruim
     const obj = {
       foo() {
       },
@@ -2330,7 +2330,7 @@ Other Style Guides
     }
     return obj
 
-    // good
+    // bom
     const obj = {
       foo() {
       },
@@ -2341,7 +2341,7 @@ Other Style Guides
 
     return obj
 
-    // bad
+    // ruim
     const arr = [
       function foo() {
       },
@@ -2350,7 +2350,7 @@ Other Style Guides
     ]
     return arr
 
-    // good
+    // bom
     const arr = [
       function foo() {
       },
@@ -2365,14 +2365,14 @@ Other Style Guides
   - Do not pad your blocks with blank lines. eslint: [`padded-blocks`](https://eslint.org/docs/rules/padded-blocks.html)
 
     ```javascript
-    // bad
+    // ruim
     const bar = () => {
 
       console.log(foo)
 
     }
 
-    // bad
+    // ruim
     if (baz) {
 
       console.log(qux)
@@ -2381,7 +2381,7 @@ Other Style Guides
 
     }
 
-    // bad
+    // ruim
     class Foo {
 
       constructor(bar) {
@@ -2389,12 +2389,12 @@ Other Style Guides
       }
     }
 
-    // good
+    // bom
     const bar = () => {
       console.log(foo)
     }
 
-    // good
+    // bom
     if (baz) {
       console.log(qux)
     } else {
@@ -2406,7 +2406,7 @@ Other Style Guides
 
     <!-- markdownlint-disable MD012 -->
     ```javascript
-    // bad
+    // ruim
     class Person {
       constructor(fullName, email, birthday) {
         this.fullName = fullName
@@ -2435,7 +2435,7 @@ Other Style Guides
       }
     }
 
-    // good
+    // bom
     class Person {
       constructor(fullName, email, birthday) {
         this.fullName = fullName
@@ -2458,22 +2458,22 @@ Other Style Guides
   - Do not add spaces inside parentheses. eslint: [`space-in-parens`](https://eslint.org/docs/rules/space-in-parens.html)
 
     ```javascript
-    // bad
+    // ruim
     function bar( foo ) {
       return foo
     }
 
-    // good
+    // bom
     function bar(foo) {
       return foo
     }
 
-    // bad
+    // ruim
     if ( foo ) {
       console.log(foo)
     }
 
-    // good
+    // bom
     if (foo) {
       console.log(foo)
     }
@@ -2482,11 +2482,11 @@ Other Style Guides
   - Do not add spaces inside brackets. eslint: [`array-bracket-spacing`](https://eslint.org/docs/rules/array-bracket-spacing.html)
 
     ```javascript
-    // bad
+    // ruim
     const foo = [ 1, 2, 3 ]
     console.log(foo[ 0 ])
 
-    // good
+    // bom
     const foo = [1, 2, 3]
     console.log(foo[0])
     ```
@@ -2494,22 +2494,22 @@ Other Style Guides
   - Add spaces inside curly braces. eslint: [`object-curly-spacing`](https://eslint.org/docs/rules/object-curly-spacing.html)
 
     ```javascript
-    // bad
+    // ruim
     const foo = {clark: 'kent'}
 
-    // good
+    // bom
     const foo = { clark: 'kent' }
     ```
 
   - Avoid having lines of code that are longer than 100 characters (including whitespace). Note: per [above](#strings--line-length), long strings are exempt from this rule, and should not be broken up. eslint: [`max-len`](https://eslint.org/docs/rules/max-len.html)
 
-    > Why? This ensures readability and maintainability.
+    > Por que? This ensures readability and maintainability.
 
     ```javascript
-    // bad
+    // ruim
     const foo = jsonData && jsonData.foo && jsonData.foo.bar && jsonData.foo.bar.baz && jsonData.foo.bar.baz.quux && jsonData.foo.bar.baz.quux.xyzzy
 
-    // good
+    // bom
     const foo = jsonData
       && jsonData.foo
       && jsonData.foo.bar
@@ -2521,21 +2521,21 @@ Other Style Guides
   - Require consistent spacing inside an open block token and the next token on the same line. This rule also enforces consistent spacing inside a close block token and previous token on the same line. eslint: [`block-spacing`](https://eslint.org/docs/rules/block-spacing)
 
     ```javascript
-    // bad
+    // ruim
     if (foo) {bar = 0}
 
-    // good
+    // bom
     if (foo) { bar = 0 }
     ```
 
   - Avoid spaces before commas and require a space after commas. eslint: [`comma-spacing`](https://eslint.org/docs/rules/comma-spacing)
 
     ```javascript
-    // bad
+    // ruim
     const foo = 1,bar = 2
     const arr = [1 , 2]
 
-    // good
+    // bom
     const foo = 1, bar = 2
     const arr = [1, 2]
     ```
@@ -2543,13 +2543,13 @@ Other Style Guides
   - Enforce spacing inside of computed property brackets. eslint: [`computed-property-spacing`](https://eslint.org/docs/rules/computed-property-spacing)
 
     ```javascript
-    // bad
+    // ruim
     obj[foo ]
     obj[ 'foo']
     var x = {[ b ]: a}
     obj[foo[ bar ]]
 
-    // good
+    // bom
     obj[foo]
     obj['foo']
     var x = { [b]: a }
@@ -2559,24 +2559,24 @@ Other Style Guides
   - Avoid spaces between functions and their invocations. eslint: [`func-call-spacing`](https://eslint.org/docs/rules/func-call-spacing)
 
     ```javascript
-    // bad
+    // ruim
     func ()
 
     func
     ()
 
-    // good
+    // bom
     func()
     ```
 
   - Enforce spacing between keys and values in object literal properties. eslint: [`key-spacing`](https://eslint.org/docs/rules/key-spacing)
 
     ```javascript
-    // bad
+    // ruim
     var obj = { foo : 42 }
     var obj2 = { foo:42 }
 
-    // good
+    // bom
     var obj = { foo: 42 }
     ```
 
@@ -2586,51 +2586,51 @@ Other Style Guides
 
     <!-- markdownlint-disable MD012 -->
     ```javascript
-    // bad - multiple empty lines
+    // ruim - multiple empty lines
     var x = 1
 
 
     var y = 2
 
-    // bad - 2+ newlines at end of file
+    // ruim - 2+ newlines at end of file
     var x = 1
     var y = 2
 
 
-    // bad - 1+ newline(s) at beginning of file
+    // ruim - 1+ newline(s) at beginning of file
 
     var x = 1
     var y = 2
 
-    // good
+    // bom
     var x = 1
     var y = 2
 
     ```
     <!-- markdownlint-enable MD012 -->
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ voltar ao topo](#lista-de-conteúdos)**
 
 ## Commas
 
   - Leading commas: **Nope.** eslint: [`comma-style`](https://eslint.org/docs/rules/comma-style.html)
 
     ```javascript
-    // bad
+    // ruim
     const story = [
         once
       , upon
       , aTime
     ]
 
-    // good
+    // bom
     const story = [
       once,
       upon,
       aTime,
     ]
 
-    // bad
+    // ruim
     const hero = {
         firstName: 'Ada'
       , lastName: 'Lovelace'
@@ -2638,7 +2638,7 @@ Other Style Guides
       , superPower: 'computers'
     }
 
-    // good
+    // bom
     const hero = {
       firstName: 'Ada',
       lastName: 'Lovelace',
@@ -2647,49 +2647,49 @@ Other Style Guides
     }
     ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ voltar ao topo](#lista-de-conteúdos)**
 
 ## Semicolons
 
   - **Nope.** Prettier will clean this up. Here we can se
 
-    > Why? When JavaScript encounters a line break without a semicolon, it uses a set of rules called [Automatic Semicolon Insertion](https://tc39.github.io/ecma262/#sec-automatic-semicolon-insertion) to determine whether or not it should regard that line break as the end of a statement.
+    > Por que? When JavaScript encounters a line break without a semicolon, it uses a set of rules called [Automatic Semicolon Insertion](https://tc39.github.io/ecma262/#sec-automatic-semicolon-insertion) to determine whether or not it should regard that line break as the end of a statement.
 
     ```javascript
-    // bad - raises exception
+    // ruim - raises exception
     const reaction = "No! That’s impossible!"
     (async function meanwhileOnTheFalcon() {
       // handle `leia`, `lando`, `chewie`, `r2`, `c3p0`
       // ...
     }())
 
-    // bad - returns `undefined` instead of the value on the next line - always happens when `return` is on a line by itself because of ASI!
+    // ruim - returns `undefined` instead of the value on the next line - always happens when `return` is on a line by itself because of ASI!
     function foo() {
       return
         'search your feelings, you know it to be foo'
     }
 
-    // good
+    // bom
     const luke = {}
     const leia = {}
     [luke, leia].forEach((jedi) => {
       jedi.father = 'vader'
     })
 
-    // good
+    // bom
     const reaction = "No! That’s impossible!"
     async function meanwhileOnTheFalcon() {
       // handle `leia`, `lando`, `chewie`, `r2`, `c3p0`
       // ...
     }()
 
-    // good
+    // bom
     const foo = () => {
       return 'search your feelings, you know it to be foo'
     }
     ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ voltar ao topo](#lista-de-conteúdos)**
 
 ## Type Casting & Coercion
 
@@ -2700,16 +2700,16 @@ Other Style Guides
     ```javascript
     // => this.reviewScore = 9
 
-    // bad
+    // ruim
     const totalScore = new String(this.reviewScore) // typeof totalScore is "object" not "string"
 
-    // bad
+    // ruim
     const totalScore = this.reviewScore + '' // invokes this.reviewScore.valueOf()
 
-    // bad
+    // ruim
     const totalScore = this.reviewScore.toString() // isn’t guaranteed to return a string
 
-    // good
+    // bom
     const totalScore = String(this.reviewScore)
     ```
 
@@ -2718,22 +2718,22 @@ Other Style Guides
     ```javascript
     const inputValue = '4'
 
-    // bad
+    // ruim
     const val = new Number(inputValue)
 
-    // bad
+    // ruim
     const val = +inputValue
 
-    // bad
+    // ruim
     const val = inputValue >> 0
 
-    // bad
+    // ruim
     const val = parseInt(inputValue)
 
-    // good
+    // bom
     const val = Number(inputValue)
 
-    // good
+    // bom
     const val = parseInt(inputValue, 10)
     ```
 
@@ -2742,29 +2742,29 @@ Other Style Guides
     ```javascript
     const age = 0
 
-    // bad
+    // ruim
     const hasAge = new Boolean(age)
 
-    // good
+    // bom
     const hasAge = Boolean(age)
 
     // best!
     const hasAge = !!age
     ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ voltar ao topo](#lista-de-conteúdos)**
 
 ## Naming Conventions
 
   - Avoid single letter names. Be descriptive with your naming. eslint: [`id-length`](https://eslint.org/docs/rules/id-length)
 
     ```javascript
-    // bad
+    // ruim
     const q = () => {
       // ...
     }
 
-    // good
+    // bom
     const query = () => {
       // ...
     }
@@ -2773,11 +2773,11 @@ Other Style Guides
   - Use camelCase when naming objects, functions, and instances. eslint: [`camelcase`](https://eslint.org/docs/rules/camelcase.html)
 
     ```javascript
-    // bad
+    // ruim
     const OBJEcttsssss = {}
     const this_is_my_object = {}
 
-    // good
+    // bom
     const thisIsMyObject = {}
     const thisIsMyFunction = () => {}
     ```
@@ -2785,7 +2785,7 @@ Other Style Guides
   - Use PascalCase only when naming constructors or classes. eslint: [`new-cap`](https://eslint.org/docs/rules/new-cap.html)
 
     ```javascript
-    // bad
+    // ruim
     const user = (options) => {
       this.name = options.name
     }
@@ -2794,7 +2794,7 @@ Other Style Guides
       name: 'nope',
     })
 
-    // good
+    // bom
     class User {
       constructor(options) {
         this.name = options.name
@@ -2808,22 +2808,22 @@ Other Style Guides
 
   - Do not use trailing or leading underscores. eslint: [`no-underscore-dangle`](https://eslint.org/docs/rules/no-underscore-dangle.html)
 
-    > Why? JavaScript does not have the concept of privacy in terms of properties or methods. Although a leading underscore is a common convention to mean “private”, in fact, these properties are fully public, and as such, are part of your public API contract. This convention might lead developers to wrongly think that a change won’t count as breaking, or that tests aren’t needed. tldr: if you want something to be “private”, it must not be observably present.
+    > Por que? JavaScript does not have the concept of privacy in terms of properties or methods. Although a leading underscore is a common convention to mean “private”, in fact, these properties are fully public, and as such, are part of your public API contract. This convention might lead developers to wrongly think that a change won’t count as breaking, or that tests aren’t needed. tldr: if you want something to be “private”, it must not be observably present.
 
     ```javascript
-    // bad
+    // ruim
     this.__firstName__ = 'Panda'
     this.firstName_ = 'Panda'
     this._firstName = 'Panda'
 
-    // good
+    // bom
     this.firstName = 'Panda'
     ```
 
   - Don’t save references to `this`. Use arrow functions or [Function#bind](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/bind).
 
     ```javascript
-    // bad
+    // ruim
     const foo = () => {
       const self = this
       return function () {
@@ -2831,7 +2831,7 @@ Other Style Guides
       }
     }
 
-    // bad
+    // ruim
     const foo = () => {
       const that = this
       return function () {
@@ -2839,7 +2839,7 @@ Other Style Guides
       }
     }
 
-    // good
+    // bom
     const foo = () => {
       return () => {
         console.log(this)
@@ -2856,13 +2856,13 @@ Other Style Guides
     }
     export default CheckBox
 
-    // bad
+    // ruim
     import CheckBox from './checkBox'
 
-    // bad
+    // ruim
     import CheckBox from './check_box'
 
-    // good
+    // bom
     import CheckBox from './CheckBox'
     ```
 
@@ -2889,21 +2889,21 @@ Other Style Guides
 
   - Acronyms and initialisms should always be all uppercased, or all lowercased.
 
-    > Why? Names are for readability, not to appease a computer algorithm.
+    > Por que? Names are for readability, not to appease a computer algorithm.
 
     ```javascript
-    // bad
+    // ruim
     import SmsContainer from './containers/SmsContainer'
 
-    // good
+    // bom
     import SMSContainer from './containers/SMSContainer'
 
-    // bad
+    // ruim
     const HttpRequests = [
       // ...
     ]
 
-    // good
+    // bom
     const HTTPRequests = [
       // ...
     ]
@@ -2924,18 +2924,18 @@ Other Style Guides
 
   - You may optionally uppercase a constant only if it (1) is exported, (2) is a `const` (it can not be reassigned), and (3) the programmer can trust it (and its nested properties) to never change.
 
-    > Why? This is an additional tool to assist in situations where the programmer would be unsure if a variable might ever change. UPPERCASE_VARIABLES are letting the programmer know that they can trust the variable (and its properties) not to change.
+    > Por que? This is an additional tool to assist in situations where the programmer would be unsure if a variable might ever change. UPPERCASE_VARIABLES are letting the programmer know that they can trust the variable (and its properties) not to change.
     - What about all `const` variables? - This is unnecessary, so uppercasing should not be used for constants within a file. It should be used for exported constants however.
     - What about exported objects? - Uppercase at the top level of export (e.g. `EXPORTED_OBJECT.key`) and maintain that all nested properties do not change.
 
     ```javascript
-    // bad
+    // ruim
     const PRIVATE_VARIABLE = 'should not be unnecessarily uppercased within a file'
 
-    // bad
+    // ruim
     export const THING_TO_BE_CHANGED = 'should obviously not be uppercased'
 
-    // bad
+    // ruim
     export let REASSIGNABLE_VARIABLE = 'do not use let with uppercase variables'
 
 
@@ -2946,18 +2946,18 @@ Other Style Guides
     export const API_KEY = 'SOMEKEY'
 
 
-    // bad - unnecessarily uppercases key while adding no semantic value
+    // ruim - unnecessarily uppercases key while adding no semantic value
     export const MAPPING = {
       KEY: 'value'
     }
 
-    // good
+    // bom
     export const MAPPING = {
       key: 'value'
     }
     ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ voltar ao topo](#lista-de-conteúdos)**
 
 ## Accessors
 
@@ -2966,7 +2966,7 @@ Other Style Guides
   - Do not use JavaScript getters/setters as they cause unexpected side effects and are harder to test, maintain, and reason about. Instead, if you do make accessor functions, use `getVal()` and `setVal('hello')`.
 
     ```javascript
-    // bad
+    // ruim
     class Dragon {
       get age() {
         // ...
@@ -2977,7 +2977,7 @@ Other Style Guides
       }
     }
 
-    // good
+    // bom
     class Dragon {
       getAge() {
         // ...
@@ -2992,12 +2992,12 @@ Other Style Guides
   - If the property/method is a `boolean`, use `isVal()` or `hasVal()`.
 
     ```javascript
-    // bad
+    // ruim
     if (!dragon.age()) {
       return false
     }
 
-    // good
+    // bom
     if (!dragon.hasAge()) {
       return false
     }
@@ -3022,13 +3022,13 @@ Other Style Guides
     }
     ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ voltar ao topo](#lista-de-conteúdos)**
 
 ## Testing
 
   - **Seriously, we need to do tests!**
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ voltar ao topo](#lista-de-conteúdos)**
 
 ## Translation
 
@@ -3036,6 +3036,6 @@ Other Style Guides
 
   - **Portuguese**: [armoucar/javascript-style-guide](https://github.com/armoucar/javascript-style-guide)
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ voltar ao topo](#lista-de-conteúdos)**
 
 # )
