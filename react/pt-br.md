@@ -4,6 +4,11 @@
 
 Este guia é predominantemente baseado em outros padrões comuns que mais prevaleceram em Javascript até então, embora algumas convenções ainda podem ser adicionada e removidas para cada caso do dia a dia. Mantenha em mente que algumas regras serão automaticamente arrumadas com o [Prettier](https://prettier.io/), e outras não. Este guia também está disponível em outras linguagens. Veja em [Tradução](#tradução)
 
+Outros Style Guides
+
+  - [JS](/pt-br.md)
+
+
 ## Lista de conteúdos
 
   1. [Regras básicas](#regras-básicas)

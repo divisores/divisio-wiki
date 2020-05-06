@@ -6,7 +6,7 @@ Mantenha em mente que algumas regras serão automaticamente arrumadas com o [Pre
 
 Outros Style Guides
 
-  - [React](react/)
+  - [React](react/pt-br.md)
 
 ## Lista de conteúdos
 
@@ -24,14 +24,14 @@ Outros Style Guides
   1. [Propriedades](#propriedades)
   1. [Variáveis](#variáveis)
   1. [Hoisting](#hoisting)
-  1. [Operadores de comparação e igualdade](#comparação-operadores--igualdade)
+  1. [Operadores de comparação & igualdade](#operadores-de-comparação--igualdade)
   1. [Blocos](#blocos)
-  1. [Declarações de controle](#declaração-controle)
+  1. [Declarações de controle](#declarações-de-controle)
   1. [Comentários](#comentários)
-  1. [Whitespace](#whitespace)
+  1. [Espaçamento](#espaçamento)
   1. [Vírgulas](#vírgulas)
-  1. [Ponto e vírgula](#ponto--vírgula)
-  1. [Tipos Casting & Coercion](#tipos-casting--coercion)
+  1. [Ponto e vírgula](#ponto-e-vírgula)
+  1. [Fundição e coerção de tipos](#fundição-e-coerção-de-tipos)
   1. [Nomeação](#nomeação)
   1. [Accessors](#accessors)
   1. [Testes](#testes)
@@ -598,7 +598,7 @@ Outros Style Guides
 
   - Nunca declare uma função em um bloco não funcional (`if`,` while`, etc.). Atribua a função a uma variável. Os navegadores permitirão que você faça isso, mas todos interpretam de maneira diferente, o que é bem ruim. eslint: [`no-loop-func`](https://eslint.org/docs/rules/no-loop-func.html)
 
-  > **Nota**: O ECMA-262 define um bloco como uma lista de instruções. Uma declaração de função não é uma instrução.
+    > **Nota**: O ECMA-262 define um bloco como uma lista de instruções. Uma declaração de  função não é uma instrução.
 
     ```javascript
     // ruim
@@ -1603,42 +1603,41 @@ Outros Style Guides
 
 ## Hoisting
 
-  - `var` declarations get hoisted to the top of their closest enclosing function scope, their assignment does not. `const` and `let` declarations are blessed with a new concept called [Temporal Dead Zones (TDZ)](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/let#Temporal_dead_zone).
+  - Declarações `var` são `hoisted` ao topo do seu escopo de função, no mais próximo que ocorreu o fechamento, mas suas atribuições não são. Já declarações de `const` e `let` são abençoadas com o que o novo conceito chamado [Temporal Dead Zones (TDZ)](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/let#Temporal_dead_zone).
 
     ```javascript
-    // we know this wouldn’t work (assuming there
-    // is no notDefined global variable)
+    // nós sabemos que isso não funcionaria (assumindo que
+    // notDefined também não esteja definido nas variáveis globais)
     const = example = () => {
-      console.log(notDefined) // => throws a ReferenceError
+      console.log(notDefined) // => exibe ReferenceError
     }
 
-    // creating a variable declaration after you
-    // reference the variable will work due to
-    // variable hoisting. Note: the assignment
-    // value of `true` is not hoisted.
+    // criando uma declaração de variável depois de sua
+    // referência, a variável irá funcionar devido ao seu
+    // `hoisting`. Nota: a atribuiçõa do valor 'true' não é `hoisted`.
     const example = () => {
       console.log(declaredButNotAssigned) // => undefined
       var declaredButNotAssigned = true
     }
 
-    // the interpreter is hoisting the variable
-    // declaration to the top of the scope,
-    // which means our example could be rewritten as:
+    // O interpretador faz o `hoist` da declaração de variável
+    // para o topo do escpop. O que significa que o nosso
+    // exemplo poderia ser reescrito como:
     const example = () => {
       let declaredButNotAssigned
       console.log(declaredButNotAssigned) // => undefined
       declaredButNotAssigned = true
     }
 
-    // using const and let
+    // usando const e let
     const example = () => {
-      console.log(declaredButNotAssigned) // => throws a ReferenceError
-      console.log(typeof declaredButNotAssigned) // => throws a ReferenceError
+      console.log(declaredButNotAssigned) // => exibe ReferenceError
+      console.log(typeof declaredButNotAssigned) // => exibe ReferenceError
       const declaredButNotAssigned = true
     }
     ```
 
-  - Anonymous function expressions hoist their variable name, but not the function assignment.
+  - Funções anônimas fazem `hoist` de seus nomes de variáveis, mas não a sua atribuição 
 
     ```javascript
     const example = () => {
@@ -1652,7 +1651,7 @@ Outros Style Guides
     }
     ```
 
-  - Named function expressions hoist the variable name, not the function name or the function body.
+  - Funções com expressões nomeadas fazem `hoist` do nome da sua variável, mas não o nome da função ou seu corpo.
 
     ```javascript
     function example() {
@@ -1668,7 +1667,8 @@ Outros Style Guides
     }
 
     // the same is true when the function name
-    // is the same as the variable name.
+    // O mesmo continua verdade quando o nome função
+    // é o mesmo que o nome da variável da função
     function example() {
       console.log(named) // => undefined
 
@@ -1680,7 +1680,7 @@ Outros Style Guides
     }
     ```
 
-  - Function declarations hoist their name and the function body.
+  - Declarações de funções fazem o `hoist` do seus nomes e corpos.
 
     ```javascript
     function example() {
@@ -1691,7 +1691,7 @@ Outros Style Guides
       }
     }
     
-    // Remember that it doesn't happen with arrow functions
+    // Lembre-se que isso não se aplica a arrow functions
     const example = () => {
       superPower() // => ReferenceError:
 
@@ -1703,27 +1703,27 @@ Outros Style Guides
 
 **[⬆ voltar ao topo](#lista-de-conteúdos)**
 
-## Comparison Operators & Equality
+## Operadores de comparação & igualdade
 
-  - Use `===` and `!==` over `==` and `!=`. eslint: [`eqeqeq`](https://eslint.org/docs/rules/eqeqeq.html)
+  - Use `===` e `!==` em vez de `==` e `!=`. eslint: [`eqeqeq`](https://eslint.org/docs/rules/eqeqeq.html)
 
-  - Conditional statements such as the `if` statement evaluate their expression using coercion with the `ToBoolean` abstract method and always follow these simple rules:
+  - Instruções condicionais, como a instrução `if`, avaliam sua expressão usando coerção com o método abstrato` ToBoolean` e sempre seguem estas regras simples:
 
-    - **Objects** evaluate to **true**
-    - **Undefined** evaluates to **false**
-    - **Null** evaluates to **false**
-    - **Booleans** evaluate to **the value of the boolean**
-    - **Numbers** evaluate to **false** if **+0, -0, or NaN**, otherwise **true**
-    - **Strings** evaluate to **false** if an empty string `''`, otherwise **true**
+    - **Objects** se torna **true**
+    - **Undefined** se torna **false**
+    - **Null** se torna **false**
+    - **Booleans** se torna **the value of the boolean**
+    - **Numbers** se torna **false** Se **+0, -0, or NaN**, Senão **true**
+    - **Strings** se torna **false** Se a string é vazia `''`, Senão **true**
 
     ```javascript
     if ([0] && []) {
       // true
-      // an array (even an empty one) is an object, objects will evaluate to true
+      // Uma array (mesmo vazia) é um objeto, objetos se tornam true
     }
     ```
 
-  - Use shortcuts for booleans, but explicit comparisons for strings.
+  - Use `shortcuts` para valores booleanos, mas explicite a comparação com strings.
 
     ```javascript
     // ruim
@@ -1747,9 +1747,9 @@ Outros Style Guides
     }
     ```
 
-  - Use braces to create blocks in `case` and `default` clauses that contain lexical declarations (e.g. `let`, `const`, `function`, and `class`). eslint: [`no-case-declarations`](https://eslint.org/docs/rules/no-case-declarations.html)
+  - Utilize chaves para criar blocos em `case` e `default` que contém declarações léxicas (e.g. `let`, `const`, `function`, e `class`). eslint: [`no-case-declarations`](https://eslint.org/docs/rules/no-case-declarations.html)
 
-    > Por que? Lexical declarations are visible in the entire `switch` block but only get initialized when assigned, which only happens when its `case` is reached. This causes problems when multiple `case` clauses attempt to define the same thing.
+    > Por que? Declarações lexicais são visíveis em todo o bloco `switch`, mas somente são inicializadas quando atribuídas, o que só acontece quando seu` case` é atingido. Isso causa problemas quando várias cláusulas `case` tentam definir a mesma coisa.
 
     ```javascript
     // ruim
@@ -1794,7 +1794,7 @@ Outros Style Guides
     }
     ```
 
-  - Ternaries should not be nested and generally be single line expressions. eslint: [`no-nested-ternary`](https://eslint.org/docs/rules/no-nested-ternary.html)
+  - Os ternários não devem ser aninhados e geralmente são expressões de linha única. eslint: [`no-nested-ternary`](https://eslint.org/docs/rules/no-nested-ternary.html)
 
     ```javascript
     // ruim
@@ -1814,7 +1814,7 @@ Outros Style Guides
     const foo = maybe1 > maybe2 ? 'bar' : maybeNull
     ```
 
-  - Avoid unneeded ternary statements. eslint: [`no-unneeded-ternary`](https://eslint.org/docs/rules/no-unneeded-ternary.html)
+  - Evite declarações ternárias desnecessárias. eslint: [`no-unneeded-ternary`](https://eslint.org/docs/rules/no-unneeded-ternary.html)
 
     ```javascript
     // ruim
@@ -1828,10 +1828,10 @@ Outros Style Guides
     const baz = !c
     ```
 
-  - When mixing operators, enclose them in parentheses. The only exception is the standard arithmetic operators: `+`, `-`, and `**` since their precedence is broadly understood. We recommend enclosing `/` and `*` in parentheses because their precedence can be ambiguous when they are mixed.
+  - Ao misturar operadores, coloque-os entre parênteses. A única exceção são os operadores aritméticos padrão: `+`, `-` e` ** `, pois sua precedência é amplamente compreendida. Recomendamos colocar `/` e `*` entre parênteses, porque sua precedência pode ser ambígua quando misturados.
   eslint: [`no-mixed-operators`](https://eslint.org/docs/rules/no-mixed-operators.html)
 
-    > Por que? This improves readability and clarifies the developer’s intention.
+    > Por que? Isso melhora a legibilidade e esclarece a intenção do desenvolvedor.
 
     ```javascript
     // ruim
@@ -1841,7 +1841,7 @@ Outros Style Guides
     const bar = a ** b - 5 % d
 
     // ruim
-    // one may be confused into thinking (a || b) && c
+    // pode ser confundido por (a || b) && c
     if (a || b && c) {
       return d
     }
@@ -1866,9 +1866,9 @@ Outros Style Guides
 
 **[⬆ voltar ao topo](#lista-de-conteúdos)**
 
-## Blocks
+## Blocos
 
-  - Use braces with all multiline blocks. eslint: [`nonblock-statement-body-position`](https://eslint.org/docs/rules/nonblock-statement-body-position)
+  - Use chaves para todos os blocos de multilinhas. eslint: [`nonblock-statement-body-position`](https://eslint.org/docs/rules/nonblock-statement-body-position)
 
     ```javascript
     // ruim
@@ -1884,7 +1884,7 @@ Outros Style Guides
     }
     ```
 
-  - If you’re using multiline blocks with `if` and `else`, put `else` on the same line as your `if` block’s closing brace. eslint: [`brace-style`](https://eslint.org/docs/rules/brace-style.html)
+  - Se você estiver usando blocos multilinhas `{}` com `if` e `else`, coloque `else` na mesma linha como que seu bloco `if` está fechando. eslint: [`brace-style`](https://eslint.org/docs/rules/brace-style.html)
 
     ```javascript
     // ruim
@@ -1905,7 +1905,7 @@ Outros Style Guides
     }
     ```
 
-  - If an `if` block always executes a `return` statement, the subsequent `else` block is unnecessary. A `return` in an `else if` block following an `if` block that contains a `return` can be separated into multiple `if` blocks. eslint: [`no-else-return`](https://eslint.org/docs/rules/no-else-return)
+  - Se um bloco `if` sempre executa uma instrução `return`, o bloco `else` subsequente será desnecessário. Um `return` em um bloco `else if` seguindo um blocl `if` que contenha um `return` pode ser separados em múltiplos blocos `if`. eslint: [`no-else-return`](https://eslint.org/docs/rules/no-else-return)
 
     ```javascript
     // ruim
@@ -1971,11 +1971,11 @@ Outros Style Guides
 
 **[⬆ voltar ao topo](#lista-de-conteúdos)**
 
-## Control Statements
+## Declarações de controle
 
-  - In case your control statement (`if`, `while` etc.) gets too long or exceeds the maximum line length, each (grouped) condition could be put into a new line. The logical operator should begin the line.
+  - Caso sua declaração de controle (`if`,` while` etc.) fique muito longa ou exceda o comprimento máximo da linha, cada condição (agrupada) poderá ser inserida em uma nova linha. O operador lógico deve começar a linha.
 
-    > Por que? Requiring operators at the beginning of the line keeps the operators aligned and follows a pattern similar to method chaining. This also improves readability by making it easier to visually follow complex logic.
+    > Por que? A exigência de operadores no início da linha mantém os operadores alinhados e segue um padrão semelhante ao encadeamento de métodos. Isso também melhora a legibilidade, facilitando o acompanhamento visual de lógica complexa.
 
     ```javascript
     // ruim
@@ -2026,7 +2026,7 @@ Outros Style Guides
     }
     ```
 
-  - Don't use selection operators in place of control statements.
+  - Não use operadores de seleção no lugar das instruções de controle.
 
     ```javascript
     // ruim
@@ -2040,9 +2040,9 @@ Outros Style Guides
 
 **[⬆ voltar ao topo](#lista-de-conteúdos)**
 
-## Comments
+## Comentários
 
-  - Use `/** ... */` for multiline comments.
+  - Use `/** ... */` para comentários com muitas linhas.
 
     ```javascript
     // ruim
@@ -2074,7 +2074,7 @@ Outros Style Guides
     }
     ```
 
-  - Use `//` for single line comments. Place single line comments on a newline above the subject of the comment. Put an empty line before the comment unless it’s on the first line of a block.
+  - Use `//` para comentários de linha única. Coloque comentários de linha única em uma nova linha acima do assunto do comentário. Coloque uma linha vazia antes do comentário, a menos que esteja na primeira linha de um bloco.
 
     ```javascript
     // ruim
@@ -2112,7 +2112,7 @@ Outros Style Guides
     }
     ```
 
-  - Start all comments with a space to make it easier to read. eslint: [`spaced-comment`](https://eslint.org/docs/rules/spaced-comment)
+  - Comece todos os comentários após um espaço para que facilite a leitura. eslint: [`spaced-comment`](https://eslint.org/docs/rules/spaced-comment)
 
     ```javascript
     // ruim
@@ -2148,9 +2148,9 @@ Outros Style Guides
     }
     ```
 
-  - Prefixing your comments with `FIXME` or `TODO` helps other developers quickly understand if you’re pointing out a problem that needs to be revisited, or if you’re suggesting a solution to the problem that needs to be implemented. These are different than regular comments because they are actionable. The actions are `FIXME: -- need to figure this out` or `TODO: -- need to implement`.
+  - Prefixar seus comentários com `FIXME` ou` TODO` ajuda outros desenvolvedores a entender rapidamente se você está apontando um problema que precisa ser revisado ou se está sugerindo uma solução para o problema que precisa ser implementado. Estes são diferentes dos comentários regulares porque são acionáveis. As ações são `FIXME: - precisa descobrir isso 'ou` TODO: - precisa implementar`.
 
-  - Use `// FIXME:` to annotate problems.
+  - Use `// FIXME:` para anotar problemas.
 
     ```javascript
     class Calculator extends Abacus {
@@ -2163,7 +2163,7 @@ Outros Style Guides
     }
     ```
 
-  - Use `// TODO:` to annotate solutions to problems.
+  - Use `// TODO:` to anotar soluções de problemas.
 
     ```javascript
     class Calculator extends Abacus {
@@ -2178,9 +2178,9 @@ Outros Style Guides
 
 **[⬆ voltar ao topo](#lista-de-conteúdos)**
 
-## Whitespace
+## Espaçamento
 
-  - Use soft tabs (space character) set to 2 spaces. eslint: [`indent`](https://eslint.org/docs/rules/indent.html)
+  - Use soft spaces (caractere de espaço) definidos como 2 espaços. eslint: [`indent`](https://eslint.org/docs/rules/indent.html)
 
     ```javascript
     // ruim
@@ -2199,7 +2199,7 @@ Outros Style Guides
     }
     ```
 
-  - Place 1 space before the leading brace. eslint: [`space-before-blocks`](https://eslint.org/docs/rules/space-before-blocks.html)
+  - Coloque 1 espaço antes da chave principal. eslint: [`space-before-blocks`](https://eslint.org/docs/rules/space-before-blocks.html)
 
     ```javascript
     // ruim
@@ -2225,7 +2225,7 @@ Outros Style Guides
     })
     ```
 
-  - Place 1 space before the opening parenthesis in control statements (`if`, `while` etc.). Place no space between the argument list and the function name in function calls and declarations. eslint: [`keyword-spacing`](https://eslint.org/docs/rules/keyword-spacing.html)
+  - Coloque 1 espaço antes do parêntese de abertura nas instruções de controle (`if`,` while` etc.). Não coloque espaço entre a lista de argumentos nem no nome da função nas chamadas e declarações de funções. eslint: [`keyword-spacing`](https://eslint.org/docs/rules/keyword-spacing.html)
 
     ```javascript
     // ruim
@@ -2249,7 +2249,7 @@ Outros Style Guides
     }
     ```
 
-  - Set off operators with spaces. eslint: [`space-infix-ops`](https://eslint.org/docs/rules/space-infix-ops.html)
+  - Defina operadores com espaços. eslint: [`space-infix-ops`](https://eslint.org/docs/rules/space-infix-ops.html)
 
     ```javascript
     // ruim
@@ -2259,7 +2259,7 @@ Outros Style Guides
     const x = y + 5
     ```
 
-  - End files with a single newline character. eslint: [`eol-last`](https://github.com/eslint/eslint/blob/master/docs/rules/eol-last.md)
+  - Finalize arquivos com um único caractere de nova linha. eslint: [`eol-last`](https://github.com/eslint/eslint/blob/master/docs/rules/eol-last.md)
 
     ```javascript
     // ruim
@@ -2283,8 +2283,7 @@ Outros Style Guides
     export default es6↵
     ```
 
-  - Use indentation when making long method chains (more than 2 method chains). Use a leading dot, which
-    emphasizes that the line is a method call, not a new statement. eslint: [`newline-per-chained-call`](https://eslint.org/docs/rules/newline-per-chained-call) [`no-whitespace-before-property`](https://eslint.org/docs/rules/no-whitespace-before-property)
+  - Use indentação ao criar cadeias longas de método (mais de 2 cadeias de método). Use um ponto inicial, que enfatize que a linha é uma chamada de método, não uma nova declaração. eslint: [`newline-per-chained-call`](https://eslint.org/docs/rules/newline-per-chained-call) [`no-whitespace-before-property`](https://eslint.org/docs/rules/no-whitespace-before-property)
 
     ```javascript
     // ruim
@@ -2307,7 +2306,7 @@ Outros Style Guides
     const leds = stage.selectAll('.led').data(data)
     ```
 
-  - Leave a blank line after blocks and before the next statement.
+  - Deixe uma linha em branco após os blocos e antes da próxima instrução.
 
     ```javascript
     // ruim
@@ -2364,7 +2363,7 @@ Outros Style Guides
     return arr
     ```
 
-  - Do not pad your blocks with blank lines. eslint: [`padded-blocks`](https://eslint.org/docs/rules/padded-blocks.html)
+  - Não envolvar o interior dos seus blocos com linhas vazias. eslint: [`padded-blocks`](https://eslint.org/docs/rules/padded-blocks.html)
 
     ```javascript
     // ruim
@@ -2404,7 +2403,7 @@ Outros Style Guides
     }
     ```
 
-  - Do not use multiple blank lines to pad your code. eslint: [`no-multiple-empty-lines`](https://eslint.org/docs/rules/no-multiple-empty-lines)
+  - Não use várias linhas em branco para preencher seu código. eslint: [`no-multiple-empty-lines`](https://eslint.org/docs/rules/no-multiple-empty-lines)
 
     <!-- markdownlint-disable MD012 -->
     ```javascript
@@ -2457,7 +2456,7 @@ Outros Style Guides
     }
     ```
 
-  - Do not add spaces inside parentheses. eslint: [`space-in-parens`](https://eslint.org/docs/rules/space-in-parens.html)
+  - Não adicione espaços entre parênteses. eslint: [`space-in-parens`](https://eslint.org/docs/rules/space-in-parens.html)
 
     ```javascript
     // ruim
@@ -2481,7 +2480,7 @@ Outros Style Guides
     }
     ```
 
-  - Do not add spaces inside brackets. eslint: [`array-bracket-spacing`](https://eslint.org/docs/rules/array-bracket-spacing.html)
+  - Não adicione espaços entre colchetes. eslint: [`array-bracket-spacing`](https://eslint.org/docs/rules/array-bracket-spacing.html)
 
     ```javascript
     // ruim
@@ -2493,7 +2492,7 @@ Outros Style Guides
     console.log(foo[0])
     ```
 
-  - Add spaces inside curly braces. eslint: [`object-curly-spacing`](https://eslint.org/docs/rules/object-curly-spacing.html)
+  - Adicione espaços dentro de chaves. eslint: [`object-curly-spacing`](https://eslint.org/docs/rules/object-curly-spacing.html)
 
     ```javascript
     // ruim
@@ -2503,9 +2502,11 @@ Outros Style Guides
     const foo = { clark: 'kent' }
     ```
 
-  - Avoid having lines of code that are longer than 100 characters (including whitespace). Note: per [above](#strings--line-length), long strings are exempt from this rule, and should not be broken up. eslint: [`max-len`](https://eslint.org/docs/rules/max-len.html)
+  - Evite ter linhas de código com mais de 100 caracteres (incluindo espaço em branco).  
+  
+    > Nota: Sobre a regra acima, strings longas estão isentas dessa regra e não devem ser divididas. eslint: [`max-len`](https://eslint.org/docs/rules/max-len.html)
 
-    > Por que? This ensures readability and maintainability.
+    > Por que? Isso garante legibilidade e facilidade de manutenção.
 
     ```javascript
     // ruim
@@ -2520,7 +2521,7 @@ Outros Style Guides
       && jsonData.foo.bar.baz.quux.xyzzy
     ```
 
-  - Require consistent spacing inside an open block token and the next token on the same line. This rule also enforces consistent spacing inside a close block token and previous token on the same line. eslint: [`block-spacing`](https://eslint.org/docs/rules/block-spacing)
+  - Exija espaçamento consistente dentro de um token de bloco aberto e o próximo token na mesma linha. Essa regra também aplica espaçamento consistente dentro de um token de bloco próximo e um token anterior na mesma linha. eslint: [`block-spacing`](https://eslint.org/docs/rules/block-spacing)
 
     ```javascript
     // ruim
@@ -2530,7 +2531,7 @@ Outros Style Guides
     if (foo) { bar = 0 }
     ```
 
-  - Avoid spaces before commas and require a space after commas. eslint: [`comma-spacing`](https://eslint.org/docs/rules/comma-spacing)
+  - Evite espaços antes de vírgulas e exija um espaço após vírgulas. eslint: [`comma-spacing`](https://eslint.org/docs/rules/comma-spacing)
 
     ```javascript
     // ruim
@@ -2542,7 +2543,7 @@ Outros Style Guides
     const arr = [1, 2]
     ```
 
-  - Enforce spacing inside of computed property brackets. eslint: [`computed-property-spacing`](https://eslint.org/docs/rules/computed-property-spacing)
+  - Impor espaçamento dentro dos colchetes de propriedades computadas. eslint: [`computed-property-spacing`](https://eslint.org/docs/rules/computed-property-spacing)
 
     ```javascript
     // ruim
@@ -2558,7 +2559,7 @@ Outros Style Guides
     obj[foo[bar]]
     ```
 
-  - Avoid spaces between functions and their invocations. eslint: [`func-call-spacing`](https://eslint.org/docs/rules/func-call-spacing)
+  - Evite espaços entre funções e suas invocações. eslint: [`func-call-spacing`](https://eslint.org/docs/rules/func-call-spacing)
 
     ```javascript
     // ruim
@@ -2571,7 +2572,7 @@ Outros Style Guides
     func()
     ```
 
-  - Enforce spacing between keys and values in object literal properties. eslint: [`key-spacing`](https://eslint.org/docs/rules/key-spacing)
+  - Impor espaçamento entre chaves e valores nas propriedades literais do objeto. eslint: [`key-spacing`](https://eslint.org/docs/rules/key-spacing)
 
     ```javascript
     // ruim
@@ -2582,24 +2583,24 @@ Outros Style Guides
     var obj = { foo: 42 }
     ```
 
-  - Avoid trailing spaces at the end of lines. eslint: [`no-trailing-spaces`](https://eslint.org/docs/rules/no-trailing-spaces)
+  - Evite arrastar espaços no final das linhas. eslint: [`no-trailing-spaces`](https://eslint.org/docs/rules/no-trailing-spaces)
 
-  - Avoid multiple empty lines, only allow one newline at the end of files, and avoid a newline at the beginning of files. eslint: [`no-multiple-empty-lines`](https://eslint.org/docs/rules/no-multiple-empty-lines)
+  - Evite várias linhas vazias, permita apenas uma nova linha no final dos arquivos e evite uma nova linha no início dos arquivos. eslint: [`no-multiple-empty-lines`](https://eslint.org/docs/rules/no-multiple-empty-lines)
 
     <!-- markdownlint-disable MD012 -->
     ```javascript
-    // ruim - multiple empty lines
+    // ruim - multiplas linhas vaziasa
     var x = 1
 
 
     var y = 2
 
-    // ruim - 2+ newlines at end of file
+    // ruim - 2+ linhas no fim do arquivo
     var x = 1
     var y = 2
 
 
-    // ruim - 1+ newline(s) at beginning of file
+    // ruim - 1+ linhas no início do arquivo
 
     var x = 1
     var y = 2
@@ -2609,13 +2610,12 @@ Outros Style Guides
     var y = 2
 
     ```
-    <!-- markdownlint-enable MD012 -->
 
 **[⬆ voltar ao topo](#lista-de-conteúdos)**
 
-## Commas
+## Vírgulas
 
-  - Leading commas: **Nope.** eslint: [`comma-style`](https://eslint.org/docs/rules/comma-style.html)
+  - Vírgulas a frente do item: **Nope.** eslint: [`comma-style`](https://eslint.org/docs/rules/comma-style.html)
 
     ```javascript
     // ruim
@@ -2651,21 +2651,21 @@ Outros Style Guides
 
 **[⬆ voltar ao topo](#lista-de-conteúdos)**
 
-## Semicolons
+## Ponto e vírgula
 
-  - **Nope.** Prettier will clean this up. Here we can se
+  - **Nope.** [Prettier](https://prettier.io/) vai acabar limpando todas elas. Nas próximas linhas são mostrados alguns casos que você deve tomar cuidado ao não colocar ponto e vírgula
 
-    > Por que? When JavaScript encounters a line break without a semicolon, it uses a set of rules called [Automatic Semicolon Insertion](https://tc39.github.io/ecma262/#sec-automatic-semicolon-insertion) to determine whether or not it should regard that line break as the end of a statement.
+    > Por que? Quando o JavaScript encontra uma quebra de linha sem ponto e vírgula, ele usa um conjunto de regras chamado [Inserção automática de ponto e vírgula](https://tc39.github.io/ecma262/#sec-automatic-semicolon-insertion) para determinar se deve ou não considerar essa quebra de linha como o final de uma instrução.
 
     ```javascript
-    // ruim - raises exception
+    // ruim - levanta uma exception
     const reaction = "No! That’s impossible!"
     (async function meanwhileOnTheFalcon() {
       // handle `leia`, `lando`, `chewie`, `r2`, `c3p0`
       // ...
     }())
 
-    // ruim - returns `undefined` instead of the value on the next line - always happens when `return` is on a line by itself because of ASI!
+    // ruim - returna `undefined` em vez do valor da próxima linha - always happens when `return` is on a line by itself because of ASI!
     function foo() {
       return
         'search your feelings, you know it to be foo'
@@ -2693,9 +2693,9 @@ Outros Style Guides
 
 **[⬆ voltar ao topo](#lista-de-conteúdos)**
 
-## Type Casting & Coercion
+## Fundição e coerção de tipos
 
-  - Perform type coercion at the beginning of the statement.
+  - Execute coerção de tipo no início da declaração.
 
   - Strings: eslint: [`no-new-wrappers`](https://eslint.org/docs/rules/no-new-wrappers)
 
@@ -2715,7 +2715,7 @@ Outros Style Guides
     const totalScore = String(this.reviewScore)
     ```
 
-  - Numbers: Use `Number` for type casting and `parseInt` always with a radix for parsing strings. eslint: [`radix`](https://eslint.org/docs/rules/radix) [`no-new-wrappers`](https://eslint.org/docs/rules/no-new-wrappers)
+  - Numbers: Use `Number` para a conversão de tipos e` parseInt` sempre com um redix para o parsing de strings. eslint: [`radix`](https://eslint.org/docs/rules/radix) [`no-new-wrappers`](https://eslint.org/docs/rules/no-new-wrappers)
 
     ```javascript
     const inputValue = '4'
@@ -2756,9 +2756,9 @@ Outros Style Guides
 
 **[⬆ voltar ao topo](#lista-de-conteúdos)**
 
-## Naming Conventions
+## Nomeação
 
-  - Avoid single letter names. Be descriptive with your naming. eslint: [`id-length`](https://eslint.org/docs/rules/id-length)
+  - Evite nomes de letras únicas. Seja descritivo com sua nomeação. eslint: [`id-length`](https://eslint.org/docs/rules/id-length)
 
     ```javascript
     // ruim
@@ -2772,7 +2772,7 @@ Outros Style Guides
     }
     ```
 
-  - Use camelCase when naming objects, functions, and instances. eslint: [`camelcase`](https://eslint.org/docs/rules/camelcase.html)
+  - Use camelCase ao nomear objetos, funções e instâncias. eslint: [`camelcase`](https://eslint.org/docs/rules/camelcase.html)
 
     ```javascript
     // ruim
@@ -2784,7 +2784,7 @@ Outros Style Guides
     const thisIsMyFunction = () => {}
     ```
 
-  - Use PascalCase only when naming constructors or classes. eslint: [`new-cap`](https://eslint.org/docs/rules/new-cap.html)
+  - Use PascalCase apenas ao nomear construtores ou classes. eslint: [`new-cap`](https://eslint.org/docs/rules/new-cap.html)
 
     ```javascript
     // ruim
@@ -2808,9 +2808,9 @@ Outros Style Guides
     })
     ```
 
-  - Do not use trailing or leading underscores. eslint: [`no-underscore-dangle`](https://eslint.org/docs/rules/no-underscore-dangle.html)
+  - Não use sublinhados à direita ou à direita. eslint: [`no-underscore-dangle`](https://eslint.org/docs/rules/no-underscore-dangle.html)
 
-    > Por que? JavaScript does not have the concept of privacy in terms of properties or methods. Although a leading underscore is a common convention to mean “private”, in fact, these properties are fully public, and as such, are part of your public API contract. This convention might lead developers to wrongly think that a change won’t count as breaking, or that tests aren’t needed. tldr: if you want something to be “private”, it must not be observably present.
+    > Por que? JavaScript não tem o conceito de privacidade em termos de propriedades ou métodos. Embora um sublinhado de destaque seja uma convenção comum que signifique "privado", na verdade, essas propriedades são totalmente públicas e, como tal, fazem parte do seu contrato público de API. Essa convenção pode levar os desenvolvedores a pensarem erroneamente que uma mudança não será considerada quebra ou que testes não são necessários. tldr: se você deseja que algo seja “privado”, ele não deve estar presente de maneira observável.
 
     ```javascript
     // ruim
@@ -2822,7 +2822,7 @@ Outros Style Guides
     this.firstName = 'Panda'
     ```
 
-  - Don’t save references to `this`. Use arrow functions or [Function#bind](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/bind).
+  - Não salve referências em `this`. Use arrow functions.
 
     ```javascript
     // ruim
@@ -2849,7 +2849,7 @@ Outros Style Guides
     }
     ```
 
-  - A base filename should exactly match the name of its default export.
+  - Um nome de arquivo base deve corresponder exatamente ao nome de sua exportação padrão.
 
     ```javascript
     // file 1 contents
@@ -2868,7 +2868,7 @@ Outros Style Guides
     import CheckBox from './CheckBox'
     ```
 
-  - Use camelCase when you export-default a function. Your filename should be identical to your function’s name.
+  - Use camelCase ao exportar uma função padrão. Seu nome do arquivo deve ser idêntico ao nome da sua função.
 
     ```javascript
     function makeStyleGuide() {
@@ -2878,7 +2878,8 @@ Outros Style Guides
     export default makeStyleGuide
     ```
 
-  - Use PascalCase when you export a constructor / class / singleton / function library / bare object.
+  - Use PascalCase ao exportar um construtor / classe / singleton / biblioteca de funções / objeto vazio.
+
 
     ```javascript
     const AirbnbStyleGuide = {
@@ -2889,9 +2890,9 @@ Outros Style Guides
     export default AirbnbStyleGuide
     ```
 
-  - Acronyms and initialisms should always be all uppercased, or all lowercased.
+  - Acrônimos e inicialismos devem sempre estar em maiúsculas ou minúsculas.
 
-    > Por que? Names are for readability, not to appease a computer algorithm.
+    > Por que? Os nomes são de legibilidade, para não apaziguar um algoritmo de computador.
 
     ```javascript
     // ruim
@@ -2924,11 +2925,11 @@ Outros Style Guides
     ]
     ```
 
-  - You may optionally uppercase a constant only if it (1) is exported, (2) is a `const` (it can not be reassigned), and (3) the programmer can trust it (and its nested properties) to never change.
+  - Você pode opcionalmente colocar em maiúscula uma constante apenas se (1) for exportada, (2) for uma `const` (não puder ser reatribuída) e (3) o programador possa confiar que ela (e em suas propriedades aninhadas) nunca muda.
 
-    > Por que? This is an additional tool to assist in situations where the programmer would be unsure if a variable might ever change. UPPERCASE_VARIABLES are letting the programmer know that they can trust the variable (and its properties) not to change.
-    - What about all `const` variables? - This is unnecessary, so uppercasing should not be used for constants within a file. It should be used for exported constants however.
-    - What about exported objects? - Uppercase at the top level of export (e.g. `EXPORTED_OBJECT.key`) and maintain that all nested properties do not change.
+    > Por que? Essa é uma ferramenta adicional para ajudar em situações nas quais o programador não tem certeza se uma variável pode mudar. UPPERCASE_VARIABLES estão deixando o programador saber que eles podem confiar que a variável (e suas propriedades) não vai mudar.
+    - E quanto a todas as variáveis ​​`const`? - Isso é desnecessário, portanto, maiúsculas não devem ser usadas para constantes em um arquivo. No entanto, ele deve ser usado para constantes exportadas.
+    - E os objetos exportados? - Maiúsculas no nível superior de exportação (por exemplo, `EXPORTED_OBJECT.key`) e faça com que todas as propriedades aninhadas não sejam alteradas.
 
     ```javascript
     // ruim
@@ -2963,9 +2964,9 @@ Outros Style Guides
 
 ## Accessors
 
-  - Accessor functions for properties are not required.
+  - Funções accessors para propriedades não são necessárias.
 
-  - Do not use JavaScript getters/setters as they cause unexpected side effects and are harder to test, maintain, and reason about. Instead, if you do make accessor functions, use `getVal()` and `setVal('hello')`.
+  - Não use `getters` / `setters` JavaScript, pois eles causam efeitos colaterais inesperados e são mais difíceis de testar, manter e fundamentar. Em vez disso, se você criar funções accessors, use `getVal ()` e `setVal ('hello')`.
 
     ```javascript
     // ruim
@@ -2991,7 +2992,7 @@ Outros Style Guides
     }
     ```
 
-  - If the property/method is a `boolean`, use `isVal()` or `hasVal()`.
+  - Se a propriedade/método for um `boolean`, use `isVal()` ou `hasVal()`.
 
     ```javascript
     // ruim
@@ -3005,7 +3006,7 @@ Outros Style Guides
     }
     ```
 
-  - It’s okay to create `get()` and `set()` functions, but **always be consistent**.
+  - Está tudo bem criar funções `get()` e `set()`, mas **sempre seja consistente**.
 
     ```javascript
     class Jedi {
@@ -3026,17 +3027,17 @@ Outros Style Guides
 
 **[⬆ voltar ao topo](#lista-de-conteúdos)**
 
-## Testing
+## Testes
 
-  - **Seriously, we need to do tests!**
+  - **Precisamos testar ein**
 
 **[⬆ voltar ao topo](#lista-de-conteúdos)**
 
-## Translation
+## Tradução
 
-  This style guide is also available in other languages:
+  Este guia também está disponível em outra linguagem:
 
-  - **Portuguese**: [armoucar/javascript-style-guide](https://github.com/armoucar/javascript-style-guide)
+  - **English**: [/README.md](/README.md)
 
 **[⬆ voltar ao topo](#lista-de-conteúdos)**
 

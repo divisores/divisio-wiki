@@ -2281,8 +2281,7 @@ Other Style Guides
     export default es6↵
     ```
 
-  - Use indentation when making long method chains (more than 2 method chains). Use a leading dot, which
-    emphasizes that the line is a method call, not a new statement. eslint: [`newline-per-chained-call`](https://eslint.org/docs/rules/newline-per-chained-call) [`no-whitespace-before-property`](https://eslint.org/docs/rules/no-whitespace-before-property)
+  - Use indentation when making long method chains (more than 2 method chains). Use a leading dot, which emphasizes that the line is a method call, not a new statement. eslint: [`newline-per-chained-call`](https://eslint.org/docs/rules/newline-per-chained-call) [`no-whitespace-before-property`](https://eslint.org/docs/rules/no-whitespace-before-property)
 
     ```javascript
     // bad
@@ -2651,7 +2650,7 @@ Other Style Guides
 
 ## Semicolons
 
-  - **Nope.** Prettier will clean this up. Here we can se
+  - **Nope.** Prettier will clean this up. In the next lines are shown some cases that you should be careful when not to put a semicolon
 
     > Why? When JavaScript encounters a line break without a semicolon, it uses a set of rules called [Automatic Semicolon Insertion](https://tc39.github.io/ecma262/#sec-automatic-semicolon-insertion) to determine whether or not it should regard that line break as the end of a statement.
 
@@ -2820,7 +2819,7 @@ Other Style Guides
     this.firstName = 'Panda'
     ```
 
-  - Don’t save references to `this`. Use arrow functions or [Function#bind](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/bind).
+  - Don’t save references to `this`. Use arrow functions.
 
     ```javascript
     // bad

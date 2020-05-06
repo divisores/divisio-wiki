@@ -4,6 +4,10 @@
 
 This style guide is mostly based on the standards that are currently prevalent in JavaScript, although some conventions may still be included or prohibited on a case-by-case basis. Keep in mind that some rules will automatically be fixed with [Prettier](https://prettier.io/), and others will not. This guide is available in other languages too. See [Translation](#translation)
 
+Others style guides:
+
+  - [JS](/)
+
 ## Table of Contents
 
   1. [Basic Rules](#basic-rules)
