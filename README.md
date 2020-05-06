@@ -3033,7 +3033,7 @@ Other Style Guides
 
   This style guide is also available in other languages:
 
-  - **Portuguese**: [armoucar/javascript-style-guide](https://github.com/armoucar/javascript-style-guide)
+  - **Portuguese**: [/pt-br.md](/pt-br.md)
 
 **[⬆ back to top](#table-of-contents)**
 
