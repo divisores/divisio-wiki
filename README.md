@@ -793,7 +793,7 @@ Other Style Guides
     new Date(...[2016, 8, 5])
     ```
 
-  - Functions with multiline signatures, or invocations, should be indented just like every other multiline list in this guide: with each item on a line by itself, with a trailing comma on the last item. eslint: [`function-paren-newline`](https://eslint.org/docs/rules/function-paren-newline)
+  - Functions with multiline signatures, or invocations, should be indented just like every other multiline list in this guide: with each item on a line by itself. eslint: [`function-paren-newline`](https://eslint.org/docs/rules/function-paren-newline)
 
     ```javascript
     // bad
@@ -878,7 +878,7 @@ Other Style Guides
     }))
     ```
 
-  - If there is only one argument, do not include parentheses around arguments for clarity and consistency.
+  - If there is only one argument, do not include parentheses around for clarity and consistency.
 
     ```javascript
     // bad

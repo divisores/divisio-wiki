@@ -78,7 +78,7 @@ Outros Style Guides
     }
     ```
 
-    > **Note**: Note que ambas `let` e `const` são escopos por bloco.
+    > **Nota**: Note que ambas `let` e `const` são escopos por bloco.
 
     ```javascript
     // const e let existem apenas aonde foram definidas.
@@ -239,7 +239,7 @@ Outros Style Guides
       // bom
       console.log(Object.prototype.hasOwnProperty.call(object, key))
   
-      // best
+      // melhor
       const has = Object.prototype.hasOwnProperty // armazena a pesquisa em cache uma   vez, no escopo do módulo.
       console.log(has.call(object, key))
       /* ou */
@@ -316,7 +316,7 @@ Outros Style Guides
     // bom
     const nodes = Array.from(foo)
 
-    // best
+    // melhor
     const nodes = [...foo]
     ```
 
@@ -424,11 +424,11 @@ Outros Style Guides
 
 **[⬆ voltar ao topo](#lista-de-conteúdos)**
 
-## Destructuring
+## Desestruturação
 
-  - Use object destructuring when accessing and using multiple properties of an object. eslint: [`prefer-destructuring`](https://eslint.org/docs/rules/prefer-destructuring)
+  - Use a desestruturação de objeto quando estiver acessando e usando múltiplas propriedades de um objeto. eslint: [`prefer-destructuring`](https://eslint.org/docs/rules/prefer-destructuring)
 
-    > Por que? Destructuring saves you from creating temporary references for those properties.
+    > Por que? Desestruturação te salva de criar referências temporárias para estas propriedades.
 
     ```javascript
     // ruim
@@ -445,11 +445,11 @@ Outros Style Guides
       return `${firstName} ${lastName}`
     }
 
-    // best
+    // melhor
     const getFullName = ({ firstName, lastName }) => `${firstName} ${lastName}`
     ```
 
-  - Use array destructuring. eslint: [`prefer-destructuring`](https://eslint.org/docs/rules/prefer-destructuring)
+  - Use desestruturação de array. eslint: [`prefer-destructuring`](https://eslint.org/docs/rules/prefer-destructuring)
 
     ```javascript
     const arr = [1, 2, 3, 4]
@@ -462,9 +462,9 @@ Outros Style Guides
     const [first, second] = arr
     ```
 
-  - Use object destructuring for multiple return values, not array destructuring.
+  - Use desestruturação de objeto para valores múltiplos em um return, não desestruturação de array.
 
-    > Por que? You can add new properties over time or change the order of things without breaking call sites.
+    > Por que? Você pode adicionar novas propriedades mais tarde, ou mudar a ordem das coisas sem quebrar outras chamadas da função.
 
     ```javascript
     // ruim
@@ -473,7 +473,7 @@ Outros Style Guides
       return [left, right, top, bottom]
     }
 
-    // the caller needs to think about the order of return data
+    // O caller precisa pensar sobre a ordem do conteúdo do return 
     const [left, __, top] = processInput(input)
 
     // bom
@@ -482,7 +482,7 @@ Outros Style Guides
       return { left, right, top, bottom }
     }
 
-    // the caller selects only the data he needs
+    // O caller seleciona apenas o conteúdo que precisa
     const { left, top } = processInput(input)
     ```
 
@@ -490,22 +490,22 @@ Outros Style Guides
 
 ## Strings
 
-  - Use single quotes `''` for strings. eslint: [`quotes`](https://eslint.org/docs/rules/quotes.html)
+  - Use aspas simples `''` para strings. eslint: [`quotes`](https://eslint.org/docs/rules/quotes.html)
 
     ```javascript
     // ruim
     const name = "Capt. Janeway"
 
-    // ruim - template literals should contain interpolation or newlines
+    // ruim - template literals deve conter interpolação ou novas linhas
     const name = `Capt. Janeway`
 
     // bom
     const name = 'Capt. Janeway'
     ```
 
-  - Strings that cause the line to go over 100 characters should **not** be written across multiple lines using string concatenation.
+  - Strings maiores que 100 caractéres **não** devem ser escritas em várias linhas usando concatenação de string.
 
-    > Por que? Broken strings are painful to work with and make code less searchable.
+    > Por que? Strings quebradas são dolorodas de trabalhar e ainda faz o código ser menos pesquisável.
 
     ```javascript
     // ruim
@@ -523,9 +523,9 @@ Outros Style Guides
     const errorMessage = 'This is a super long error that was thrown because of Batman. When you stop to think about how Batman had anything to do with this, you would get nowhere fast.'
     ```
 
-  - When programmatically building up strings, use template strings instead of concatenation. eslint: [`prefer-template`](https://eslint.org/docs/rules/prefer-template.html) [`template-curly-spacing`](https://eslint.org/docs/rules/template-curly-spacing)
+  - Quando precisar de variáveis dentro da string, utilize template string ao inves de concatenação. eslint: [`prefer-template`](https://eslint.org/docs/rules/prefer-template.html) [`template-curly-spacing`](https://eslint.org/docs/rules/template-curly-spacing)
 
-    > Por que? Template strings give you a readable, concise syntax with proper newlines and string interpolation features.
+    > Por que? Template strings te dá uma sintaxe legível e concisa com boa forma de quebrar novas linhas, e ainda funcionalidades de interpolação.
 
     ```javascript
     // ruim
@@ -537,15 +537,16 @@ Outros Style Guides
     // ruim
     const sayHi = name => `How are you, ${ name }?`
 
-    // bom
+    // bom  - Never use `eval()` on a string, it opens too many vulnerabilities. eslint: [`no-eval`](https://eslint.org/docs/rules/no-eval)
+
     const sayHi = name => `How are you, ${name}?`
     ```
 
-  - Never use `eval()` on a string, it opens too many vulnerabilities. eslint: [`no-eval`](https://eslint.org/docs/rules/no-eval)
+  - Nunca use `eval()` em uma string, pois deixa aberto para muitas vulnerabilidades. eslint: [`no-eval`](https://eslint.org/docs/rules/no-eval)
 
-  - Do not unnecessarily escape characters in strings. eslint: [`no-useless-escape`](https://eslint.org/docs/rules/no-useless-escape)
+  - Não escape caractéres em string de forma desnecessária. eslint: [`no-useless-escape`](https://eslint.org/docs/rules/no-useless-escape)
 
-    > Por que? Backslashes harm readability, thus they should only be present when necessary.
+    > Por que? Barra invertida prejudica a leitura, portanto é bom que estejam presentes apenas quando necessário.
 
     ```javascript
     // ruim
@@ -560,11 +561,11 @@ Outros Style Guides
 
 ## Functions
 
-  - Prefer to use arrow functions when it's possible. See [Arrow Functions](#arrow-functions)
+  - Prefira usar arrow functions sempre que possível. Veja em [Arrow Functions](#arrow-functions)
 
-  - Use named function expressions instead of function declarations. eslint: [`func-style`](https://eslint.org/docs/rules/func-style)
+  - Use funçoes nomeadas ao inves de declarações de funções. eslint: [`func-style`](https://eslint.org/docs/rules/func-style)
 
-    > Por que? Function declarations are hoisted, which means that it’s easy - too easy - to reference the function before it is defined in the file. This harms readability and maintainability. If you find that a function’s definition is large or complex enough that it is interfering with understanding the rest of the file, then perhaps it’s time to extract it to its own module! Don’t forget to explicitly name the expression, regardless of whether or not the name is inferred from the containing variable (which is often the case in modern browsers or when using compilers such as Babel). This eliminates any assumptions made about the Error’s call stack. ([Discussion](https://github.com/airbnb/javascript/issues/794))
+    > Por que? Declarações de funções são hoisted(içadas), o que significa que é fácil - muito fácil - para referenciar a função antes que ela seja definida no arquivo. Isso prejudica a legibilidade e a capacidade de manutenção. Se você achar que a definição de uma função é grande ou complexa o suficiente para interferir na compreensão do restante do arquivo, talvez seja hora de extraí-la para seu próprio módulo! Não se esqueça de nomear explicitamente a expressão, independentemente de o nome ser inferido ou não da variável que contém (o que geralmente acontece nos navegadores modernos ou quando se usa compiladores como o Babel). Isso elimina quaisquer suposições feitas sobre a pilha de chamadas do erro.
 
     ```javascript
     // ruim
@@ -578,15 +579,15 @@ Outros Style Guides
     }
 
     // bom
-    // lexical name distinguished from the variable-referenced invocation(s)
+    // nome distinto da(s) chamada(s) de variável-referenciada
     const short = function longUniqueMoreDescriptiveLexicalFoo() {
       // ...
     }
     ```
 
-  - Wrap immediately invoked function expressions in parentheses. eslint: [`wrap-iife`](https://eslint.org/docs/rules/wrap-iife.html)
+  - Abraçar entre parênteses as funções que são imediatamente invocadas. eslint: [`wrap-iife`](https://eslint.org/docs/rules/wrap-iife.html)
 
-    > Por que? An immediately invoked function expression is a single unit - wrapping both it, and its invocation parens, in parens, cleanly expresses this. Note that in a world with modules everywhere, you almost never need an IIFE.
+    > Por que? Uma expressão de função invocada imediatamente é uma única unidade - agrupando-a em sua invocação, ela será expressada de maneira limpa. Observe que em um arquivo com módulos em todos os lugares, você quase nunca precisa de um IIFE.
 
     ```javascript
     // immediately-invoked function expression (IIFE)
@@ -595,9 +596,9 @@ Outros Style Guides
     }())
     ```
 
-  - Never declare a function in a non-function block (`if`, `while`, etc). Assign the function to a variable instead. Browsers will allow you to do it, but they all interpret it differently, which is bad news bears. eslint: [`no-loop-func`](https://eslint.org/docs/rules/no-loop-func.html)
+  - Nunca declare uma função em um bloco não funcional (`if`,` while`, etc.). Atribua a função a uma variável. Os navegadores permitirão que você faça isso, mas todos interpretam de maneira diferente, o que é bem ruim. eslint: [`no-loop-func`](https://eslint.org/docs/rules/no-loop-func.html)
 
-  > **Note:** ECMA-262 defines a `block` as a list of statements. A function declaration is not a statement.
+  > **Nota**: O ECMA-262 define um bloco como uma lista de instruções. Uma declaração de função não é uma instrução.
 
     ```javascript
     // ruim
@@ -616,7 +617,7 @@ Outros Style Guides
     }
     ```
 
-  - Never name a parameter `arguments`. This will take precedence over the `arguments` object that is given to every function scope.
+  - Nunca nomeie um parâmetro como `arguments`. Isto terá precedência sobre o objeto `arguments` que é dado a todo escopo de função.
 
     ```javascript
     // ruim
@@ -630,9 +631,9 @@ Outros Style Guides
     }
     ```
 
-  - Never use `arguments`, opt to use rest syntax `...` instead. eslint: [`prefer-rest-params`](https://eslint.org/docs/rules/prefer-rest-params)
+  - Nunca use `arguments`, opte por usar spread `...`. eslint: [`prefer-rest-params`](https://eslint.org/docs/rules/prefer-rest-params)
 
-    > Por que? `...` is explicit about which arguments you want pulled. Plus, rest arguments are a real Array, and not merely Array-like like `arguments`.
+    > Por que? `...` é explícito sobre quais argumentos você deseja extrair. Além disso, os argumentos vindo de `...rest` são um array real, e não apenas um Array-like como em `arguments`.
 
     ```javascript
     // ruim
@@ -647,7 +648,7 @@ Outros Style Guides
     }
     ```
 
-  - Use default parameter syntax rather than mutating function arguments.
+  - Use a sintaxe para definir um padrão para parâmetros em vez de alterar os argumentos da função.
 
     ```javascript
     // really bad
@@ -671,9 +672,9 @@ Outros Style Guides
     }
     ```
 
-  - Avoid side effects with default parameters.
+  - Evita efeitos colaterais em paramêtros com valor padrão.
 
-    > Por que? They are confusing to reason about.
+    > Por que? Eles são bastante confusos de entender.
 
     ```javascript
     var b = 1
@@ -689,7 +690,7 @@ Outros Style Guides
     count()  // 3
     ```
 
-  - Always put default parameters last.
+  - Sempre coloque parâmetros com valor padrão por último.
 
     ```javascript
     // ruim
@@ -703,9 +704,9 @@ Outros Style Guides
     }
     ```
 
-  - Never use the Function constructor to create a new function. eslint: [`no-new-func`](https://eslint.org/docs/rules/no-new-func)
+  - Nunca use o construtor de Função para create uma nova função. eslint: [`no-new-func`](https://eslint.org/docs/rules/no-new-func)
 
-    > Por que? Creating a function in this way evaluates a string similarly to `eval()`, which opens vulnerabilities.
+    > Por que? A criação de uma função dessa maneira avalia uma string de forma semelhante a `eval()`, abrindo mais espaço para vulnerabilidades.
 
     ```javascript
     // ruim
@@ -715,9 +716,9 @@ Outros Style Guides
     var subtract = Function('a', 'b', 'return a - b')
     ```
 
-  - Spacing in a function signature. eslint: [`space-before-function-paren`](https://eslint.org/docs/rules/space-before-function-paren) [`space-before-blocks`](https://eslint.org/docs/rules/space-before-blocks)
+  - Espace uma assinatura de função. eslint: [`space-before-function-paren`](https://eslint.org/docs/rules/space-before-function-paren) [`space-before-blocks`](https://eslint.org/docs/rules/space-before-blocks)
 
-    > Por que? Consistency is good, and you shouldn’t have to add or remove a space when adding or removing a name.
+    > Por que? Consistência é bom, e você não deve precisar adicionar ou remover um espaço quando adicionar ou remover um nome.
 
     ```javascript
     // ruim
@@ -730,9 +731,9 @@ Outros Style Guides
     const y = function a() {}
     ```
 
-  - Never mutate parameters. eslint: [`no-param-reassign`](https://eslint.org/docs/rules/no-param-reassign.html)
+  - Nunca mude parâmetros. eslint: [`no-param-reassign`](https://eslint.org/docs/rules/no-param-reassign.html)
 
-    > Por que? Manipulating objects passed in as parameters can cause unwanted variable side effects in the original caller.
+    > Por que? Manipular objetos passados ​​como parâmetros pode causar efeitos colaterais variáveis ​​indesejados no caller original.
 
     ```javascript
     // ruim
@@ -746,9 +747,9 @@ Outros Style Guides
     }
     ```
 
-  - Never reassign parameters. eslint: [`no-param-reassign`](https://eslint.org/docs/rules/no-param-reassign.html)
+  - Nunca retribua parâmetros. eslint: [`no-param-reassign`](https://eslint.org/docs/rules/no-param-reassign.html)
 
-    > Por que? Reassigning parameters can lead to unexpected behavior, especially when accessing the `arguments` object. It can also cause optimization issues, especially in V8.
+    > Por que? A reatribuição de parâmetros pode levar a um comportamento inesperado, especialmente ao acessar o objeto `arguments`. Também pode causar problemas de otimização, especialmente na V8.
 
     ```javascript
     // ruim
@@ -773,9 +774,9 @@ Outros Style Guides
     }
     ```
 
-  - Prefer the use of the spread operator `...` to call variadic functions. eslint: [`prefer-spread`](https://eslint.org/docs/rules/prefer-spread)
+  - Prefira o uso do spread operator `...` ao chamas funções variadas. eslint: [`prefer-spread`](https://eslint.org/docs/rules/prefer-spread)
 
-    > Por que? It’s cleaner, you don’t need to supply a context, and you can not easily compose `new` with `apply`.
+    > Por que? É mais limpo, você não precisa fornecer um contexto e não há como compor facilmente `new` com `apply`.
 
     ```javascript
     // ruim
@@ -793,7 +794,7 @@ Outros Style Guides
     new Date(...[2016, 8, 5])
     ```
 
-  - Functions with multiline signatures, or invocations, should be indented just like every other multiline list in this guide: with each item on a line by itself, with a trailing comma on the last item. eslint: [`function-paren-newline`](https://eslint.org/docs/rules/function-paren-newline)
+  - As funções com assinaturas ou chamadas de várias linhas devem ser identadas como qualquer outra lista de várias linhas neste guia: com cada item em uma linha por si só. eslint: [`function-paren-newline`](https://eslint.org/docs/rules/function-paren-newline)
 
     ```javascript
     // ruim
@@ -829,14 +830,14 @@ Outros Style Guides
 
 ## Arrow Functions
 
-  - Always prefer to use arrow functions instead of normal functions if you can.
-    > Por que? Consistency is always a good thing, and the syntax becomes more concise.
+  - Sempre prefira usar arrow functions em vez de funções normais se puder.
+    > Por que? A consistência é sempre uma coisa boa, e a sintaxe se torna mais concisa.
 
-  - When you must use an anonymous function (as when passing an inline callback), use arrow function notation. eslint: [`prefer-arrow-callback`](https://eslint.org/docs/rules/prefer-arrow-callback.html), [`arrow-spacing`](https://eslint.org/docs/rules/arrow-spacing.html)
+  - Quando você deve usar uma função anônima (como ao passar um retorno de chamada em linha), use a notação de arrow function. eslint: [`prefer-arrow-callback`](https://eslint.org/docs/rules/prefer-arrow-callback.html), [`arrow-spacing`](https://eslint.org/docs/rules/arrow-spacing.html)
 
-    > Por que? It creates a version of the function that executes in the context of `this`, which is usually what you want.
+    > Por que? Ele cria uma versão da função que é executada no contexto de `this`, que geralmente é o que você deseja.
 
-    > Why not? If you have a fairly complicated function, you might move that logic out into its own named function expression.
+    > Por que não? Se você tiver uma função bastante complicada, poderá mover essa lógica para sua própria expressão de função nomeada
 
     ```javascript
     // ruim
@@ -852,10 +853,9 @@ Outros Style Guides
     })
     ```
 
-  - If the function body consists of a single statement returning an [expression](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Expressions_and_Operators#Expressions) without side effects, omit the braces and use the implicit return. Otherwise, keep the braces and use a `return` statement. eslint: [`arrow-parens`](https://eslint.org/docs/rules/arrow-parens.html), [`arrow-body-style`](https://eslint.org/docs/rules/arrow-body-style.html)
+  - Se o corpo da função consistir em uma única instrução retornando uma [expressão](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Expressions_and_Operators#Expressions) sem efeitos colaterais, omita as chaves e utilize a sintaxe do return implícito. Se não for o caso, mantenha as chaves e utilize a instrução `return`. eslint: [`arrow-parens`](https://eslint.org/docs/rules/arrow-parens.html), [`arrow-body-style`](https://eslint.org/docs/rules/arrow-body-style.html)
 
-    > Por que? Syntactic sugar. It reads well when multiple functions are chained together.
-
+    > Por que? Syntactic sugar. Fica de fácil leitura quando há várias funções encadeadas.
     ```javascript
     // ruim
     [1, 2, 3].map(number => {
@@ -878,7 +878,7 @@ Outros Style Guides
     }))
     ```
 
-  - If there is only one argument, do not include parentheses around arguments for clarity and consistency.
+  - Se houver apenas um argumento, não inclua parênteses em torno para maior clareza e consistência
 
     ```javascript
     // ruim
@@ -899,7 +899,7 @@ Outros Style Guides
     ))
     ```
 
-  - Avoid confusing arrow function syntax (`=>`) with comparison operators (`<=`, `>=`). eslint: [`no-confusing-arrow`](https://eslint.org/docs/rules/no-confusing-arrow)
+  - Evite uma confusão de sintaxe de arrow function (`=>`) com operadores de comparação (`<=`, `>=`). eslint: [`no-confusing-arrow`](https://eslint.org/docs/rules/no-confusing-arrow)
 
     ```javascript
     // ruim
@@ -918,7 +918,7 @@ Outros Style Guides
     }
     ```
 
-  - Enforce the location of arrow function bodies with implicit returns. eslint: [`implicit-arrow-linebreak`](https://eslint.org/docs/rules/implicit-arrow-linebreak)
+  - Reforce a localização do corpo das arrow functions com retornos implícitos. eslint: [`implicit-arrow-linebreak`](https://eslint.org/docs/rules/implicit-arrow-linebreak)
 
     ```javascript
     // ruim
@@ -1147,7 +1147,7 @@ Outros Style Guides
     import AirbnbStyleGuide from './AirbnbStyleGuide'
     export default AirbnbStyleGuide.es6
 
-    // best
+    // melhor
     import { es6 } from './AirbnbStyleGuide'
     export default es6
     ```
@@ -1324,7 +1324,7 @@ Outros Style Guides
     })
     sum === 15
 
-    // best (use the functional force)
+    // melhor (use the functional force)
     const sum = numbers.reduce((total, num) => total + num, 0)
     sum === 15
 
@@ -1340,7 +1340,7 @@ Outros Style Guides
       increasedByOne.push(num + 1)
     })
 
-    // best (keeping it functional)
+    // melhor (keeping it functional)
     const increasedByOne = numbers.map(num => num + 1)
     ```
 
@@ -1808,7 +1808,7 @@ Outros Style Guides
       ? 'bar'
       : maybeNull
 
-    // best
+    // melhor
     const foo = maybe1 > maybe2 ? 'bar' : maybeNull
     ```
 
@@ -2748,7 +2748,7 @@ Outros Style Guides
     // bom
     const hasAge = Boolean(age)
 
-    // best!
+    // melhor!
     const hasAge = !!age
     ```
 
@@ -2913,10 +2913,10 @@ Outros Style Guides
       // ...
     ]
 
-    // best
+    // melhor
     import TextMessageContainer from './containers/TextMessageContainer'
 
-    // best
+    // melhor
     const requests = [
       // ...
     ]
