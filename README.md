@@ -943,7 +943,7 @@ Other Style Guides
   - Class make your code more concise and self-documenting, and it's a great feature of ES6. But just because you have a hammer that doesn't mean everything is now a nail. Try to figure out what works best and be aware of the caveats before deciding whether you need a class or not. You can see the next topics as suggestions, not rules.
 
     ```javascript
-    // bad
+    // function
     function Queue(contents = []) {
       this.queue = [...contents]
     }
@@ -954,7 +954,7 @@ Other Style Guides
       return value
     }
 
-    // good
+    // class
     class Queue {
       constructor(contents = []) {
         this.queue = [...contents]
@@ -973,7 +973,7 @@ Other Style Guides
     > Why? It is a built-in way to inherit prototype functionality without breaking `instanceof`.
 
     ```javascript
-    // bad
+    // function
     const inherits = require('inherits')
 
     function PeekableQueue(contents) {
@@ -986,7 +986,7 @@ Other Style Guides
       return this.queue[0]
     }
 
-    // good
+    // class
     class PeekableQueue extends Queue {
       peek() {
         return this.queue[0]
@@ -997,7 +997,7 @@ Other Style Guides
   - Methods can return `this` to help with method chaining.
 
     ```javascript
-    // bad
+    // function
     Jedi.prototype.jump = function () {
       this.jumping = true
       return true
@@ -1011,7 +1011,7 @@ Other Style Guides
     luke.jump() // => true
     luke.setHeight(20) // => undefined
 
-    // good
+    // class
     class Jedi {
       jump() {
         this.jumping = true
@@ -1221,7 +1221,7 @@ Other Style Guides
     // bad
     export function foo() {}
 
-    // still bad
+    // good, but not the best
     export default function foo() {}
 
     // good
@@ -1251,7 +1251,7 @@ Other Style Guides
   - Multiline imports should be indented just like multiline array and object literals.
  eslint: [`object-curly-newline`](https://eslint.org/docs/rules/object-curly-newline)
 
-    > Why? The curly braces follow the same indentation rules as every other curly brace block in the style guide, as do the trailing commas.
+    > Why? The curly braces follow the same indentation rules as every other curly brace block in the style guide.
 
     ```javascript
     // bad

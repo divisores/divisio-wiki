@@ -559,7 +559,7 @@ Outros Style Guides
 
 **[⬆ voltar ao topo](#lista-de-conteúdos)**
 
-## Functions
+## Funções
 
   - Prefira usar arrow functions sempre que possível. Veja em [Arrow Functions](#arrow-functions)
 
@@ -794,7 +794,7 @@ Outros Style Guides
     new Date(...[2016, 8, 5])
     ```
 
-  - As funções com assinaturas ou chamadas de várias linhas devem ser identadas como qualquer outra lista de várias linhas neste guia: com cada item em uma linha por si só. eslint: [`function-paren-newline`](https://eslint.org/docs/rules/function-paren-newline)
+  - As funções com assinaturas ou chamadas de várias linhas devem ser indentadas como qualquer outra lista de várias linhas neste guia: com cada item em uma linha por si só. eslint: [`function-paren-newline`](https://eslint.org/docs/rules/function-paren-newline)
 
     ```javascript
     // ruim
@@ -938,12 +938,12 @@ Outros Style Guides
 
 **[⬆ voltar ao topo](#lista-de-conteúdos)**
 
-## Classes & Constructors
+## Classes & Construtores
 
-  - Class make your code more concise and self-documenting, and it's a great feature of ES6. But just because you have a hammer that doesn't mean everything is now a nail. Try to figure out what works best and be aware of the caveats before deciding whether you need a class or not. You can see the next topics as suggestions, not rules.
+  - Classes tornam seu código mais conciso e auto-documentado, e é um ótimo recurso do ES6, mas não é só porque você tem um martelo que significa que tudo agora é um prego. Tente descobrir o que funciona melhor e esteja ciente das advertências antes de decidir se precisa de uma Classe ou não. Você pode ver os próximos tópicos como sugestões, e não como regras.
 
     ```javascript
-    // ruim
+    // função
     function Queue(contents = []) {
       this.queue = [...contents]
     }
@@ -954,7 +954,7 @@ Outros Style Guides
       return value
     }
 
-    // bom
+    // classe
     class Queue {
       constructor(contents = []) {
         this.queue = [...contents]
@@ -968,12 +968,12 @@ Outros Style Guides
     }
     ```
 
-  - Use `extends` for inheritance.
+  - Use `extends` para inheritance.
 
-    > Por que? It is a built-in way to inherit prototype functionality without breaking `instanceof`.
+    > Por que? É uma maneira integrada de herdar a funcionalidade do protótipo sem interromper `instanceof`.
 
     ```javascript
-    // ruim
+    // função
     const inherits = require('inherits')
 
     function PeekableQueue(contents) {
@@ -986,7 +986,7 @@ Outros Style Guides
       return this.queue[0]
     }
 
-    // bom
+    // classe
     class PeekableQueue extends Queue {
       peek() {
         return this.queue[0]
@@ -994,10 +994,10 @@ Outros Style Guides
     }
     ```
 
-  - Methods can return `this` to help with method chaining.
+  - Métodos podem retornar `this` para ajudar em uma cadeia de métodos.
 
     ```javascript
-    // ruim
+    // função
     Jedi.prototype.jump = function () {
       this.jumping = true
       return true
@@ -1011,7 +1011,7 @@ Outros Style Guides
     luke.jump() // => true
     luke.setHeight(20) // => undefined
 
-    // bom
+    // classe
     class Jedi {
       jump() {
         this.jumping = true
@@ -1030,7 +1030,7 @@ Outros Style Guides
       .setHeight(20)
     ```
 
-  - It’s okay to write a custom `toString()` method, just make sure it works successfully and causes no side effects.
+  - Esa tudo bem escrever um método `toString()` costumizado, apenas tenha certeza de que funciona bem e não tenha efeitos colaterais
 
     ```javascript
     class Jedi {
@@ -1048,7 +1048,7 @@ Outros Style Guides
     }
     ```
 
-  - Classes have a default constructor if one is not specified. An empty constructor function or one that just delegates to a parent class is unnecessary. eslint: [`no-useless-constructor`](https://eslint.org/docs/rules/no-useless-constructor)
+  - As classes têm um construtor padrão se um não for especificado. Uma função de construtor vazia ou que apenas delega para uma classe pai é desnecessária. eslint: [`no-useless-constructor`](https://eslint.org/docs/rules/no-useless-constructor)
 
     ```javascript
     // ruim
@@ -1076,9 +1076,9 @@ Outros Style Guides
     }
     ```
 
-  - Avoid duplicate class members. eslint: [`no-dupe-class-members`](https://eslint.org/docs/rules/no-dupe-class-members)
+  - Evite membros de classe duplicados. eslint: [`no-dupe-class-members`](https://eslint.org/docs/rules/no-dupe-class-members)
 
-    > Por que? Duplicate class member declarations will silently prefer the last one - having duplicates is almost certainly a bug.
+    > Por que? As declarações duplicadas dos membros da classe irão preferir silenciosamente a última delas - ter duplicatas é quase certamente um bug.
 
     ```javascript
     // ruim
@@ -1098,7 +1098,7 @@ Outros Style Guides
     }
     ```
 
-  - Class methods should use `this` or be made into a static method unless an external library or framework requires to use specific non-static methods. Being an instance method should indicate that it behaves differently based on properties of the receiver. eslint: [`class-methods-use-this`](https://eslint.org/docs/rules/class-methods-use-this)
+  - Os métodos de classe devem usar `this` ou ser transformados em um método estático, a menos que uma biblioteca ou estrutura externa exija o uso de métodos não estáticos específicos. Ser um método de instância deve indicar que ele se comporta de maneira diferente com base nas propriedades do receptor. eslint: [`class-methods-use-this`](https://eslint.org/docs/rules/class-methods-use-this)
 
     ```javascript
     // ruim
@@ -1108,14 +1108,14 @@ Outros Style Guides
       }
     }
 
-    // bom - this is used
+    // bom - this é usado
     class Foo {
       bar() {
         console.log(this.bar)
       }
     }
 
-    // bom - constructor is exempt
+    // bom - constructor está isento
     class Foo {
       constructor() {
         // ...
@@ -1132,11 +1132,11 @@ Outros Style Guides
 
 **[⬆ voltar ao topo](#lista-de-conteúdos)**
 
-## Modules
+## Módulos
 
-  - Always use modules (`import`/`export`) over a non-standard module system. You can always transpile to your preferred module system.
+  - Sempre use módulos (`import` /` export`) em vez de um sistema de módulos não padronizado. Você sempre pode transpilar para o seu sistema de módulo preferido.
 
-    > Por que? Modules are the future, let’s start using the future now.
+    > Por que? Módulos são o futuro, então vamos começar a usar o futuro agora.
 
     ```javascript
     // ruim
@@ -1152,9 +1152,9 @@ Outros Style Guides
     export default es6
     ```
 
-  - Do not use wildcard imports.
+  - Não use wildcard imports.
 
-    > Por que? This makes sure you have a single default export.
+    > Por que? Isso garante que você tenha um único default export.
 
     ```javascript
     // ruim
@@ -1164,7 +1164,7 @@ Outros Style Guides
     import AirbnbStyleGuide from './AirbnbStyleGuide'
     ```
 
-  - And do not export directly from an import.
+  - E não use default export diretamente de um import.
 
     > Por que? Although the one-liner is concise, having one clear way to import and one clear way to export makes things consistent.
 
@@ -1179,14 +1179,15 @@ Outros Style Guides
     export default es6
     ```
 
-  - Only import from a path in one place.
+  - Somente importe um caminho em uma única importação
  eslint: [`no-duplicate-imports`](https://eslint.org/docs/rules/no-duplicate-imports)
-    > Por que? Having multiple lines that import from the same path can make code harder to maintain.
+    
+    > Por que? Ter várias linhas importadas do mesmo caminho pode dificultar a manutenção do código.
 
     ```javascript
     // ruim
     import foo from 'foo'
-    // … some other imports … //
+    // … outros imports … //
     import { named1, named2 } from 'foo'
 
     // bom
@@ -1199,9 +1200,9 @@ Outros Style Guides
     } from 'foo'
     ```
 
-  - Do not export mutable bindings.
+  - Não exporte mutable bindings.
  eslint: [`import/no-mutable-exports`](https://github.com/benmosher/eslint-plugin-import/blob/master/docs/rules/no-mutable-exports.md)
-    > Por que? Mutation should be avoided in general, but in particular when exporting mutable bindings. While this technique may be needed for some special cases, in general, only constant references should be exported.
+    > Por que? A mutação deve ser evitada em geral, mas em particular ao exportar mutable bindings. Embora essa técnica possa ser necessária para alguns casos especiais, em geral, apenas referências constantes devem ser exportadas.
 
     ```javascript
     // ruim
@@ -1213,26 +1214,27 @@ Outros Style Guides
     export { foo }
     ```
 
-  - In modules with a single export, prefer default export over named export. Always export after name it. 
+  - Nos módulos com uma única exportação, prefira a exportação padrão à exportação nomeada. Sempre exporte após o nome.
  eslint: [`import/prefer-default-export`](https://github.com/benmosher/eslint-plugin-import/blob/master/docs/rules/prefer-default-export.md)
-    > Por que? To encourage more files that only ever export one thing, which is better for readability and maintainability.
+    
+    > Por que? Incentivar mais arquivos que exportam apenas uma coisa, o que é melhor para legibilidade e manutenção.
 
     ```javascript
     // ruim
     export function foo() {}
 
-    // still bad
+    // bom, mas não o melhor
     export default function foo() {}
 
-    // bom
+    // melhor
     const foo = function foo() {}
 
     export default foo
     ```
 
-  - Put all `import`s above non-import statements.
+  - Coloque todos os `import`s acima de instruções que não são importo.
  eslint: [`import/first`](https://github.com/benmosher/eslint-plugin-import/blob/master/docs/rules/first.md)
-    > Por que? Since `import`s are hoisted, keeping them all at the top prevents surprising behavior.
+    > Por que? Como os `import`s são hoisted, mantê-los todos por cima de tudo previne que não haverá comportamentos inesperados.
 
     ```javascript
     // ruim
@@ -1248,10 +1250,10 @@ Outros Style Guides
     foo.init()
     ```
 
-  - Multiline imports should be indented just like multiline array and object literals.
+  - As importações de múltiplas linhas devem ser indentadas assim como arrays múltiplas linhas e objetos.
  eslint: [`object-curly-newline`](https://eslint.org/docs/rules/object-curly-newline)
 
-    > Por que? The curly braces follow the same indentation rules as every other curly brace block in the style guide, as do the trailing commas.
+    > Por que? Blocos de chaves de importação seguem as mesmas regras de indentação que todos os outros blocos de chaves no guia de estilo.
 
     ```javascript
     // ruim
@@ -1267,9 +1269,9 @@ Outros Style Guides
     } from 'path'
     ```
 
-  - Disallow Webpack loader syntax in module import statements.
+  - Não permita a syntax do Webpack loader nas instruções de import.
  eslint: [`import/no-webpack-loader-syntax`](https://github.com/benmosher/eslint-plugin-import/blob/master/docs/rules/no-webpack-loader-syntax.md)
-    > Por que? Since using Webpack syntax in the imports couples the code to a module bundler. Prefer using the loader syntax in `webpack.config.js`.
+    > Por que? Como o uso da sintaxe do Webpack nas importações, o código é associado a um empacotador de módulo. Prefira usar a sintaxe do loader syntax em `webpack.config.js`.
 
     ```javascript
     // ruim
@@ -1281,10 +1283,10 @@ Outros Style Guides
     import barCss from 'bar.css'
     ```
 
-  - Do not include JavaScript filename extensions
+  - Não defina as extensões nos arquivos de JS e JSX
  eslint: [`import/extensions`](https://github.com/benmosher/eslint-plugin-import/blob/master/docs/rules/extensions.md)
-    > Por que? Including extensions inhibits refactoring, and inappropriately hardcodes implementation details of the module you're importing in every consumer.
-
+    > Por que? A inclusão de extensões inibe a refatoração e codifica inadequadamente os detalhes da implementação do módulo que você está importando para todos os consumidores.
+  
     ```javascript
     // ruim
     import foo from './foo.js'
@@ -1299,13 +1301,13 @@ Outros Style Guides
 
 **[⬆ voltar ao topo](#lista-de-conteúdos)**
 
-## Iterators
+## Iteradores
 
-  - Prefer JavaScript’s higher-order functions instead of loops like `for-in` or `for-of`. eslint: [`no-iterator`](https://eslint.org/docs/rules/no-iterator.html) [`no-restricted-syntax`](https://eslint.org/docs/rules/no-restricted-syntax)
+  - Prefira as funções high-order de JavaScript em vez de loops como `for-in` ou `for-of`. eslint: [`no-iterator`](https://eslint.org/docs/rules/no-iterator.html) [`no-restricted-syntax`](https://eslint.org/docs/rules/no-restricted-syntax)
 
-    > Por que? This enforces our immutable rule. Dealing with pure functions that return values is easier to reason about than side effects.
+    > Por que? Isso reforça nossa regra imutável. Lidar com funções puras que retornam valores é mais fácil de entender do que efeitos colaterais.
 
-    > Use `map()` / `every()` / `filter()` / `find()` / `findIndex()` / `reduce()` / `some()` / ... to iterate over arrays, and `Object.keys()` / `Object.values()` / `Object.entries()` to produce arrays so you can iterate over objects.
+    > Use `map()` / `every()` / `filter()` / `find()` / `findIndex()` / `reduce()` / `some()` / ... para iterar sob arrays, e `Object.keys()` / `Object.values()` / `Object.entries()` para produzir arrays e então iterar sob objectos.
 
     ```javascript
     const numbers = [1, 2, 3, 4, 5]
@@ -1324,7 +1326,7 @@ Outros Style Guides
     })
     sum === 15
 
-    // melhor (use the functional force)
+    // melhor
     const sum = numbers.reduce((total, num) => total + num, 0)
     sum === 15
 
@@ -1346,9 +1348,9 @@ Outros Style Guides
 
 **[⬆ voltar ao topo](#lista-de-conteúdos)**
 
-## Properties
+## Propriedades
 
-  - Use dot notation when accessing properties. eslint: [`dot-notation`](https://eslint.org/docs/rules/dot-notation.html)
+  - Use notação de ponto ao acessar propriedades. eslint: [`dot-notation`](https://eslint.org/docs/rules/dot-notation.html)
 
     ```javascript
     const luke = {
@@ -1363,7 +1365,7 @@ Outros Style Guides
     const isJedi = luke.jedi
     ```
 
-  - Use bracket notation `[]` when accessing properties with a variable.
+  - Use notação de colchetes `[]` quando precisar acessar uma propriedade com uma variável.
 
     ```javascript
     const luke = {
@@ -1380,9 +1382,9 @@ Outros Style Guides
 
 **[⬆ voltar ao topo](#lista-de-conteúdos)**
 
-## Variables
+## Variáveis
 
-  - Always use `const` or `let` to declare variables. Not doing so will result in global variables. We want to avoid polluting the global namespace. eslint: [`no-undef`](https://eslint.org/docs/rules/no-undef) [`prefer-const`](https://eslint.org/docs/rules/prefer-const)
+  - Sempre use `const` ou `let` para declarar variáveis. Não fazer isso resultará em variáveis ​​globais. Queremos evitar poluir o espaço de variáveis globais. eslint: [`no-undef`](https://eslint.org/docs/rules/no-undef) [`prefer-const`](https://eslint.org/docs/rules/prefer-const)
 
     ```javascript
     // ruim
@@ -1392,9 +1394,9 @@ Outros Style Guides
     const superPower = new SuperPower()
     ```
 
-  - Use one `const` or `let` declaration per variable or assignment. eslint: [`one-var`](https://eslint.org/docs/rules/one-var.html)
+  - Use uma declaração de `const` ou `let` por variável ou atribuição. eslint: [`one-var`](https://eslint.org/docs/rules/one-var.html)
 
-    > Por que? It’s easier to add new variable declarations this way, and you never have to worry about swapping out a `` for a `,` or introducing punctuation-only diffs. You can also step through each declaration with the debugger, instead of jumping through all of them at once. Same thing when a error pops up related to this declaration chain
+    > Por que? É mais fácil adicionar novas declarações de variáveis ​​dessa maneira, e você nunca precisa se preocupar em trocar um ` for a `, ou introduzir apenas alterações de pontuação. Você também pode percorrer cada declaração com o depurador, em vez de pular todas elas de uma vez. A mesma coisa quando um erro aparece relacionado a esta cadeia de declaração
 
     ```javascript
     // ruim
@@ -1403,7 +1405,7 @@ Outros Style Guides
         dragonball = 'z'
 
     // ruim
-    // (compare to above, and try to spot the mistake)
+    // (compare com o código acima, e tente achar o erro)
     const items = getItems(),
         goSportsTeam = true
         dragonball = 'z'
@@ -1414,9 +1416,9 @@ Outros Style Guides
     const dragonball = 'z'
     ```
 
-  - Group all your `const`s and then group all your `let`s.
+  - Agrupe todas as `const`s e então todas as `let`s.
 
-    > Por que? This is helpful when later on you might need to assign a variable depending on one of the previous assigned variables.
+    > Por que? Isso é útil quando, posteriormente, você precisar atribuir uma variável, dependendo de uma das variáveis ​​atribuídas anteriormente.
 
     ```javascript
     // ruim
@@ -1437,12 +1439,12 @@ Outros Style Guides
     let length
     ```
 
-  - Assign variables where you need them, but place them in a reasonable place.
+  - Atribua variáveis a​​onde você vá precisar delas, mas coloque-as em um local razoável.
 
-    > Por que? `let` and `const` are block scoped and not function scoped.
+    > Por que? `let` e `const` tem escopo por bloco e não escopo por função.
 
     ```javascript
-    // ruim - unnecessary function call
+    // ruim - chamada de função desnecessária
     function checkName(hasName) {
       const name = getName()
 
@@ -1475,7 +1477,7 @@ Outros Style Guides
     }
     ```
 
-  - Don’t chain variable assignments. eslint: [`no-multi-assign`](https://eslint.org/docs/rules/no-multi-assign)
+  - Não encadeie atribuições de variáveis. eslint: [`no-multi-assign`](https://eslint.org/docs/rules/no-multi-assign)
 
     > Por que? Chaining variable assignments creates implicit global variables.
 
@@ -1507,9 +1509,9 @@ Outros Style Guides
     // the same applies for `const`
     ```
 
-  - Avoid using unary increments and decrements (`++`, `--`). eslint [`no-plusplus`](https://eslint.org/docs/rules/no-plusplus)
+  - Evite usar incrementos e decrementos unitários (`++`, `--`). eslint [`no-plusplus`](https://eslint.org/docs/rules/no-plusplus)
 
-    > Por que? Per the [eslint documentation](https://eslint.org/docs/rules/no-plusplus), unary increment and decrement statements are subject to automatic semicolon insertion and can cause silent errors with incrementing or decrementing values within an application. It is also more expressive to mutate your values with statements like `num += 1` instead of `num++` or `num ++`. Disallowing unary increment and decrement statements also prevents you from pre-incrementing/pre-decrementing values unintentionally which can also cause unexpected behavior in your programs.
+    > Por que? De acordo com a [documentação do eslint](https://eslint.org/docs/rules/no-plusplus), instruções de incremento e decréscimo unárias estão sujeitas à inserção automática de ponto e vírgula e podem causar erros silenciosos com valores de incremento ou decremento em um aplicativo. Também é mais expressivo alterar seus valores com instruções como `num += 1` em vez de` num ++` ou `num++`. A proibição de instruções de incremento e decréscimo unitárias também impede que você pré-incremente / pré-decremente valores inadvertidamente, o que também pode causar comportamento inesperado em seus programas.
 
     ```javascript
     // ruim
@@ -1540,9 +1542,9 @@ Outros Style Guides
     const truthyCount = array.filter(Boolean).length
     ```
 
-  - Avoid linebreaks before or after `=` in an assignment. If your assignment violates [`max-len`](https://eslint.org/docs/rules/max-len.html), surround the value in parens. eslint [`operator-linebreak`](https://eslint.org/docs/rules/operator-linebreak.html).
+  - Evite quebrar linhas antes ou depois de `=` em uma atribuição. Se a sua atribuição ultrapassar o [`max-len`](https://eslint.org/docs/rules/max-len.html), envolva o valor em parênteses. eslint [`operator-linebreak`](https://eslint.org/docs/rules/operator-linebreak.html).
 
-    > Por que? Linebreaks surrounding `=` can obfuscate the value of an assignment.
+    > Por que? Quebra de linhas envolta de `=` pode ofuscar o valor de uma atribuição.
 
     ```javascript
     // ruim
@@ -1562,24 +1564,24 @@ Outros Style Guides
     const foo = 'superLongLongLongLongLongLongLongLongString'
     ```
 
-  - Disallow unused variables. eslint: [`no-unused-vars`](https://eslint.org/docs/rules/no-unused-vars)
+  - Não permita variáveis não utilizadas. eslint: [`no-unused-vars`](https://eslint.org/docs/rules/no-unused-vars)
 
-    > Por que? Variables that are declared and not used anywhere in the code are most likely an error due to incomplete refactoring. Such variables take up space in the code and can lead to confusion by readers.
+    > Por que? Variáveis ​​declaradas e não usadas em qualquer lugar do código provavelmente são um erro devido à refatoração incompleta. Tais variáveis ​​ocupam espaço no código e podem causar confusão pelos leitores.
 
     ```javascript
     // ruim
 
     const some_unused_var = 42
 
-    // Write-only variables are not considered as used.
+    // Variáveis somente reescritas não são consideras
     let y = 10
     y = 5
 
-    // A read for a modification of itself is not considered as used.
+    // Uma leitura para uma modificação não é considerada
     let z = 0
     z = z + 1
 
-    // Unused function arguments.
+    // Parâmetros não usados
     const getX = (x, y) => x
 
     // bom
@@ -1591,10 +1593,10 @@ Outros Style Guides
 
     alert(getXPlusY(x, y))
 
-    // 'type' is ignored even if unused because it has a rest property sibling.
-    // This is a form of extracting an object that omits the specified keys.
+    // 'type' é ignorado memso se não usado porque está dentro de rest.
+    // Essa é uma forma de extrair um objeto que omite a key específicada.
     const { type, ...coords } = data
-    // 'coords' is now the 'data' object without its 'type' property.
+    // 'coords' agora é o objeto'data' sem a propriedade 'type'
     ```
 
 **[⬆ voltar ao topo](#lista-de-conteúdos)**
