@@ -2,7 +2,10 @@
 
 *Our mostly reasonable approach to JavaScript*
 
-Keep in mind that some rules will automatically be fixed with [Prettier](https://prettier.io/), and others will not. This guide is available in other languages too. See [Translation](#translation)
+Keep in mind that some rules will automatically be fixed with [Prettier](https://prettier.io/), and others will not.
+[See here](https://github.com/divisioinc/divisio-styleguide/tree/master/linter) to setup your environment properly.
+
+This guide is available in other languages too. See [Translation](#translation)
 
 Other Style Guides
 
@@ -12,11 +15,11 @@ Other Style Guides
 
   1. [Basic Rules](#basic-rules)
   1. [References](#references)
-  1. [Objects](#objects)  
-  1. [Arrays](#arrays) 
-  1. [Destructuring](#destructuring) 
-  1. [Strings](#strings) 
-  1. [Functions](#functions) 
+  1. [Objects](#objects)
+  1. [Arrays](#arrays)
+  1. [Destructuring](#destructuring)
+  1. [Strings](#strings)
+  1. [Functions](#functions)
   1. [Arrow Functions](#arrow-functions)
   1. [Classes & Constructors](#classes--constructors)
   1. [Modules](#modules)
@@ -117,7 +120,7 @@ Other Style Guides
       id: 5,
       name: 'San Francisco',
     }
-  
+
     obj[getKey('enabled')] = true
 
     // good
@@ -677,12 +680,12 @@ Other Style Guides
 
     ```javascript
     var b = 1
-  
+
     // bad
     function count(a = b++) {
       console.log(a)
     }
-  
+
     count()  // 1
     count()  // 2
     count(3) // 3
@@ -1213,7 +1216,7 @@ Other Style Guides
     export { foo }
     ```
 
-  - In modules with a single export, prefer default export over named export. Always export after name it. 
+  - In modules with a single export, prefer default export over named export. Always export after name it.
  eslint: [`import/prefer-default-export`](https://github.com/benmosher/eslint-plugin-import/blob/master/docs/rules/prefer-default-export.md)
     > Why? To encourage more files that only ever export one thing, which is better for readability and maintainability.
 
@@ -1688,7 +1691,7 @@ Other Style Guides
         console.log('Flying')
       }
     }
-    
+
     // Remember that it doesn't happen with arrow functions
     const example = () => {
       superPower() // => ReferenceError:
@@ -2060,7 +2063,7 @@ Other Style Guides
     /**
      * make() returns a new element
      * based on the passed-in tag name
-     * 
+     *
      * @param {String} tag
      * @return {Element} element
      */
