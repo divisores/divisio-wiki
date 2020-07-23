@@ -2,7 +2,10 @@
 
 *Essa é a abordagem da Divisio com JavaScript*
 
-Mantenha em mente que algumas regras serão automaticamente arrumadas com o [Prettier](https://prettier.io/), e outras não. Este guia também está disponível em outras linguagens. Veja em [Tradução](#tradução)
+Mantenha em mente que algumas regras serão automaticamente arrumadas com o [Prettier](https://prettier.io/), e outras não. [Veja aqui](https://github.com/divisioinc/divisio-styleguide/tree/master/linter) configurar seu ambiente adequadamente.
+
+Este guia também está disponível em outras linguagens. Veja em [Tradução](#tradução)
+
 
 Outros Style Guides
 
@@ -12,11 +15,11 @@ Outros Style Guides
 
   1. [Regras básicas](#regras-básicas)
   1. [Referências](#referências)
-  1. [Objetos](#objetos)  
-  1. [Arrays](#arrays) 
-  1. [Desestruturação](#desestruturação) 
-  1. [Strings](#strings) 
-  1. [Funções](#funções) 
+  1. [Objetos](#objetos)
+  1. [Arrays](#arrays)
+  1. [Desestruturação](#desestruturação)
+  1. [Strings](#strings)
+  1. [Funções](#funções)
   1. [Arrow Functions](#arrow-functions)
   1. [Classes & Construtores](#classes--construtores)
   1. [Módulos](#módulos)
@@ -117,7 +120,7 @@ Outros Style Guides
       id: 5,
       name: 'San Francisco',
     }
-  
+
     obj[getKey('enabled')] = true
 
     // bom
@@ -210,7 +213,7 @@ Outros Style Guides
 
   - Apenas abarace em aspas simples as propriedades que são identificadores inválidos. eslint: [`quote-props`](https://eslint.org/docs/rules/quote-props.html)
 
-    > Por que? Em geral nós consideramos mais fácil de ler. Ainda promove destaque, e também é mais otimizado para vários engines de JS. 
+    > Por que? Em geral nós consideramos mais fácil de ler. Ainda promove destaque, e também é mais otimizado para vários engines de JS.
 
     ```javascript
     // ruim
@@ -231,14 +234,14 @@ Outros Style Guides
    - Não use os métodos de `Object.prototype` de forma direta, como `hasOwnProperty`, `propertyIsEnumerable`, e `isPrototypeOf`. eslint: [`no-prototype-builtins`](https://eslint.org/docs/rules/no-prototype-builtins)
 
       > Por que? Esses métodos podem ser sombreados por propriedades no objeto em   questão - considere `{ hasOwnProperty: false }` - ou, o objeto podendo ser nulo   (`Object.create(null)`).
-  
+
       ```javascript
       // ruim
       console.log(object.hasOwnProperty(key))
-  
+
       // bom
       console.log(Object.prototype.hasOwnProperty.call(object, key))
-  
+
       // melhor
       const has = Object.prototype.hasOwnProperty // armazena a pesquisa em cache uma   vez, no escopo do módulo.
       console.log(has.call(object, key))
@@ -473,7 +476,7 @@ Outros Style Guides
       return [left, right, top, bottom]
     }
 
-    // O caller precisa pensar sobre a ordem do conteúdo do return 
+    // O caller precisa pensar sobre a ordem do conteúdo do return
     const [left, __, top] = processInput(input)
 
     // bom
@@ -678,12 +681,12 @@ Outros Style Guides
 
     ```javascript
     var b = 1
-  
+
     // ruim
     function count(a = b++) {
       console.log(a)
     }
-  
+
     count()  // 1
     count()  // 2
     count(3) // 3
@@ -1181,7 +1184,7 @@ Outros Style Guides
 
   - Somente importe um caminho em uma única importação
  eslint: [`no-duplicate-imports`](https://eslint.org/docs/rules/no-duplicate-imports)
-    
+
     > Por que? Ter várias linhas importadas do mesmo caminho pode dificultar a manutenção do código.
 
     ```javascript
@@ -1216,7 +1219,7 @@ Outros Style Guides
 
   - Nos módulos com uma única exportação, prefira a exportação padrão à exportação nomeada. Sempre exporte após o nome.
  eslint: [`import/prefer-default-export`](https://github.com/benmosher/eslint-plugin-import/blob/master/docs/rules/prefer-default-export.md)
-    
+
     > Por que? Incentivar mais arquivos que exportam apenas uma coisa, o que é melhor para legibilidade e manutenção.
 
     ```javascript
@@ -1286,7 +1289,7 @@ Outros Style Guides
   - Não defina as extensões nos arquivos de JS e JSX
  eslint: [`import/extensions`](https://github.com/benmosher/eslint-plugin-import/blob/master/docs/rules/extensions.md)
     > Por que? A inclusão de extensões inibe a refatoração e codifica inadequadamente os detalhes da implementação do módulo que você está importando para todos os consumidores.
-  
+
     ```javascript
     // ruim
     import foo from './foo.js'
@@ -1637,7 +1640,7 @@ Outros Style Guides
     }
     ```
 
-  - Funções anônimas fazem `hoist` de seus nomes de variáveis, mas não a sua atribuição 
+  - Funções anônimas fazem `hoist` de seus nomes de variáveis, mas não a sua atribuição
 
     ```javascript
     const example = () => {
@@ -1690,7 +1693,7 @@ Outros Style Guides
         console.log('Flying')
       }
     }
-    
+
     // Lembre-se que isso não se aplica a arrow functions
     const example = () => {
       superPower() // => ReferenceError:
@@ -2062,7 +2065,7 @@ Outros Style Guides
     /**
      * make() returns a new element
      * based on the passed-in tag name
-     * 
+     *
      * @param {String} tag
      * @return {Element} element
      */
@@ -2502,8 +2505,8 @@ Outros Style Guides
     const foo = { clark: 'kent' }
     ```
 
-  - Evite ter linhas de código com mais de 100 caracteres (incluindo espaço em branco).  
-  
+  - Evite ter linhas de código com mais de 100 caracteres (incluindo espaço em branco).
+
     > Nota: Sobre a regra acima, strings longas estão isentas dessa regra e não devem ser divididas. eslint: [`max-len`](https://eslint.org/docs/rules/max-len.html)
 
     > Por que? Isso garante legibilidade e facilidade de manutenção.
