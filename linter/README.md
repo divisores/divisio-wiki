@@ -26,6 +26,8 @@ Put this in your package.json
 #### Setup your environment
 
 - Make sure you have this vscode plugins installed:
+
+![](./vscodedeps.png)
 - All lint fixes must run by husky + lintstange script. But to facilite it's recoomendable to format code when save the files, so put this in your .vscode/settings.json (create if the project don't have one)
 ```
   "editor.formatOnSave": false,
